@@ -1,14 +1,17 @@
 package frontier;
 
 import java.util.ArrayList;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import common.ErrorCode.CrError;
 import common.URLObject;
 
 public class Frontier implements IFrontier {
+	private PriorityBlockingQueue<URLObject> urlsQueue;
+	
 	public Frontier()
 	{
-		
+		urlsQueue = new PriorityBlockingQueue<URLObject>();
 	}
 	
 	@Override
@@ -19,7 +22,7 @@ public class Frontier implements IFrontier {
 
 	@Override
 	public CrError pushUrl(URLObject inUrl) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -34,5 +37,4 @@ public class Frontier implements IFrontier {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
