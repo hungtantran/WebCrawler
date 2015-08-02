@@ -3,9 +3,13 @@ package common;
 public class URLObject {
 	private String link;
 	private String domain;
+	private Boolean duplicated;
 
 	public URLObject()
 	{
+		this.link = null;
+		this.domain = null;
+		this.duplicated = null;
 	}
 	
 	public String getLink() {
