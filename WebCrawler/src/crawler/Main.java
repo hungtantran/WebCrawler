@@ -1,17 +1,16 @@
 package crawler;
 
-import common.ErrorCode;
-import common.ErrorCode.CrError;
+import common.ErrorCode.*;
+import static common.ErrorCode.*;
 
 public class Main {
-	public void main()
-	{
+	public static void main(String[] args) {
 		WebCrawler crawler = new WebCrawler();
 		
 		// Only return when error happens. Otherwise, while true loop
 		CrError result = crawler.crawl();
 		
-		if (ErrorCode.failed(result))
+		if (FAILED(result))
 		{
 			//TODO: log error or do something
 		}

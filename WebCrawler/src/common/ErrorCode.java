@@ -6,13 +6,19 @@ public class ErrorCode {
 		CR_NETWORK_ERROR
 	}
 	
-	public static boolean succeed(CrError errorCode)
+	public static boolean SUCCEEDED(CrError errorCode)
 	{
 		return errorCode == CrError.CR_OK;
 	}
 	
-	public static boolean failed(CrError errorCode)
+	public static boolean FAILED(CrError errorCode)
 	{
+		if (errorCode == null)
+		{
+			// TODO log null
+			return false;
+		}
+
 		return errorCode != CrError.CR_OK;
 	}
 }

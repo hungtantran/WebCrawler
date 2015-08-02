@@ -5,6 +5,14 @@ public class URLObject {
 	private String domain;
 	private Boolean duplicated;
 
+	public Boolean getDuplicated() {
+		return duplicated;
+	}
+
+	public void setDuplicated(Boolean duplicated) {
+		this.duplicated = duplicated;
+	}
+
 	public URLObject()
 	{
 		this.link = null;
