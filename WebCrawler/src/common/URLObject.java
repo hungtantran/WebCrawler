@@ -1,10 +1,10 @@
 package common;
 
-public class URL {
+public class URLObject {
 	private String link;
 	private String domain;
 
-	public URL()
+	public URLObject()
 	{
 	}
 	
@@ -27,7 +27,7 @@ public class URL {
 	// Object overrides
 	@Override
 	public boolean equals(Object other) {
-		URL otherLink = (URL)other;
+		URLObject otherLink = (URLObject)other;
 		
 		return this.link.equals(otherLink.link) &&
 				this.domain.equals(otherLink.domain);
