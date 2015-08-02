@@ -6,12 +6,12 @@ public class ErrorCode {
 		CR_NETWORK_ERROR
 	}
 	
-	public boolean succeed(CrError errorCode)
+	public static boolean succeed(CrError errorCode)
 	{
 		return errorCode == CrError.CR_OK;
 	}
 	
-	public boolean failed(CrError errorCode)
+	public static boolean failed(CrError errorCode)
 	{
 		return errorCode != CrError.CR_OK;
 	}
