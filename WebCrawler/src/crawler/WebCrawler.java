@@ -29,22 +29,22 @@ import urlPrioritizer.IURLPrioritizer;
 import urlPrioritizer.URLPrioritizer;
 
 public class WebCrawler {
-	private IFrontier frontier = null;
-	private IHttpFetcher httpFetcher = null;
-	private ILinkExtractor linkExtractor = null;
-	private IURLDistributor urlDistributor = null;
-	private IURLFilter urlFilter = null;
-	private IURLDuplicationEliminator urlDuplicationEliminator = null;
-	private IURLPrioritizer urlPrioritizer = null;
+	private IFrontier m_frontier = null;
+	private IHttpFetcher m_httpFetcher = null;
+	private ILinkExtractor m_linkExtractor = null;
+	private IURLDistributor m_urlDistributor = null;
+	private IURLFilter m_urlFilter = null;
+	private IURLDuplicationEliminator m_urlDuplicationEliminator = null;
+	private IURLPrioritizer m_urlPrioritizer = null;
 	
-	private static final ExecutorService exec = Executors.newFixedThreadPool(Globals.NTHREADS);
+	private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
 	
 	private class CrawlTask implements Runnable
 	{
 		private CrError hr = CrError.CR_OK; 
 		private Long threadId;
 				
-		public CrawlTask() {
+		private CrawlTask() {
 		}
 	
 		@Override
@@ -56,7 +56,7 @@ public class WebCrawler {
 			{
 				// Get urls from frontier
 				URLObject outUrl = new URLObject();
-				hr = frontier.pullUrl(outUrl);
+				hr = m_frontier.pullUrl(outUrl);
 				if (FAILED(hr))
 				{
 					break;
@@ -68,53 +68,58 @@ public class WebCrawler {
 				
 				// Fetch the url from the web server
 				IWebPage webPage = new WebPage();
-				hr = httpFetcher.getWebPage(outUrl,  webPage);
+				try {
+					hr = m_httpFetcher.getWebPage(outUrl,  webPage);
+				} catch (Exception e) {
+					writeGenericLog("Final to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+				}
+
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Extract all links from page
 				ArrayList<URLObject> extractedUrls = new ArrayList<URLObject>();
-				hr = linkExtractor.extractURLs(webPage, extractedUrls);
+				hr = m_linkExtractor.extractURLs(webPage, extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Distribute links to appropriate distributor
-				hr = urlDistributor.distributeURLs(extractedUrls);
+				hr = m_urlDistributor.distributeURLs(extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Filter out unwanted url like url with parameter, malformed, etc...
-				hr = urlFilter.filterURLs(extractedUrls);
+				hr = m_urlFilter.filterURLs(extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Remove duplicated urls
-				hr = urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
+				hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Prioritize urls
-				hr = urlPrioritizer.prioritizeUrl(extractedUrls);
+				hr = m_urlPrioritizer.prioritizeUrl(extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 				
 				// Push prioritized urls back into the frontier
-				hr = frontier.pushUrls(extractedUrls);
+				hr = m_frontier.pushUrls(extractedUrls);
 				if (FAILED(hr))
 				{
-					break;
+					continue;
 				}
 			}
 		}
@@ -122,24 +127,24 @@ public class WebCrawler {
 	
 	public WebCrawler()
 	{
-		frontier = new Frontier();
-		httpFetcher = new HttpFetcher();
-		linkExtractor = new LinkExtractor();
-		urlDistributor = new URLDistributor();
-		urlFilter = new URLFilter();
-		urlDuplicationEliminator = new URLDuplicationEliminator();
-		urlPrioritizer = new URLPrioritizer();
+		m_frontier = new Frontier(Globals.NQUEUES);
+		m_httpFetcher = new HttpFetcher();
+		m_linkExtractor = new LinkExtractor();
+		m_urlDistributor = new URLDistributor();
+		m_urlFilter = new URLFilter();
+		m_urlDuplicationEliminator = new URLDuplicationEliminator();
+		m_urlPrioritizer = new URLPrioritizer();
 	}
 	
 	public CrError crawl() {
 		for (int i = 0; i < Globals.NTHREADS + 5; ++i) {
-			exec.execute(new CrawlTask());
+			m_exec.execute(new CrawlTask());
 		}
 		
-		exec.shutdown();
+		m_exec.shutdown();
 
 		try {
-			exec.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+			m_exec.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 		} catch (InterruptedException e) {
 			writeGenericLog(e.getMessage());
 		}

@@ -1,39 +1,39 @@
 package common;
 
 public class URLObject {
-	private String link;
-	private String domain;
-	private Boolean duplicated;
+	private String m_link;
+	private String m_domain;
+	private Boolean m_duplicated;
 
 	public Boolean getDuplicated() {
-		return duplicated;
+		return m_duplicated;
 	}
 
 	public void setDuplicated(Boolean duplicated) {
-		this.duplicated = duplicated;
+		this.m_duplicated = duplicated;
 	}
 
 	public URLObject()
 	{
-		this.link = null;
-		this.domain = null;
-		this.duplicated = null;
+		this.m_link = null;
+		this.m_domain = null;
+		this.m_duplicated = null;
 	}
 	
 	public String getLink() {
-		return link;
+		return m_link;
 	}
 	
 	public void setLink(String link) {
-		this.link = link;
+		this.m_link = link;
 	}
 	
 	public String getDomain() {
-		return domain;
+		return m_domain;
 	}
 	
 	public void setDomain(String domain) {
-		this.domain = domain;
+		this.m_domain = domain;
 	}
 	
 	// Object overrides
@@ -41,7 +41,7 @@ public class URLObject {
 	public boolean equals(Object other) {
 		URLObject otherLink = (URLObject)other;
 		
-		return this.link.equals(otherLink.link) &&
-				this.domain.equals(otherLink.domain);
+		return this.m_link.equals(otherLink.m_link) &&
+				this.m_domain.equals(otherLink.m_domain);
 	}
 }

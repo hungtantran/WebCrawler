@@ -3,7 +3,10 @@ package common;
 public class ErrorCode {
 	public enum CrError {
 		CR_OK,
-		CR_NETWORK_ERROR
+		CR_NETWORK_ERROR,
+		CR_QUEUE_MORE_WAITTIME,
+		CR_EMPTY_QUEUE,
+		CR_MALFORM_HTML
 	}
 	
 	public static boolean SUCCEEDED(CrError errorCode)

@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 // Helper is just a collection of utility function
 public class Helper {
+	private static Calendar cal = Calendar.getInstance();
+
 	private Helper() {
 		throw new AssertionError();
 	}
@@ -88,24 +90,25 @@ public class Helper {
 	// Return the current date, e.g: 2014-05-23
 	public static String getCurrentDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 0);    
-        return dateFormat.format(cal.getTime());
+        Helper.cal.add(Calendar.DATE, 0);
+        return dateFormat.format(Helper.cal.getTime());
 	}
 
 	// Return the current time 22:11:30
 	public static String getCurrentTime() {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 0);    
-        return dateFormat.format(cal.getTime());
+        Helper.cal.add(Calendar.DATE, 0);    
+        return dateFormat.format(Helper.cal.getTime());
 	}
 	
 	public static String getPastDate(int pastDays) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -pastDays);    
-        return dateFormat.format(cal.getTime());
+        Helper.cal.add(Calendar.DATE, -pastDays);    
+        return dateFormat.format(Helper.cal.getTime());
+	}
+	
+	public static long getCurrentTimeInMillisec() {
+        return Helper.cal.getTimeInMillis();
 	}
 
 	// Make the current thread wait for a random amount of time between
