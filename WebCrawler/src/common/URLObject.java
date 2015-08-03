@@ -1,9 +1,19 @@
 package common;
 
+import static common.LogManager.writeGenericLog;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import common.ErrorCode.CrError;
+
 public class URLObject {
 	private String m_link;
-	private String m_domain;
+	private URL m_domain;
 	private Boolean m_duplicated;
+	private Boolean m_absolute;
 
 	public Boolean getDuplicated() {
 		return m_duplicated;
@@ -21,19 +31,47 @@ public class URLObject {
 	}
 	
 	public String getLink() {
-		return m_link;
+		return m_link.toString();
 	}
 	
-	public void setLink(String link) {
-		this.m_link = link;
+	public String getAbsoluteLink() {
+		if (!m_absolute) {
+			try {
+				URL absoluteLink = new URL(this.m_domain, this.m_link.toString());
+				return absoluteLink.toString();
+			} catch (MalformedURLException e) {
+				return null;
+			}
+		} else {
+			return this.m_link.toString();
+		}
+	}
+	
+	public CrError setLink(String link) {
+		try {
+			this.m_link = link;
+			this.m_absolute = new URI(link).isAbsolute();
+		} catch (URISyntaxException e) {
+			writeGenericLog("Malformed link " + e.getMessage());
+			return CrError.CR_MALFORM_URL;
+		}
+		
+		return CrError.CR_OK;
 	}
 	
 	public String getDomain() {
-		return m_domain;
+		return m_domain.toString();
 	}
 	
-	public void setDomain(String domain) {
-		this.m_domain = domain;
+	public CrError setDomain(String domain) {
+		try {
+			this.m_domain = new URL(domain);
+		} catch (MalformedURLException e) {
+			writeGenericLog("Malformed domain " + domain + " " + e.getMessage());
+			return CrError.CR_MALFORM_URL;
+		}
+		
+		return CrError.CR_OK;
 	}
 	
 	// Object overrides
@@ -42,6 +80,6 @@ public class URLObject {
 		URLObject otherLink = (URLObject)other;
 		
 		return this.m_link.equals(otherLink.m_link) &&
-				this.m_domain.equals(otherLink.m_domain);
+			this.m_domain.equals(otherLink.m_domain);
 	}
 }

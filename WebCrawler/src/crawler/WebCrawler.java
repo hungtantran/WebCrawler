@@ -71,7 +71,7 @@ public class WebCrawler {
 				try {
 					hr = m_httpFetcher.getWebPage(outUrl,  webPage);
 				} catch (Exception e) {
-					writeGenericLog("Final to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+					writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
 				}
 
 				if (FAILED(hr))

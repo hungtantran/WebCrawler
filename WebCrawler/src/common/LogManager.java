@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.concurrent.locks.ReentrantLock;
 
+import common.ErrorCode.CrError;
+
 public class LogManager {
 	private static LogManager genericlogManager = new LogManager("Log", "generalLog");
 	
@@ -68,10 +70,10 @@ public class LogManager {
 	// Write log with default writeToDisk value
 	public boolean writeLog(String log) {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		// 0 is getStackTrace, 1 is the writeLog function, 2 is the writeLog's caller
+		// 0 is getStackTrace, 1 is the writeLog function, 2 is the writeGenericLog, 3 is writeLog's caller
 		String functionName = ste[2].getMethodName();
-		String fileName = Thread.currentThread().getStackTrace()[2].getFileName();
-		int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
+		String fileName = Thread.currentThread().getStackTrace()[3].getFileName();
+		int lineNumber = Thread.currentThread().getStackTrace()[3].getLineNumber();
 
 		return this.writeLog(fileName, lineNumber, functionName, log, this.defaultWriteToDisk);
 	}
@@ -105,8 +107,8 @@ public class LogManager {
 	
 			Date currentDate = new Date();
 			String logFileName = this.logDir + Globals.PATHSEPARATOR + this.baseFileName + "."
-					+ Helper.getCurrentDate() + "-" + currentDate.getHours()
-					+ ".log";
+				+ Helper.getCurrentDate() + "-" + currentDate.getHours()
+				+ ".log";
 			File logFile = new File(logFileName);
 			if (!logFile.exists() && this.createFile(logFileName)) {
 				System.out.println("File " + logFileName + " created");
@@ -116,13 +118,12 @@ public class LogManager {
 			}
 	
 			String logLine = "[" + fileName + ":" + lineNumber + "] [" + Helper.getCurrentDate() + "] ["
-					+ Helper.getCurrentTime() + "] [" + functionName + "]: " + log;
+					+ Helper.getCurrentTime() + "] [" + functionName + "]: [" + Thread.currentThread().getId() + "] " + log;
 			
 			System.out.println("Log: "+logLine);
 			if (writeToDisk) {
 				try {
-					PrintWriter out = new PrintWriter(new BufferedWriter(
-							new FileWriter(logFileName, true)));
+					PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFileName, true)));
 					out.println(logLine);
 					out.close();
 				} catch (IOException e) {

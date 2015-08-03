@@ -48,7 +48,7 @@ public class WebPage implements IWebPage {
 	}
 	
 	public CrError setDocument(Document doc, boolean compressed) {
-		if (html == null) {
+		if (doc == null) {
 			return CrError.CR_MALFORM_HTML;			
 		}
 		

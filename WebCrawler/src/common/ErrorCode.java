@@ -6,7 +6,9 @@ public class ErrorCode {
 		CR_NETWORK_ERROR,
 		CR_QUEUE_MORE_WAITTIME,
 		CR_EMPTY_QUEUE,
-		CR_MALFORM_HTML
+		CR_MALFORM_HTML,
+		CR_INVALID_ARGS,
+		CR_MALFORM_URL
 	}
 	
 	public static boolean SUCCEEDED(CrError errorCode)
