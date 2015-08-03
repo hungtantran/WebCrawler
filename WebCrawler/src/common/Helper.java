@@ -3,6 +3,8 @@ package common;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,12 +29,13 @@ public class Helper {
 		ArrayList<String> splitString = new ArrayList<String>();
 		int prevPos = 0;
 		for (int i = 0; i < string.length() - delimiter.length() + 1; i++) {
-			String subStringAtCurPos = string.substring(i,
-					i + delimiter.length());
+			String subStringAtCurPos = string.substring(i, i + delimiter.length());
 			if (subStringAtCurPos.equals(delimiter)) {
 				String token = string.substring(prevPos, i);
-				if (token.length() > 0)
+				if (token.length() > 0) {
 					splitString.add(token);
+				}
+
 				i += delimiter.length();
 				prevPos = i;
 			}
@@ -116,7 +119,6 @@ public class Helper {
 	public static void waitSec(int lowerBound, int upperBound) {
 		try {
 			int waitTime = lowerBound * 1000 + (int) (Math.random() * ((upperBound * 1000 - lowerBound * 1000) + 1));
-			LogManager.writeGenericLog("Wait for " + waitTime);
 			Thread.currentThread();
 			Thread.sleep(waitTime);
 		} catch (InterruptedException e) {
@@ -390,5 +392,19 @@ public class Helper {
 		}
 		
 		return stripUrl.substring(0, index);
+	}
+	
+	public static String encryptString (String msg) {
+		MessageDigest messageDigest;
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-256");
+			messageDigest.update(msg.getBytes());
+			return new String(messageDigest.digest());
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+		
+		return new String();
 	}
 }

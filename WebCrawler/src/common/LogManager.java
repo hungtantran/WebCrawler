@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.concurrent.locks.ReentrantLock;
 
-import common.ErrorCode.CrError;
-
 public class LogManager {
 	private static LogManager genericlogManager = new LogManager("Log", "generalLog");
 	
@@ -140,12 +138,5 @@ public class LogManager {
 	
 	public static boolean writeGenericLog(String log) {
 		return LogManager.genericlogManager.writeLog(log);
-	}
-
-	public static void main(String[] args) {
-//		LogManager logManager = new LogManager("C:\\Project\\log", "testlog");
-//		logManager.writeLog("main", "testlog hahah lolol", true);
-//		logManager.writeLog("main", "testlog hahah lolol 2123123123asdq", true);
-//		logManager.writeLog("testlog hahah lolol 2123123123asdq");
 	}
 }

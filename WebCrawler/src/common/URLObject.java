@@ -14,6 +14,7 @@ public class URLObject {
 	private URL m_domain;
 	private Boolean m_duplicated;
 	private Boolean m_absolute;
+	private int m_priority;
 
 	public Boolean getDuplicated() {
 		return m_duplicated;
@@ -72,6 +73,14 @@ public class URLObject {
 		}
 		
 		return CrError.CR_OK;
+	}
+	
+	public int get_priority() {
+		return m_priority;
+	}
+
+	public void set_priority(int m_priority) {
+		this.m_priority = m_priority;
 	}
 	
 	// Object overrides

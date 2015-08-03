@@ -1,25 +1,54 @@
 package urlFilter;
 
+import static common.LogManager.writeGenericLog;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import common.ErrorCode.CrError;
 import common.URLObject;
 
 public class URLFilter implements IURLFilter {
+	private static final Set<String> commonFileExtensions = new HashSet<String>(Arrays.asList("eps", "ps", "svg", "indd", "pct", "pdf", "xlr", "xls", "xlsx", "accdb", "db", "dbf", "mdb", "pdb", "sql", "apk", "app", "bat", "cgi", "com", "exe", "gadget", "jar", "pif", "vb", "wsf", "dem", "gam", "nes", "rom", "sav", "dwg", "dxf", "gpx", "kml", "kmz", "asp", "aspx", "cer", "cfm", "csr", "css", "htm", "html", "js", "jsp", "php", "rss", "xhtml", "crx", "plugin", "fnt", "fon", "otf", "ttf", "cab", "cpl", "cur", "deskthemepack", "dll", "dmp", "drv", "icns", "ico", "lnk", "sys", "cfg", "ini", "prf", "hqx", "mim", "uue", "7z", "cbr", "deb", "gz", "pkg", "rar", "rpm", "sitx", "tar.gz", "zip", "zipx", "bin", "cue", "dmg", "iso", "mdf", "toast", "vcd", "c", "class", "cpp", "cs", "dtd", "fla", "h", "java", "lua", "m", "pl", "py", "sh", "sln", "swift", "vcxproj", "xcodeproj", "bak", "tmp", "crdownload", "ics", "msi", "part", "torrent"));
+
 	public URLFilter() {
 		
 	}
 
+	private static boolean isFile(String url) {
+		if (url == null) {
+			return false;
+		}
+		
+		int index = url.lastIndexOf('.'); 
+		if (index == -1) {
+			return false;
+		}
+		
+		String extension = url.substring(index + 1, url.length());
+		if (URLFilter.commonFileExtensions.contains(extension)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public CrError filterURLs(ArrayList<URLObject> inoutUrls) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		for (int i = 0; i < inoutUrls.size(); ++i) {
+			URLObject url = inoutUrls.get(i);
 
-	@Override
-	public CrError filterURL(ArrayList<URLObject> inoutUrl) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+			// Filter out file link
+			if (URLFilter.isFile(url.getLink())) {
+				writeGenericLog("Filter out link file " + url);
 
+				inoutUrls.remove(i);
+				--i;
+			}
+		}
+		
+		return CrError.CR_OK;
+	}
 }

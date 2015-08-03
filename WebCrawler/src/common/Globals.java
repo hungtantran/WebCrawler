@@ -16,4 +16,7 @@ public class Globals {
 	
 	// Number of number of retry times to fetch a page
 	public static final int NRETRIESDOWNLOAD = 3;
+	
+	// Number of megabytes used for the url duplication eliminator bloomfilter
+	public static final int NMEGABYTESFORBLOOMFILTER = 512; 
 }

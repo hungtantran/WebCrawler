@@ -12,14 +12,13 @@ public class URLDistributor implements IURLDistributor {
 	
 	@Override
 	public CrError distributeURLs(ArrayList<URLObject> urls) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO distribute part of the urls to different processes / machines
+		return CrError.CR_OK;
 	}
 
 	@Override
 	public CrError distributeURL(URLObject url) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO distribute part of the urls to different processes / machines
+		return CrError.CR_OK;
 	}
-
 }
