@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import common.ErrorCode.CrError;
 import common.Globals;
+import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 import common.WebPage;
@@ -57,6 +58,11 @@ public class WebCrawler {
 				// Get urls from frontier
 				URLObject outUrl = new URLObject();
 				hr = m_frontier.pullUrl(outUrl);
+				if (hr == CrError.CR_EMPTY_QUEUE) {
+					Helper.waitSec(5, 10);
+					continue;
+				}
+				
 				if (FAILED(hr))
 				{
 					break;
@@ -71,7 +77,11 @@ public class WebCrawler {
 				try {
 					hr = m_httpFetcher.getWebPage(outUrl,  webPage);
 				} catch (Exception e) {
-					writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+					if (outUrl.getLink() != null) {
+						writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+					} else {
+						writeGenericLog("No outurl " + e.getMessage());
+					}
 				}
 
 				if (FAILED(hr))

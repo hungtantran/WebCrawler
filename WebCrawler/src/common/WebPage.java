@@ -7,8 +7,9 @@ import common.ErrorCode.CrError;
 import static common.LogManager.writeGenericLog;
 
 public class WebPage implements IWebPage {
-	private Document doc = null;
-	private String html = null;
+	private Document m_doc = null;
+	private String m_html = null;
+	private long m_downloadDurationInMillisec;
 	
 	public WebPage() {
 		
@@ -27,18 +28,18 @@ public class WebPage implements IWebPage {
 			return CrError.CR_MALFORM_HTML;			
 		}
 		
-		this.doc = null;
+		this.m_doc = null;
 		
 		if (compressed) {
-			this.html = HTMLCompressor.compressHtmlContent(html);
+			this.m_html = HTMLCompressor.compressHtmlContent(html);
 		} else {
-			this.html = html;
+			this.m_html = html;
 		}
 		
 		try {
 			Document doc = Jsoup.parse(html);
 					
-			this.doc = doc;
+			this.m_doc = doc;
 		} catch (Exception e) {
 			writeGenericLog(e.getMessage());
 			return CrError.CR_MALFORM_HTML;
@@ -53,24 +54,36 @@ public class WebPage implements IWebPage {
 		}
 		
 		if (compressed) {
-			this.html = HTMLCompressor.compressHtmlContent(doc.outerHtml());
+			this.m_html = HTMLCompressor.compressHtmlContent(doc.outerHtml());
 		} else {
-			this.html = doc.outerHtml();
+			this.m_html = doc.outerHtml();
 		}
 		
-		this.doc = doc;
+		this.m_doc = doc;
 		
 		return CrError.CR_OK;
 	}
 	
 	@Override
 	public String getString() {
-		return html;
+		return m_html;
 	}
 
 	@Override
 	public Document getDocument() {
-		return doc;
+		return m_doc;
+	}
+
+	@Override
+	public long getDownloadDuationInhMillisec() {
+		return m_downloadDurationInMillisec;
+	}
+
+	@Override
+	public CrError setDownloadDuationInhMillisec(long downloadDuationInMillisec) {
+		m_downloadDurationInMillisec = downloadDuationInMillisec;
+
+		return CrError.CR_OK;
 	}
 
 }

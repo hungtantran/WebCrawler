@@ -1,7 +1,8 @@
 package linkExtractor;
 
+import static common.LogManager.writeGenericLog;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,6 @@ import org.jsoup.select.Elements;
 import common.ErrorCode.CrError;
 import common.IWebPage;
 import common.URLObject;
-
-import static common.LogManager.writeGenericLog;
 
 public class LinkExtractor implements ILinkExtractor {
 	public LinkExtractor() {	
@@ -51,6 +50,7 @@ public class LinkExtractor implements ILinkExtractor {
 			builder.append(link + "; ");
 
 			url.setLink(link);
+			url.set_downloadDuration(webPage.getDownloadDuationInhMillisec());
 			extractedUrls.add(url);
 		}
 		

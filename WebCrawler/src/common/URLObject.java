@@ -15,6 +15,22 @@ public class URLObject {
 	private Boolean m_duplicated;
 	private Boolean m_absolute;
 	private int m_priority;
+	private long m_downloadDuration;
+
+	public URLObject()
+	{
+		this.m_link = null;
+		this.m_domain = null;
+		this.m_duplicated = null;
+	}
+
+	public long get_downloadDuration() {
+		return m_downloadDuration;
+	}
+
+	public void set_downloadDuration(long m_downloadDuration) {
+		this.m_downloadDuration = m_downloadDuration;
+	}
 
 	public Boolean getDuplicated() {
 		return m_duplicated;
@@ -23,15 +39,12 @@ public class URLObject {
 	public void setDuplicated(Boolean duplicated) {
 		this.m_duplicated = duplicated;
 	}
-
-	public URLObject()
-	{
-		this.m_link = null;
-		this.m_domain = null;
-		this.m_duplicated = null;
-	}
 	
 	public String getLink() {
+		if (m_link == null) {
+			return null;
+		}
+
 		return m_link.toString();
 	}
 	

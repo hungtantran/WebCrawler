@@ -19,4 +19,7 @@ public class Globals {
 	
 	// Number of megabytes used for the url duplication eliminator bloomfilter
 	public static final int NMEGABYTESFORBLOOMFILTER = 512; 
+	
+	// Politeness factor to download a webpage, used in frontier
+	public static final int NPOLITENESSFACTOR = 10;
 }

@@ -12,4 +12,8 @@ public interface IWebPage {
 	public CrError setString(String html);
 	
 	public CrError setDocument(Document doc);
+	
+	public long getDownloadDuationInhMillisec();
+	
+	public CrError setDownloadDuationInhMillisec(long downloadDuationInMillisec);
 }

@@ -13,13 +13,13 @@ public class URLPrioritizer implements IURLPrioritizer {
 	@Override
 	public CrError prioritizeUrl(ArrayList<URLObject> inoutUrls) {
 		// TODO Auto-generated method stub
-		return null;
+		return CrError.CR_OK;
 	}
 
 	@Override
 	public CrError prioritizeUrl(URLObject inoutUrl) {
 		// TODO Auto-generated method stub
-		return null;
+		return CrError.CR_OK;
 	}
 
 }

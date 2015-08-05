@@ -7,8 +7,8 @@ import common.URLObject;
 
 public interface IFrontier {
 	public CrError pullUrl(URLObject outUrl);
-	
-	public CrError pullUrls(ArrayList<URLObject> outUrls);
+
+	public CrError pullUrls(ArrayList<URLObject> outUrls, int maxNumUrls);
 	
 	public CrError pushUrl(URLObject inUrl);
 	

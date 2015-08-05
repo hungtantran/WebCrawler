@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 
 import common.ErrorCode.CrError;
 import common.Globals;
+import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 
@@ -55,6 +56,8 @@ public class HttpFetcher implements IHttpFetcher {
 	    
 		for (int i = 0; i < numRetries; i++) {
 			try {
+				long startTime = Helper.getCurrentTimeInMillisec();
+				
 				Connection connection= Jsoup
 					.connect(url)
 					.userAgent(HttpFetcher.userAgents[ranIndex])
@@ -68,6 +71,10 @@ public class HttpFetcher implements IHttpFetcher {
 				
 				Response response = connection.execute();
 				writeGenericLog("Download successfully link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
+				
+				long duration = Helper.getCurrentTimeInMillisec() - startTime;
+				inUrl.set_downloadDuration(duration);
+				downloadedWebPage.setDownloadDuationInhMillisec(duration);
 				
 				Document doc = response.parse();
 				return downloadedWebPage.setDocument(doc);

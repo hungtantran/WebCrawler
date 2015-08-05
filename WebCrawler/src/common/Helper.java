@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static common.LogManager.*;
+
 // Helper is just a collection of utility function
 public class Helper {
 	private static Calendar cal = Calendar.getInstance();
@@ -119,6 +121,8 @@ public class Helper {
 	public static void waitSec(int lowerBound, int upperBound) {
 		try {
 			int waitTime = lowerBound * 1000 + (int) (Math.random() * ((upperBound * 1000 - lowerBound * 1000) + 1));
+			writeGenericLog("Wait for " + waitTime + " millisec");
+
 			Thread.currentThread();
 			Thread.sleep(waitTime);
 		} catch (InterruptedException e) {
