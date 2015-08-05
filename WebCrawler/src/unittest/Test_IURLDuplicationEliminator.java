@@ -49,5 +49,15 @@ public class Test_IURLDuplicationEliminator {
 		}
 		eliminator.eliminateDuplicatedURLs(url3s);
 		assertEquals(10000, url3s.size());
+		
+		ArrayList<URLObject> url4s = new ArrayList<URLObject>();
+		for (int i = 100000; i <= 100010; ++i) {
+			URLObject url = new URLObject();
+			url.setLink(Integer.toString(100010));
+			url.setDomain("http://vnexpress.net/");
+			url4s.add(url);
+		}
+		eliminator.eliminateDuplicatedURLs(url4s);
+		assertEquals(1, url4s.size());
 	}
 }

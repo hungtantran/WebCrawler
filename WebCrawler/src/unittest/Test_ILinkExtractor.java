@@ -30,6 +30,7 @@ public class Test_ILinkExtractor {
 		IHttpFetcher httpFetcher = new HttpFetcher();
 		
 		URLObject inUrl = new URLObject();
+		inUrl.setDomain("https://www.hodinkee.com/");
 		inUrl.setLink("https://www.hodinkee.com/");
 
 		IWebPage downloadedWebPage = new WebPage();
@@ -44,17 +45,17 @@ public class Test_ILinkExtractor {
 			ILinkExtractor linkExtractor = new LinkExtractor();
 			ArrayList<URLObject> extractedUrls = new ArrayList<URLObject>();
 
-			hr = linkExtractor.extractURLs(downloadedWebPage, extractedUrls);
+			hr = linkExtractor.extractURLs(inUrl, downloadedWebPage, extractedUrls);
 			assertEquals(hr, CrError.CR_OK);
 			
 			for (URLObject extractedUrl : extractedUrls)
 			{
-				extractedUrl.setDomain("https://www.hodinkee.com/");
 				System.out.println(extractedUrl.getLink() + " " + extractedUrl.getAbsoluteLink());
 				assertNotEquals(null, extractedUrl.getLink());
 			}
 		} catch (Exception e) {
-			assertTrue(e.getMessage(), false);
+			System.out.println(e.getMessage());
+			assertTrue(false);
 		}
 	}
 }

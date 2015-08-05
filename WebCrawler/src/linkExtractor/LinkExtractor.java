@@ -18,8 +18,25 @@ public class LinkExtractor implements ILinkExtractor {
 	public LinkExtractor() {	
 	}
 	
+	private String sanitizeURL(String url) {
+		if (url == null) {
+			return url;
+		}
+		
+		if (url.charAt(url.length() - 1) == '/') {
+			url = url.substring(0, url.length() - 1);
+		}
+		
+		int index = url.indexOf("#");
+		if (index != -1) {
+			url = url.substring(0, index);
+		}
+		
+		return url;
+	}
+	
 	@Override
-	public CrError extractURLs(IWebPage webPage, ArrayList<URLObject> extractedUrls) {
+	public CrError extractURLs(URLObject originalUrl, IWebPage webPage, ArrayList<URLObject> extractedUrls) {
 		if (webPage == null || extractedUrls == null) {
 			return CrError.CR_INVALID_ARGS;
 		}
@@ -38,7 +55,8 @@ public class LinkExtractor implements ILinkExtractor {
 		for (Element linkElem : linkElems) {
 			URLObject url = new URLObject();
 			
-			String link = linkElem.attr("href").toString();
+			String link = linkElem.attr("href").toString().trim();
+			link = sanitizeURL(link);
 
 			// Don't duplicate url
 			if (extractedUrlsSet.contains(link)) {
@@ -50,6 +68,7 @@ public class LinkExtractor implements ILinkExtractor {
 			builder.append(link + "; ");
 
 			url.setLink(link);
+			url.setDomain(originalUrl.getDomain());
 			url.set_downloadDuration(webPage.getDownloadDuationInhMillisec());
 			extractedUrls.add(url);
 		}

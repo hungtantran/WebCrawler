@@ -7,5 +7,5 @@ import common.IWebPage;
 import common.URLObject;
 
 public interface ILinkExtractor {
-	public CrError extractURLs(IWebPage webPage, ArrayList<URLObject> extractedUrls); 
+	public CrError extractURLs(URLObject originalUrl, IWebPage webPage, ArrayList<URLObject> extractedUrls); 
 }

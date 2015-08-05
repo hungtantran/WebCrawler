@@ -52,7 +52,7 @@ public class HttpFetcher implements IHttpFetcher {
 	    Random rand = new Random(); 
 	    int ranIndex = rand.nextInt(HttpFetcher.userAgents.length); 
 	    
-	    String url = inUrl.getLink();
+	    String url = inUrl.getAbsoluteLink();
 	    
 		for (int i = 0; i < numRetries; i++) {
 			try {

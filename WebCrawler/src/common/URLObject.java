@@ -12,8 +12,8 @@ import common.ErrorCode.CrError;
 public class URLObject {
 	private String m_link;
 	private URL m_domain;
-	private Boolean m_duplicated;
-	private Boolean m_absolute;
+	private boolean m_duplicated;
+	private boolean m_absolute;
 	private int m_priority;
 	private long m_downloadDuration;
 
@@ -21,7 +21,8 @@ public class URLObject {
 	{
 		this.m_link = null;
 		this.m_domain = null;
-		this.m_duplicated = null;
+		this.m_duplicated = false;
+		this.m_absolute = false;
 	}
 
 	public long get_downloadDuration() {
@@ -65,7 +66,15 @@ public class URLObject {
 		try {
 			this.m_link = link;
 			this.m_absolute = new URI(link).isAbsolute();
+			
+			if (this.m_absolute) {
+				URL linkURL = new URL(link);
+				this.m_domain = new URL(linkURL.getProtocol() + "://" +linkURL.getHost());
+			}
 		} catch (URISyntaxException e) {
+			writeGenericLog("Malformed link " + e.getMessage());
+			return CrError.CR_MALFORM_URL;
+		} catch (MalformedURLException e) {
 			writeGenericLog("Malformed link " + e.getMessage());
 			return CrError.CR_MALFORM_URL;
 		}
@@ -94,6 +103,14 @@ public class URLObject {
 
 	public void set_priority(int m_priority) {
 		this.m_priority = m_priority;
+	}
+	
+	public void assign(URLObject other) {
+		this.set_downloadDuration(other.get_downloadDuration());
+		this.set_priority(other.get_priority());
+		this.setDomain(other.getDomain());
+		this.setDuplicated(other.getDuplicated());
+		this.setLink(other.getLink());
 	}
 	
 	// Object overrides

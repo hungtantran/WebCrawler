@@ -69,7 +69,7 @@ public class LogManager {
 	public boolean writeLog(String log) {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		// 0 is getStackTrace, 1 is the writeLog function, 2 is the writeGenericLog, 3 is writeLog's caller
-		String functionName = ste[2].getMethodName();
+		String functionName = ste[3].getMethodName();
 		String fileName = Thread.currentThread().getStackTrace()[3].getFileName();
 		int lineNumber = Thread.currentThread().getStackTrace()[3].getLineNumber();
 
@@ -83,7 +83,7 @@ public class LogManager {
 	public boolean writeLog(String log, boolean writeToDisk) {
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		// 0 is getStackTrace, 1 is the writeLog function, 2 is the writeLog's caller
-		String functionName = ste[2].getMethodName();
+		String functionName = ste[3].getMethodName();
 		String fileName = Thread.currentThread().getStackTrace()[2].getFileName();
 		int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
 		

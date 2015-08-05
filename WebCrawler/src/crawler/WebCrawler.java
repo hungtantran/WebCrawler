@@ -65,6 +65,7 @@ public class WebCrawler {
 				
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					break;
 				}
 				
@@ -86,14 +87,16 @@ public class WebCrawler {
 
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
 				// Extract all links from page
 				ArrayList<URLObject> extractedUrls = new ArrayList<URLObject>();
-				hr = m_linkExtractor.extractURLs(webPage, extractedUrls);
+				hr = m_linkExtractor.extractURLs(outUrl, webPage, extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
@@ -101,6 +104,7 @@ public class WebCrawler {
 				hr = m_urlDistributor.distributeURLs(extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
@@ -108,6 +112,7 @@ public class WebCrawler {
 				hr = m_urlFilter.filterURLs(extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
@@ -115,6 +120,7 @@ public class WebCrawler {
 				hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
@@ -122,13 +128,15 @@ public class WebCrawler {
 				hr = m_urlPrioritizer.prioritizeUrl(extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 				
 				// Push prioritized urls back into the frontier
-				hr = m_frontier.pushUrls(extractedUrls);
+				hr = m_frontier.pushUrls(outUrl, extractedUrls);
 				if (FAILED(hr))
 				{
+					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
 			}

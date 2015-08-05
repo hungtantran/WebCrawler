@@ -3,6 +3,7 @@ package frontier;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -20,7 +21,7 @@ public class Frontier implements IFrontier {
 	private PriorityQueue<BackEndQueue> m_backEndQueues;
 
 	// Front end queue that crawler threads enqueue into
-	private PriorityQueue<URLObject> m_frontEndQueue;
+	private Queue<URLObject> m_frontEndQueue;
 	
 	// Table mapping between domain and the backend queue
 	private Map<String, BackEndQueue> m_domainToBackEndQueueMap;
@@ -44,7 +45,7 @@ public class Frontier implements IFrontier {
 	
 	// Backend queue, typically each queue contains URLs from 1 or a few web server at most
 	private class BackEndQueue {
-		private Queue<URLObject> m_urlsQueue = new PriorityQueue<URLObject>();
+		private Queue<URLObject> m_urlsQueue = new LinkedList<URLObject>();
 		private long m_minNextProcessTimeInMillisec = Long.MIN_VALUE;
 		private String m_domain = null;
 		private int m_priority;
@@ -63,7 +64,7 @@ public class Frontier implements IFrontier {
 				return CrError.CR_EMPTY_QUEUE;
 			}
 			
-			url = nextUrl;
+			url.assign(nextUrl);
 			
 			return hr; 
 		}
@@ -72,6 +73,10 @@ public class Frontier implements IFrontier {
 			m_urlsQueue.add(url);
 			
 			return CrError.CR_OK;
+		}
+		
+		private synchronized int size() {
+			return m_urlsQueue.size();
 		}
 
 		public long get_minNextProcessTimeInMillisec() {
@@ -113,10 +118,32 @@ public class Frontier implements IFrontier {
 	
 	public Frontier(int numQueues)
 	{
-		m_frontEndQueue = new PriorityQueue<URLObject>();
+		URLObject url = new URLObject();
+		url.setDomain("http://vnexpress.net");
+		url.setLink("http://vnexpress.net");
+		
+		m_frontEndQueue = new LinkedList<URLObject>();
+		m_frontEndQueue.add(url);
 		m_backEndQueues = new PriorityQueue<BackEndQueue>(numQueues /* initialCapacity */, new BackEndQueueComparator());
 		m_domainToBackEndQueueMap = new HashMap<String, BackEndQueue>();
 		m_maxNumBackEndQueues = numQueues;
+	}
+	
+	@Override
+	public CrError releaseBackEndQueue(URLObject originalUrl) {
+		synchronized(m_backEndQueues) {
+			if (m_domainToBackEndQueueMap.containsKey(originalUrl.getDomain())) {
+				BackEndQueue backEndQueue = m_domainToBackEndQueueMap.get(originalUrl.getDomain());
+
+				if (!m_backEndQueues.contains(backEndQueue)) {
+					writeGenericLog("Push back back end queue of domain " + backEndQueue.getDomain());
+					backEndQueue.set_minNextProcessTimeInMillisec(Helper.getCurrentTimeInMillisec() + originalUrl.get_downloadDuration() * Globals.NPOLITENESSFACTOR);
+					m_backEndQueues.add(backEndQueue);
+				}
+			}
+		}
+		
+		return CrError.CR_OK;
 	}
 	
 	@Override
@@ -129,29 +156,19 @@ public class Frontier implements IFrontier {
 			return hr;
 		}
 
-		outUrl = outUrls.get(0);
+		outUrl.assign(outUrls.get(0));
 		
 		return hr;
 	}
 
 	@Override
-	public CrError pushUrl(URLObject inUrl) {
+	public CrError pushUrl(URLObject originalUrl, URLObject inUrl) {
 		synchronized(m_frontEndQueue) {
 			m_frontEndQueue.add(inUrl);
-			
-			synchronized(m_backEndQueues) {
-				if (!m_domainToBackEndQueueMap.containsKey(inUrl.getDomain())) {
-					// TODO log error here
-					System.exit(1);
-				}
-				
-				BackEndQueue backEndQueue = m_domainToBackEndQueueMap.get(inUrl.getDomain());
-				backEndQueue.set_minNextProcessTimeInMillisec(Helper.getCurrentTimeInMillisec() + inUrl.get_downloadDuration() * Globals.NPOLITENESSFACTOR);
-				if (!m_backEndQueues.contains(backEndQueue)) {
-					m_backEndQueues.add(backEndQueue);
-				}
-			}
+			writeGenericLog("Push back : " + inUrl.getAbsoluteLink() + ", front end queue size : " + m_frontEndQueue.size());
 		}
+		
+		releaseBackEndQueue(originalUrl);
 
 		return CrError.CR_OK;
 	}
@@ -172,55 +189,65 @@ public class Frontier implements IFrontier {
 		BackEndQueue backEndQueue = null;
 
 		synchronized(m_backEndQueues) {
-			if (m_backEndQueues.isEmpty()) {
-				if (m_domainToBackEndQueueMap.size() < m_maxNumBackEndQueues) {
-					// Emtpy backend queue but the map is not full, try to get url from the front end queue
-					synchronized(m_frontEndQueue) {
-						if (m_frontEndQueue.isEmpty()) {
-							// Empty front end queue, there is no more url to crawl, return error
-							return CrError.CR_EMPTY_QUEUE;
-						} else {
-							URLObject url = m_frontEndQueue.remove();
-							BackEndQueue newBackEndQueue = new BackEndQueue();
-							newBackEndQueue.setDomain(url.getDomain());
-							newBackEndQueue.setPriority(url.get_priority());
-							
-							m_backEndQueues.add(newBackEndQueue);
-							m_domainToBackEndQueueMap.put(url.getDomain(), newBackEndQueue);
-							writeGenericLog("Num backend queues : " + m_domainToBackEndQueueMap.size());
-							
-							CrError hr = CrError.CR_OK;
-							// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
-							while (true) {
-								if (m_frontEndQueue.isEmpty()) {
-									break;
-								}
+			while (true) {
+				if (m_backEndQueues.isEmpty()) {
+					if (m_domainToBackEndQueueMap.size() < m_maxNumBackEndQueues) {
+						// Emtpy backend queue but the map is not full, try to get url from the front end queue
+						synchronized(m_frontEndQueue) {
+							if (m_frontEndQueue.isEmpty()) {
+								// Empty front end queue, there is no more url to crawl, return error
+								writeGenericLog("No more url in the front end queue to crawl");
+								return CrError.CR_EMPTY_QUEUE;
+							} else {
+								URLObject url = m_frontEndQueue.peek();
+								BackEndQueue newBackEndQueue = new BackEndQueue();
+								newBackEndQueue.setDomain(url.getDomain());
+								newBackEndQueue.setPriority(url.get_priority());
 								
-								URLObject curUrl = m_frontEndQueue.remove();
-								if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain())) {
-									break;
-								}
+								m_backEndQueues.add(newBackEndQueue);
+								m_domainToBackEndQueueMap.put(url.getDomain(), newBackEndQueue);
+								writeGenericLog("Num backend queues : " + m_domainToBackEndQueueMap.size());
 								
-								hr = m_domainToBackEndQueueMap.get(curUrl.getDomain()).pushUrl(curUrl);
-								if (FAILED(hr)) {
-									return hr;
+								CrError hr = CrError.CR_OK;
+								// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
+								while (true) {
+									if (m_frontEndQueue.isEmpty()) {
+										break;
+									}
+									
+									URLObject curUrl = m_frontEndQueue.remove();
+									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain())) {
+										break;
+									}
+									
+									hr = m_domainToBackEndQueueMap.get(curUrl.getDomain()).pushUrl(curUrl);
+									if (FAILED(hr)) {
+										return hr;
+									}
 								}
 							}
 						}
+					} else {
+						// Empty backend queue and the map is already full, return error
+						writeGenericLog("All back-end queues are in active. Can't dequeue any more url to crawl.");
+						return CrError.CR_EMPTY_QUEUE;
 					}
+				}
+				
+				// The queue shouldn't be empty here
+				if (m_backEndQueues.isEmpty()) {
+					// TODO log error here
+					System.exit(1);
+				}
+				
+				backEndQueue = m_backEndQueues.remove();
+				
+				if (backEndQueue.size() > 0) {
+					break;
 				} else {
-					// Empty backend queue and the map is already full, return error
-					return CrError.CR_EMPTY_QUEUE;
+					m_domainToBackEndQueueMap.remove(backEndQueue.getDomain());
 				}
 			}
-			
-			// The queue shouldn't be empty here
-			if (m_backEndQueues.isEmpty()) {
-				// TODO log error here
-				System.exit(1);
-			}
-			
-			backEndQueue = m_backEndQueues.remove();
 		}
 			
 		if (backEndQueue == null) {
@@ -248,15 +275,17 @@ public class Frontier implements IFrontier {
 	}
 
 	@Override
-	public CrError pushUrls(ArrayList<URLObject> inUrls) {
+	public CrError pushUrls(URLObject originalUrl, ArrayList<URLObject> inUrls) {
 		CrError hr = CrError.CR_OK;
-
+		
 		for (URLObject inUrl : inUrls) {
-			hr = this.pushUrl(inUrl);
+			hr = this.pushUrl(originalUrl, inUrl);
 			if (FAILED(hr)) {
 				return hr;
 			}
 		}
+		
+		releaseBackEndQueue(originalUrl);
 		
 		return CrError.CR_OK;
 	}
