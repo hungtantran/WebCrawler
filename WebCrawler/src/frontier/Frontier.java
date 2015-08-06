@@ -205,6 +205,7 @@ public class Frontier implements IFrontier {
 								newBackEndQueue.setPriority(url.get_priority());
 								
 								m_backEndQueues.add(newBackEndQueue);
+								// TODO error this domain is not necessary not only 
 								m_domainToBackEndQueueMap.put(url.getDomain(), newBackEndQueue);
 								writeGenericLog("Num backend queues : " + m_domainToBackEndQueueMap.size());
 								
