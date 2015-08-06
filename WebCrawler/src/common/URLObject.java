@@ -16,6 +16,8 @@ public class URLObject {
 	private boolean m_absolute;
 	private int m_priority;
 	private long m_downloadDuration;
+	private long m_extractedTime;
+	private long m_crawledTime;
 
 	public URLObject()
 	{
@@ -101,8 +103,24 @@ public class URLObject {
 		return m_priority;
 	}
 
-	public void set_priority(int m_priority) {
-		this.m_priority = m_priority;
+	public void set_priority(int priority) {
+		this.m_priority = priority;
+	}
+	
+	public long get_extractedTime() {
+		return m_extractedTime;
+	}
+
+	public void set_extractedTime(long extractedTime) {
+		this.m_extractedTime = extractedTime;
+	}
+
+	public long get_crawledTime() {
+		return m_crawledTime;
+	}
+
+	public void set_crawledTime(long crawledTime) {
+		this.m_crawledTime = crawledTime;
 	}
 	
 	public void assign(URLObject other) {

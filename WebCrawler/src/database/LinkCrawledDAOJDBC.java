@@ -13,7 +13,7 @@ import common.Helper;
 
 public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 	private final String SQL_SELECT_BY_DOMAINID = "SELECT * FROM link_crawled_table WHERE domain_table_id_1 = ?";
-	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, domain_table_id_1, priority, time_crawled, date_crawled, country, state, city) values (?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, priority, domain_table_id_1, download_duration, extracted_time, time_crawled, date_crawled, country, state, city) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_UPDATE = "UPDATE link_crawled_table SET link = ?, priority = ?, country = ?, state = ?, city = ? WHERE id = ?";
 
 	private final DAOFactory daoFactory;
@@ -22,8 +22,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 		this.daoFactory = daoFactory;
 	}
 
-	private LinkCrawled constructLinkCrawledObject(ResultSet resultSet)
-			throws SQLException {
+	private LinkCrawled constructLinkCrawledObject(ResultSet resultSet) throws SQLException {
 		final LinkCrawled linkCrawled = new LinkCrawled();
 
 		linkCrawled.setId(resultSet.getInt("id"));
@@ -44,6 +43,16 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 		linkCrawled.setDomainTableId1(resultSet.getInt("domain_table_id_1"));
 		if (resultSet.wasNull()) {
 			linkCrawled.setDomainTableId1(null);
+		}
+		
+		linkCrawled.set_downloadDuration(resultSet.getLong("download_duration"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_downloadDuration(null);
+		}
+		
+		linkCrawled.set_extractedTime(resultSet.getLong("extracted_time"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_extractedTime(null);
 		}
 
 		linkCrawled.setTimeCrawled(resultSet.getString("time_crawled"));
@@ -67,8 +76,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 		try {
 			connection = this.daoFactory.getConnection();
-			preparedStatement = DAOUtil.prepareStatement(connection,
-					this.SQL_SELECT_BY_DOMAINID, false, domainId);
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_BY_DOMAINID, false, domainId);
 			resultSet = preparedStatement.executeQuery();
 
 			final List<LinkCrawled> linksCrawled = new ArrayList<LinkCrawled>();
@@ -106,12 +114,12 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 		try {
 			connection = this.daoFactory.getConnection();
 
-			final Object[] values = { linkCrawled.getLink(),
-					linkCrawled.getDomainTableId1(), linkCrawled.getPriority(),
-					linkCrawled.getTimeCrawled(), linkCrawled.getDateCrawled() };
+			final Object[] values = { linkCrawled.getLink(), linkCrawled.getPriority(),
+				linkCrawled.getDomainTableId1(), linkCrawled.get_downloadDuration(),
+				linkCrawled.get_extractedTime(), linkCrawled.getTimeCrawled(),
+				linkCrawled.getDateCrawled() };
 
-			preparedStatement = DAOUtil.prepareStatement(connection,
-					this.SQL_INSERT, true, values);
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
 			
 			writeGenericLog(preparedStatement.toString());
 
@@ -146,8 +154,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			final Object[] values = { linkCrawled.getLink(), linkCrawled.getPriority(), linkCrawled.getId() };
 
-			preparedStatement = DAOUtil.prepareStatement(connection,
-					this.SQL_UPDATE, false, values);
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_UPDATE, false, values);
 
 			writeGenericLog(preparedStatement.toString());
 

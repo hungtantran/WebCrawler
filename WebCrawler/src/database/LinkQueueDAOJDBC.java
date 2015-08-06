@@ -21,8 +21,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		this.daoFactory = daoFactory;
 	}
 
-	private LinkQueue constructLinkQueueObject(ResultSet resultSet)
-			throws SQLException {
+	private LinkQueue constructLinkQueueObject(ResultSet resultSet) throws SQLException {
 		final LinkQueue linkQueue = new LinkQueue();
 
 		linkQueue.setId(resultSet.getInt("id"));
@@ -58,21 +57,6 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		linkQueue.setDateCrawled(resultSet.getString("date_crawled"));
 		if (resultSet.wasNull()) {
 			linkQueue.setDateCrawled(null);
-		}
-
-		linkQueue.setCountry(resultSet.getString("country"));
-		if (resultSet.wasNull()) {
-			linkQueue.setCountry(null);
-		}
-
-		linkQueue.setState(resultSet.getString("state"));
-		if (resultSet.wasNull()) {
-			linkQueue.setState(null);
-		}
-
-		linkQueue.setCity(resultSet.getString("city"));
-		if (resultSet.wasNull()) {
-			linkQueue.setCity(null);
 		}
 
 		return linkQueue;
@@ -127,8 +111,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			final Object[] values = { linkQueue.getLink(),
 				linkQueue.getDomainTableId1(), linkQueue.getPriority(),
 				linkQueue.getPersistent(), linkQueue.getTimeCrawled(),
-				linkQueue.getDateCrawled(), linkQueue.getCountry(),
-				linkQueue.getState(), linkQueue.getCity() };
+				linkQueue.getDateCrawled() };
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
 

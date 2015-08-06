@@ -10,98 +10,71 @@ public class LinkQueue {
 	// Properties
 	// ---------------------------------------------------------------------------------
 
-	Integer id;
-	String link;
-	Integer domainTableId1;
-	Integer priority;
-	Integer persistent;
-	String timeCrawled;
-	String dateCrawled;
-	String country;
-	String state;
-	String city;
+	Integer m_id;
+	String m_link;
+	Integer m_domainTableId1;
+	Integer m_priority;
+	Integer m_persistent;
+	String m_timeCrawled;
+	String m_dateCrawled;
 
 	// Getters/setters
 	// ----------------------------------------------------------------------------
 
 	public Integer getId() {
-		return id;
+		return m_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.m_id = id;
 	}
 
 	public String getLink() {
-		return link;
+		return m_link;
 	}
 
 	public void setLink(String link) {
-		this.link = link;
+		this.m_link = link;
 	}
 
 	public Integer getPriority() {
-		return priority;
+		return m_priority;
 	}
 
 	public void setPriority(Integer priority) {
-		this.priority = priority;
+		this.m_priority = priority;
 	}
 	
 	public Integer getPersistent() {
-		return persistent;
+		return m_persistent;
 	}
 
 	public void setPersistent(Integer persistent) {
-		this.persistent = persistent;
+		this.m_persistent = persistent;
 	}
 
 	public Integer getDomainTableId1() {
-		return domainTableId1;
+		return m_domainTableId1;
 	}
 
 	public void setDomainTableId1(Integer domainTableId1) {
-		this.domainTableId1 = domainTableId1;
+		this.m_domainTableId1 = domainTableId1;
 	}
 
 	public String getTimeCrawled() {
-		return timeCrawled;
+		return m_timeCrawled;
 	}
 
 	public void setTimeCrawled(String timeCrawled) {
-		this.timeCrawled = timeCrawled;
+		this.m_timeCrawled = timeCrawled;
 	}
 
 	public String getDateCrawled() {
-		return dateCrawled;
+		return m_dateCrawled;
 	}
 
 	public void setDateCrawled(String dateCrawled) {
-		this.dateCrawled = dateCrawled;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+		this.m_dateCrawled = dateCrawled;
 	}
 
 	// Object overrides
@@ -128,13 +101,13 @@ public class LinkQueue {
 	@Override
 	public String toString() {
 		// TODO implement this
-		return this.link;
+		return this.m_link;
 	}
 
 	// Custom methods
 	public boolean isValid() {
-		return this.id != null && this.link != null
-				&& this.domainTableId1 != null && this.timeCrawled != null
-				&& this.dateCrawled != null;
+		return this.m_id != null && this.m_link != null
+			&& this.m_domainTableId1 != null && this.m_timeCrawled != null
+			&& this.m_dateCrawled != null;
 	}
 }

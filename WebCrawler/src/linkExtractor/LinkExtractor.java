@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import common.ErrorCode.CrError;
+import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 
@@ -70,6 +71,7 @@ public class LinkExtractor implements ILinkExtractor {
 			url.setLink(link);
 			url.setDomain(originalUrl.getDomain());
 			url.set_downloadDuration(webPage.getDownloadDuationInhMillisec());
+			url.set_extractedTime(Helper.getCurrentTimeInMillisec());
 			extractedUrls.add(url);
 		}
 		

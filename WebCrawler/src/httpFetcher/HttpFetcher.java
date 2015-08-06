@@ -57,6 +57,7 @@ public class HttpFetcher implements IHttpFetcher {
 		for (int i = 0; i < numRetries; i++) {
 			try {
 				long startTime = Helper.getCurrentTimeInMillisec();
+				inUrl.set_crawledTime(startTime);
 				
 				Connection connection= Jsoup
 					.connect(url)

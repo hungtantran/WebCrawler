@@ -37,8 +37,25 @@ public class InitializeDB {
 	public void createDB() {
 		this.createDomainTable();
 		this.createLinkTable();
+		this.createRawHTMLTable();
 	}
 
+	// Create domain_table
+	private void createRawHTMLTable() {
+		try {
+			Statement st = this.con.createStatement();
+			st.executeQuery("USE " + this.database);
+			st.executeUpdate("CREATE TABLE rawhtml_table ("
+				+ "id int unsigned not null, "
+				+ "html mediumtext not null, "
+				+ "PRIMARY KEY(id), "
+				+ "UNIQUE (id), "
+				+ "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
+		} catch (SQLException e) {
+			writeGenericLog("CREATE TABLE rawhtml_table fails, " + e.getMessage());
+		}
+	}
+	
 	// Create domain_table
 	private void createDomainTable() {
 		try {
@@ -46,10 +63,12 @@ public class InitializeDB {
 			st.executeQuery("USE " + this.database);
 			st.executeUpdate("CREATE TABLE domain_table ("
 				+ "id int unsigned AUTO_INCREMENT not null, "
-				+ "domain char(255) not null, " + "PRIMARY KEY(id), "
-				+ "UNIQUE (id), " + "UNIQUE (domain))");
+				+ "domain char(255) not null, "
+				+ "PRIMARY KEY(id), "
+				+ "UNIQUE (id), "
+				+ "UNIQUE (domain))");
 		} catch (SQLException e) {
-			writeGenericLog("CREATE TABLE domain_table fails" + e.getMessage());
+			writeGenericLog("CREATE TABLE domain_table fails, " + e.getMessage());
 		}
 	}
 
@@ -69,7 +88,6 @@ public class InitializeDB {
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "
 				+ "UNIQUE (id), "
-				+ "UNIQUE (link), "
 				+ "FOREIGN KEY (domain_table_id_1) REFERENCES domain_table(id))");
 
 			st.executeUpdate("CREATE TABLE link_crawled_table ("
@@ -77,11 +95,12 @@ public class InitializeDB {
 				+ "link char(255) not null, "
 				+ "priority int unsigned, "
 				+ "domain_table_id_1 int unsigned not null, "
+				+ "download_duration bigint unsigned not null, "
+				+ "extracted_time bigint unsigned not null, "
 				+ "time_crawled char(128) not null, "
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "
 				+ "UNIQUE (id), "
-				+ "UNIQUE (link), "
 				+ "FOREIGN KEY (domain_table_id_1) REFERENCES domain_table(id))");
 		} catch (SQLException e) {
 			writeGenericLog("CREATE TABLE link_queue_table or link_crawled_table fails, " + e.getMessage());

@@ -10,64 +10,82 @@ public class LinkCrawled {
 	// Properties
 	// ---------------------------------------------------------------------------------
 
-	Integer id;
-	String link;
-	Integer priority;
-	Integer domainTableId1;
-	String timeCrawled;
-	String dateCrawled;
+	Integer m_id;
+	String m_link;
+	Integer m_priority;
+	Integer m_domainTableId1;
+	Long m_downloadDuration;
+	Long m_extractedTime;
+	String m_timeCrawled;
+	String m_dateCrawled;
 
 	// Getters/setters
 	// ----------------------------------------------------------------------------
 
 	public Integer getId() {
-		return id;
+		return m_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.m_id = id;
 	}
 
 	public String getLink() {
-		return link;
+		return m_link;
 	}
 
 	public void setLink(String link) {
-		this.link = link;
+		this.m_link = link;
 	}
 
 	public Integer getPriority() {
-		return priority;
+		return m_priority;
 	}
 
 	public void setPriority(Integer priority) {
-		this.priority = priority;
+		this.m_priority = priority;
 	}
 
 	public Integer getDomainTableId1() {
-		return domainTableId1;
+		return m_domainTableId1;
 	}
 
 	public void setDomainTableId1(Integer domainTableId1) {
-		this.domainTableId1 = domainTableId1;
+		this.m_domainTableId1 = domainTableId1;
 	}
 
 	public String getTimeCrawled() {
-		return timeCrawled;
+		return m_timeCrawled;
 	}
 
 	public void setTimeCrawled(String timeCrawled) {
-		this.timeCrawled = timeCrawled;
+		this.m_timeCrawled = timeCrawled;
 	}
 
 	public String getDateCrawled() {
-		return dateCrawled;
+		return m_dateCrawled;
 	}
 
 	public void setDateCrawled(String dateCrawled) {
-		this.dateCrawled = dateCrawled;
+		this.m_dateCrawled = dateCrawled;
 	}
 
+	public Long get_extractedTime() {
+		return m_extractedTime;
+	}
+
+	public void set_extractedTime(Long extractedTime) {
+		this.m_extractedTime = extractedTime;
+	}
+
+	public Long get_downloadDuration() {
+		return m_downloadDuration;
+	}
+
+	public void set_downloadDuration(Long downloadDuration) {
+		this.m_downloadDuration = downloadDuration;
+	}
+	
 	// Object overrides
 	// ---------------------------------------------------------------------------
 
@@ -92,13 +110,13 @@ public class LinkCrawled {
 	@Override
 	public String toString() {
 		// TODO implement this
-		return this.link;
+		return this.m_link;
 	}
 
 	// Custom methods
 	public boolean isValid() {
-		return this.id != null && this.link != null
-				&& this.domainTableId1 != null && this.timeCrawled != null
-				&& this.dateCrawled != null;
+		return this.m_id != null && this.m_link != null
+			&& this.m_domainTableId1 != null && this.m_timeCrawled != null
+			&& this.m_dateCrawled != null;
 	}
 }
