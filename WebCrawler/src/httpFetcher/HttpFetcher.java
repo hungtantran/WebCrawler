@@ -15,6 +15,7 @@ import common.IWebPage;
 import common.URLObject;
 
 import static common.LogManager.writeGenericLog;
+import static common.ErrorCode.*;
 
 public class HttpFetcher implements IHttpFetcher {
 	private static final String[] userAgents = {
@@ -49,6 +50,8 @@ public class HttpFetcher implements IHttpFetcher {
 	}
 	
 	public CrError getWebPage(URLObject inUrl, IWebPage downloadedWebPage, int numRetries) throws Exception {
+		CrError hr = CrError.CR_OK;
+
 	    Random rand = new Random(); 
 	    int ranIndex = rand.nextInt(HttpFetcher.userAgents.length); 
 	    
@@ -68,17 +71,27 @@ public class HttpFetcher implements IHttpFetcher {
 					.header("Accept-Encoding", "gzip, deflate, sdch")
 					.header("Accept-Language", "en-US,en;q=0.8,de;q=0.6,vi;q=0.4")
 					.header("Cookie", "cl_b=mAqo5vfg5BG2A_Lt3WzWGw2dXR8; cl_def_lang=en; cl_def_hp=detroit; cl_tocmode=sss%3Agrid%2Csso%3Alist%2Chhh%3Alist")
-					.timeout(10000).followRedirects(true);
+					.timeout(10000);
 				
 				Response response = connection.execute();
 				writeGenericLog("Download successfully link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
 				
 				long duration = Helper.getCurrentTimeInMillisec() - startTime;
+				writeGenericLog("duration here = " + duration + " start time = " + startTime + " current time = " + Helper.getCurrentTimeInMillisec());
 				inUrl.set_downloadDuration(duration);
-				downloadedWebPage.setDownloadDuationInhMillisec(duration);
 				
+				downloadedWebPage.setDownloadDuationInMillisec(duration);
+				downloadedWebPage.set_originalUrl(inUrl);
 				Document doc = response.parse();
-				return downloadedWebPage.setDocument(doc);
+				hr = downloadedWebPage.setDocument(doc);
+				if (FAILED(hr)) {
+					writeGenericLog("Failed to set document, hr = " + hr);
+					return hr;
+				}
+				
+				if (SUCCEEDED(hr)) {
+					return CrError.CR_OK;
+				}
 			} catch (Exception e) {
 				// Only print out fail on the last fail
 				if (i == numRetries - 1) {
@@ -94,7 +107,7 @@ public class HttpFetcher implements IHttpFetcher {
 			}
 		}
 
-		return null;
+		return CrError.CR_OK;
 	}
 
 }

@@ -15,5 +15,13 @@ public interface IWebPage {
 	
 	public long getDownloadDuationInhMillisec();
 	
-	public CrError setDownloadDuationInhMillisec(long downloadDuationInMillisec);
+	public CrError setDownloadDuationInMillisec(long downloadDuationInMillisec);
+
+	public void set_originalUrl(URLObject originalUrl);
+
+	public URLObject get_originalUrl();
+	
+	public int get_id();
+	
+	public void set_id(int id);
 }

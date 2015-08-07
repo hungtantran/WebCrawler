@@ -12,8 +12,10 @@ import common.Helper;
 import static common.LogManager.*;
 
 public class LinkQueueDAOJDBC implements LinkQueueDAO {
-	private final String SQL_SELECT_BY_DOMAINID = "SELECT * FROM link_queue_table WHERE domain_table_id_1 = ?";
-	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?)";
+	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table LIMIT ?";
+	private final String SQL_DELETE_WITH_LIMIT = "DELETE FROM link_queue_table LIMIT ?";
+	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, extracted_time, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_queue_table WHERE link = ?";
 
 	private final DAOFactory daoFactory;
 
@@ -48,6 +50,11 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		if (resultSet.wasNull()) {
 			linkQueue.setPersistent(null);
 		}
+		
+		linkQueue.set_extractedTime(resultSet.getLong("extracted_time"));
+		if (resultSet.wasNull()) {
+			linkQueue.set_extractedTime(null);
+		}
 
 		linkQueue.setTimeCrawled(resultSet.getString("time_crawled"));
 		if (resultSet.wasNull()) {
@@ -61,24 +68,51 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 		return linkQueue;
 	}
-
-	@Override
-	public List<LinkQueue> get(int domainId) throws SQLException {
+	
+	public void remove(int maxUrls) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
 		try {
 			connection = this.daoFactory.getConnection();
-			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_BY_DOMAINID, false, domainId);
+			
+			// TODO make it transactional
+			// Pull urls from the queue
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_DELETE_WITH_LIMIT, false, maxUrls);
+			preparedStatement.executeUpdate();
+		} catch (final SQLException e) {
+			writeGenericLog("Remove from link_queue_table fails" + e.getMessage());
+		} finally {
+			DAOUtil.close(connection, preparedStatement, resultSet);
+		}
+	}
+	
+	@Override
+	public List<LinkQueue> get(int maxUrls) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = this.daoFactory.getConnection();
+			
+			List<LinkQueue> linksQueue = new ArrayList<LinkQueue>();
+			
+			// TODO make it transactional
+			// Pull urls from the queue
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_WITH_LIMIT, false, maxUrls);
 			resultSet = preparedStatement.executeQuery();
 
-			final List<LinkQueue> linksQueue = new ArrayList<LinkQueue>();
 			while (resultSet.next()) {
 				final LinkQueue linkQueue = this.constructLinkQueueObject(resultSet);
 				linksQueue.add(linkQueue);
 			}
-
+			
+			if (!linksQueue.isEmpty()) {
+				this.remove(maxUrls);
+			}
+			
 			return linksQueue;
 		} catch (final SQLException e) {
 			writeGenericLog("Get link_queue_table fails" + e.getMessage());
@@ -110,12 +144,10 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 			final Object[] values = { linkQueue.getLink(),
 				linkQueue.getDomainTableId1(), linkQueue.getPriority(),
-				linkQueue.getPersistent(), linkQueue.getTimeCrawled(),
-				linkQueue.getDateCrawled() };
+				linkQueue.getPersistent(), linkQueue.get_extractedTime(),
+				linkQueue.getTimeCrawled(), linkQueue.getDateCrawled() };
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
-
-			writeGenericLog(preparedStatement.toString());
 
 			preparedStatement.executeUpdate();
 
@@ -132,6 +164,41 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			writeGenericLog("Insert into link_queue_table fails, " + e.getMessage());
 
 			return -1;
+		} finally {
+			DAOUtil.close(connection, preparedStatement, resultSet);
+		}
+	}
+
+	@Override
+	public boolean linkExists(LinkQueue linkQueue) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = this.daoFactory.getConnection();
+
+			final Object[] values = { linkQueue.getLink() };
+
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_CHECK_EXISTS, false, values);
+
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				int numVal = resultSet.getInt("count");
+				
+				if (numVal > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			return false;
+		} catch (final SQLException e) {
+			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
+
+			return false;
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}

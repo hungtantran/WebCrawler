@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import common.ErrorCode.CrError;
+import database.IDatabaseConnection;
 import common.Globals;
 import common.Helper;
 import common.URLObject;
@@ -27,6 +28,8 @@ public class Frontier implements IFrontier {
 	private Map<String, BackEndQueue> m_domainToBackEndQueueMap;
 	
 	private int m_maxNumBackEndQueues;
+	
+	private IDatabaseConnection m_databaseConnection = null;
 
 	private class BackEndQueueComparator implements Comparator<BackEndQueue> {
 		@Override
@@ -116,17 +119,13 @@ public class Frontier implements IFrontier {
 		}
 	}
 	
-	public Frontier(int numQueues)
-	{
-		URLObject url = new URLObject();
-		url.setDomain("http://vnexpress.net");
-		url.setLink("http://vnexpress.net");
-		
+	public Frontier(int numQueues, IDatabaseConnection databaseConnection)
+	{	
 		m_frontEndQueue = new LinkedList<URLObject>();
-		m_frontEndQueue.add(url);
 		m_backEndQueues = new PriorityQueue<BackEndQueue>(numQueues /* initialCapacity */, new BackEndQueueComparator());
 		m_domainToBackEndQueueMap = new HashMap<String, BackEndQueue>();
 		m_maxNumBackEndQueues = numQueues;
+		m_databaseConnection = databaseConnection;
 	}
 	
 	@Override
@@ -136,7 +135,7 @@ public class Frontier implements IFrontier {
 				BackEndQueue backEndQueue = m_domainToBackEndQueueMap.get(originalUrl.getDomain());
 
 				if (!m_backEndQueues.contains(backEndQueue)) {
-					writeGenericLog("Push back back end queue of domain " + backEndQueue.getDomain());
+					writeGenericLog("Push back back end queue of domain " + backEndQueue.getDomain() + " with download duration " + originalUrl.get_downloadDuration());
 					backEndQueue.set_minNextProcessTimeInMillisec(Helper.getCurrentTimeInMillisec() + originalUrl.get_downloadDuration() * Globals.NPOLITENESSFACTOR);
 					m_backEndQueues.add(backEndQueue);
 				}
@@ -165,6 +164,15 @@ public class Frontier implements IFrontier {
 	public CrError pushUrl(URLObject originalUrl, URLObject inUrl) {
 		synchronized(m_frontEndQueue) {
 			m_frontEndQueue.add(inUrl);
+			
+			ArrayList<URLObject> inUrls = new ArrayList<URLObject>();
+			inUrls.add(inUrl);
+			CrError hr = m_databaseConnection.pushFrontierDatabase(inUrls);
+			if (FAILED(hr)) {
+				writeGenericLog("Fail to push url " + inUrl.getAbsoluteLink() + " into frontier database");
+				return hr;
+			}
+			
 			writeGenericLog("Push back : " + inUrl.getAbsoluteLink() + ", front end queue size : " + m_frontEndQueue.size());
 		}
 		
@@ -187,6 +195,7 @@ public class Frontier implements IFrontier {
 	
 	public CrError pullUrlsInternal(ArrayList<URLObject> outUrls, int maxNumUrls) {
 		BackEndQueue backEndQueue = null;
+		CrError hr = CrError.CR_OK;
 
 		synchronized(m_backEndQueues) {
 			while (true) {
@@ -194,6 +203,20 @@ public class Frontier implements IFrontier {
 					if (m_domainToBackEndQueueMap.size() < m_maxNumBackEndQueues) {
 						// Emtpy backend queue but the map is not full, try to get url from the front end queue
 						synchronized(m_frontEndQueue) {
+							if (m_frontEndQueue.isEmpty()) {
+								ArrayList<URLObject> frontierUrls = new ArrayList<URLObject>();
+								hr = m_databaseConnection.pullFrontierDatabase(frontierUrls, Globals.NMAXURLSFROMFRONTIERPERPULL);
+								
+								if (FAILED(hr)) {
+									writeGenericLog("Fail to pull urls from frontier");
+									return hr;
+								}
+								
+								for (URLObject frontierUrl : frontierUrls) {
+									m_frontEndQueue.add(frontierUrl);
+								}
+							}
+							
 							if (m_frontEndQueue.isEmpty()) {
 								// Empty front end queue, there is no more url to crawl, return error
 								writeGenericLog("No more url in the front end queue to crawl");
@@ -209,7 +232,6 @@ public class Frontier implements IFrontier {
 								m_domainToBackEndQueueMap.put(url.getDomain(), newBackEndQueue);
 								writeGenericLog("Num backend queues : " + m_domainToBackEndQueueMap.size());
 								
-								CrError hr = CrError.CR_OK;
 								// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
 								while (true) {
 									if (m_frontEndQueue.isEmpty()) {
@@ -257,7 +279,6 @@ public class Frontier implements IFrontier {
 		}
 		
 		int numResults = 0;
-		CrError hr = CrError.CR_OK;
 		while (numResults < maxNumUrls) {
 			URLObject url = new URLObject();
 

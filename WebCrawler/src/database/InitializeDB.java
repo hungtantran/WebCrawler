@@ -84,6 +84,7 @@ public class InitializeDB {
 				+ "domain_table_id_1 int unsigned not null, "
 				+ "priority int unsigned, "
 				+ "persistent int unsigned, "
+				+ "extracted_time bigint unsigned not null, "
 				+ "time_crawled char(128) not null, "
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "

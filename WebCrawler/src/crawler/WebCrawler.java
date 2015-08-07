@@ -3,6 +3,7 @@ package crawler;
 import static common.ErrorCode.FAILED;
 import static common.LogManager.writeGenericLog;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,6 +15,8 @@ import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 import common.WebPage;
+import database.IDatabaseConnection;
+import database.MySQLDatabaseConnection;
 import frontier.Frontier;
 import frontier.IFrontier;
 import httpFetcher.HttpFetcher;
@@ -37,6 +40,7 @@ public class WebCrawler {
 	private IURLFilter m_urlFilter = null;
 	private IURLDuplicationEliminator m_urlDuplicationEliminator = null;
 	private IURLPrioritizer m_urlPrioritizer = null;
+	private IDatabaseConnection m_databaseConnection = null;
 	
 	private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
 	
@@ -139,19 +143,39 @@ public class WebCrawler {
 					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
+
+				
+				// Store the crawled url in the database
+				ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
+				outUrls.add(outUrl);
+				hr = m_databaseConnection.pushURLDuplicationDatabase(outUrls);
+				if (FAILED(hr))
+				{
+					m_frontier.releaseBackEndQueue(outUrl);
+					continue;
+				}
+
+				// Store the html in the database
+				hr = m_databaseConnection.storeWebPage(webPage);
+				if (FAILED(hr))
+				{
+					m_frontier.releaseBackEndQueue(outUrl);
+					continue;
+				}
 			}
 		}
 	}
 	
-	public WebCrawler()
+	public WebCrawler(String username, String password, String server, String database) throws ClassNotFoundException, SQLException
 	{
-		m_frontier = new Frontier(Globals.NQUEUES);
+		m_databaseConnection = new MySQLDatabaseConnection(username, password, server, database);
+		m_frontier = new Frontier(Globals.NQUEUES, m_databaseConnection);
 		m_httpFetcher = new HttpFetcher();
 		m_linkExtractor = new LinkExtractor();
-		m_urlDistributor = new URLDistributor();
-		m_urlFilter = new URLFilter();
-		m_urlDuplicationEliminator = new URLDuplicationEliminator();
-		m_urlPrioritizer = new URLPrioritizer();
+		m_urlDistributor = new URLDistributor(m_databaseConnection);
+		m_urlFilter = new URLFilter(m_databaseConnection);
+		m_urlDuplicationEliminator = new URLDuplicationEliminator(m_databaseConnection);
+		m_urlPrioritizer = new URLPrioritizer(m_databaseConnection);
 	}
 	
 	public CrError crawl() {

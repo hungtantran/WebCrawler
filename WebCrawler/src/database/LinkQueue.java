@@ -15,6 +15,8 @@ public class LinkQueue {
 	Integer m_domainTableId1;
 	Integer m_priority;
 	Integer m_persistent;
+	Long m_extractedTime;
+
 	String m_timeCrawled;
 	String m_dateCrawled;
 
@@ -75,6 +77,14 @@ public class LinkQueue {
 
 	public void setDateCrawled(String dateCrawled) {
 		this.m_dateCrawled = dateCrawled;
+	}
+	
+	public Long get_extractedTime() {
+		return m_extractedTime;
+	}
+
+	public void set_extractedTime(Long extractedTime) {
+		this.m_extractedTime = extractedTime;
 	}
 
 	// Object overrides

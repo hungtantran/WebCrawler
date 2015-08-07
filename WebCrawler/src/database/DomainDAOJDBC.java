@@ -13,10 +13,10 @@ public class DomainDAOJDBC implements DomainDAO {
 	private final String SQL_SELECT = "SELECT * FROM domain_table";
 	private final String SQL_INSERT = "INSERT INTO domain_table (id, domain) values (?, ?)";
 
-	private final DAOFactory daoFactory;
+	private DAOFactory m_daoFactory = null;
 
 	public DomainDAOJDBC(DAOFactory daoFactory) throws SQLException {
-		this.daoFactory = daoFactory;
+		this.m_daoFactory = daoFactory;
 	}
 
 	private Domain constructDomainObject(ResultSet resultSet) throws SQLException {
@@ -27,7 +27,7 @@ public class DomainDAOJDBC implements DomainDAO {
 			domain.setId(null);
 		}
 
-		domain.setDomain(resultSet.getString("link"));
+		domain.setDomain(resultSet.getString("domain"));
 		if (resultSet.wasNull()) {
 			domain.setDomain(null);
 		}
@@ -42,7 +42,7 @@ public class DomainDAOJDBC implements DomainDAO {
 		ResultSet resultSet = null;
 
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.m_daoFactory.getConnection();
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT, false);
 			resultSet = preparedStatement.executeQuery();
 
@@ -56,7 +56,7 @@ public class DomainDAOJDBC implements DomainDAO {
 		} catch (final SQLException e) {
 			writeGenericLog("Get domain_table fails, " + e.getMessage());
 
-			return null;
+			throw e;
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}
@@ -69,7 +69,7 @@ public class DomainDAOJDBC implements DomainDAO {
 		ResultSet resultSet = null;
 
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.m_daoFactory.getConnection();
 
 			final Object[] values = { domain.getId(), domain.getDomain() };
 

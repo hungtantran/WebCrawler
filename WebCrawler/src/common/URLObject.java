@@ -10,21 +10,21 @@ import java.net.URL;
 import common.ErrorCode.CrError;
 
 public class URLObject {
+	private int m_id;
 	private String m_link;
 	private URL m_domain;
-	private boolean m_duplicated;
 	private boolean m_absolute;
 	private int m_priority;
-	private long m_downloadDuration;
 	private long m_extractedTime;
 	private long m_crawledTime;
+	private long m_downloadDuration;
 
 	public URLObject()
 	{
 		this.m_link = null;
 		this.m_domain = null;
-		this.m_duplicated = false;
 		this.m_absolute = false;
+		this.m_id = -1;
 	}
 
 	public long get_downloadDuration() {
@@ -33,14 +33,6 @@ public class URLObject {
 
 	public void set_downloadDuration(long m_downloadDuration) {
 		this.m_downloadDuration = m_downloadDuration;
-	}
-
-	public Boolean getDuplicated() {
-		return m_duplicated;
-	}
-
-	public void setDuplicated(Boolean duplicated) {
-		this.m_duplicated = duplicated;
 	}
 	
 	public String getLink() {
@@ -52,16 +44,24 @@ public class URLObject {
 	}
 	
 	public String getAbsoluteLink() {
+		String absoluteLink = null; 
+
 		if (!m_absolute) {
 			try {
-				URL absoluteLink = new URL(this.m_domain, this.m_link.toString());
-				return absoluteLink.toString();
+				URL absoluteURL = new URL(this.m_domain, this.m_link.toString());
+				absoluteLink = absoluteURL.toString();
 			} catch (MalformedURLException e) {
 				return null;
 			}
 		} else {
-			return this.m_link.toString();
+			absoluteLink = this.m_link.toString();
 		}
+		
+		if (absoluteLink.endsWith("/")) {
+			absoluteLink = absoluteLink.substring(0, absoluteLink.length() - 1);
+		}
+		
+		return absoluteLink;
 	}
 	
 	public CrError setLink(String link) {
@@ -85,10 +85,20 @@ public class URLObject {
 	}
 	
 	public String getDomain() {
-		return m_domain.toString();
+		String domain = m_domain.toString();
+		if (domain.endsWith("/")) {
+			domain = domain.substring(0, domain.length() - 1);
+		}
+		
+		return domain;
 	}
 	
 	public CrError setDomain(String domain) {
+		// If the link is already absolute, the domain value is already set
+		if (this.m_absolute) {
+			return CrError.CR_OK;
+		}
+
 		try {
 			this.m_domain = new URL(domain);
 		} catch (MalformedURLException e) {
@@ -123,11 +133,18 @@ public class URLObject {
 		this.m_crawledTime = crawledTime;
 	}
 	
+	public int get_id() {
+		return m_id;
+	}
+
+	public void set_id(int id) {
+		this.m_id = id;
+	}
+	
 	public void assign(URLObject other) {
 		this.set_downloadDuration(other.get_downloadDuration());
 		this.set_priority(other.get_priority());
 		this.setDomain(other.getDomain());
-		this.setDuplicated(other.getDuplicated());
 		this.setLink(other.getLink());
 	}
 	

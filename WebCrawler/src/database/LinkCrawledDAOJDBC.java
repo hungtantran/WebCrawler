@@ -13,8 +13,9 @@ import common.Helper;
 
 public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 	private final String SQL_SELECT_BY_DOMAINID = "SELECT * FROM link_crawled_table WHERE domain_table_id_1 = ?";
-	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, priority, domain_table_id_1, download_duration, extracted_time, time_crawled, date_crawled, country, state, city) values (?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String SQL_UPDATE = "UPDATE link_crawled_table SET link = ?, priority = ?, country = ?, state = ?, city = ? WHERE id = ?";
+	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, priority, domain_table_id_1, download_duration, extracted_time, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_UPDATE = "UPDATE link_crawled_table SET link = ?, priority = ? WHERE id = ?";
+	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_crawled_table WHERE link = ?";
 
 	private final DAOFactory daoFactory;
 
@@ -120,8 +121,6 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 				linkCrawled.getDateCrawled() };
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
-			
-			writeGenericLog(preparedStatement.toString());
 
 			preparedStatement.executeUpdate();
 
@@ -156,11 +155,44 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_UPDATE, false, values);
 
-			writeGenericLog(preparedStatement.toString());
-
 			preparedStatement.executeUpdate();
 
 			return true;
+		} catch (final SQLException e) {
+			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
+
+			return false;
+		} finally {
+			DAOUtil.close(connection, preparedStatement, resultSet);
+		}
+	}
+
+	@Override
+	public boolean linkExists(LinkCrawled linkCrawled) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = this.daoFactory.getConnection();
+
+			final Object[] values = { linkCrawled.getLink() };
+
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_CHECK_EXISTS, false, values);
+
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				int numVal = resultSet.getInt("count");
+				
+				if (numVal > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			return false;
 		} catch (final SQLException e) {
 			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
 

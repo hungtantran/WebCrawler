@@ -23,9 +23,12 @@ public class Globals {
 	// Politeness factor to download a webpage, used in frontier
 	public static final int NPOLITENESSFACTOR = 10;
 	
+	// Maximum number of urls pull out of frontier database at a time
+	public static final int NMAXURLSFROMFRONTIERPERPULL = 1;
+	
 	// Database
 	public static final String username = "root";
 	public static final String password = "";
-	public static final String server = "localhost";
-	public static final String database = "WebCrawler";
+	public static final String server = "localhost:3306/";
+	public static final String database = "webcrawler";
 }

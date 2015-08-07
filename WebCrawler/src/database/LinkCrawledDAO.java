@@ -9,4 +9,6 @@ public interface LinkCrawledDAO {
 	public int create(LinkCrawled linkCrawled) throws SQLException;
 	
 	public boolean update(LinkCrawled linkCrawled) throws SQLException;
+	
+	public boolean linkExists(LinkCrawled linkCrawled) throws SQLException;
 }

@@ -18,7 +18,7 @@ public class Test_IURLDuplicationEliminator {
 	}
 	
 	public void Test_URLDuplicationEliminator() {
-		IURLDuplicationEliminator eliminator = new URLDuplicationEliminator();
+		IURLDuplicationEliminator eliminator = new URLDuplicationEliminator(null);
 		
 		ArrayList<URLObject> urls = new ArrayList<URLObject>();
 		for (int i = 2; i <= 9998; ++i) {

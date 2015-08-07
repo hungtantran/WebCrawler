@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RawHTMLDAOJDBC implements RawHTMLDAO {
-	private final String SQL_SELECT_BY_ID = "SELECT * FROM rawhtml WHERE id = ?";
-	private final String SQL_SELECT_ALL = "SELECT * FROM rawhtml";
-	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM rawhtml LIMIT ?, ?";
-	private final String SQL_INSERT = "INSERT INTO rawhtml (id, html) values (?, ?)";
-	private final String SQL_UPDATE = "UPDATE rawhtml SET html = ? WHERE id = ?";
+	private final String SQL_SELECT_BY_ID = "SELECT * FROM rawhtml_table WHERE id = ?";
+	private final String SQL_SELECT_ALL = "SELECT * FROM rawhtml_table";
+	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM rawhtml_table LIMIT ?, ?";
+	private final String SQL_INSERT = "INSERT INTO rawhtml_table (id, html) values (?, ?)";
+	private final String SQL_UPDATE = "UPDATE rawhtml_table SET html = ? WHERE id = ?";
 
 	private final DAOFactory daoFactory;
 

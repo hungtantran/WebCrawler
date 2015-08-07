@@ -9,7 +9,8 @@ public class ErrorCode {
 		CR_EMPTY_QUEUE,
 		CR_MALFORM_HTML,
 		CR_INVALID_ARGS,
-		CR_MALFORM_URL
+		CR_MALFORM_URL,
+		CR_DATABASE_ERROR
 	}
 	
 	public static boolean SUCCEEDED(CrError errorCode)

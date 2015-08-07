@@ -9,6 +9,8 @@ import static common.LogManager.writeGenericLog;
 public class WebPage implements IWebPage {
 	private Document m_doc = null;
 	private String m_html = null;
+	private URLObject m_originalUrl = null;
+
 	private long m_downloadDurationInMillisec;
 	
 	public WebPage() {
@@ -80,10 +82,29 @@ public class WebPage implements IWebPage {
 	}
 
 	@Override
-	public CrError setDownloadDuationInhMillisec(long downloadDuationInMillisec) {
+	public CrError setDownloadDuationInMillisec(long downloadDuationInMillisec) {
 		m_downloadDurationInMillisec = downloadDuationInMillisec;
 
 		return CrError.CR_OK;
 	}
+	
+	@Override
+	public URLObject get_originalUrl() {
+		return m_originalUrl;
+	}
 
+	@Override
+	public void set_originalUrl(URLObject originalUrl) {
+		this.m_originalUrl = originalUrl;
+	}
+
+	@Override
+	public int get_id() {
+		return m_originalUrl.get_id();
+	}
+
+	@Override
+	public void set_id(int id) {
+		m_originalUrl.set_id(id);
+	}
 }

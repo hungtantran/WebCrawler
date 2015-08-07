@@ -24,7 +24,7 @@ public class LinkExtractor implements ILinkExtractor {
 			return url;
 		}
 		
-		if (url.charAt(url.length() - 1) == '/') {
+		if (url.endsWith("/")) {
 			url = url.substring(0, url.length() - 1);
 		}
 		
@@ -68,8 +68,8 @@ public class LinkExtractor implements ILinkExtractor {
 
 			builder.append(link + "; ");
 
-			url.setLink(link);
 			url.setDomain(originalUrl.getDomain());
+			url.setLink(link);
 			url.set_downloadDuration(webPage.getDownloadDuationInhMillisec());
 			url.set_extractedTime(Helper.getCurrentTimeInMillisec());
 			extractedUrls.add(url);

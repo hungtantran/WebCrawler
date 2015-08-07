@@ -113,7 +113,7 @@ public class Helper {
 	}
 	
 	public static long getCurrentTimeInMillisec() {
-        return Helper.cal.getTimeInMillis();
+        return System.currentTimeMillis();
 	}
 
 	// Make the current thread wait for a random amount of time between
