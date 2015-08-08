@@ -24,7 +24,10 @@ public class Globals {
 	public static final int NPOLITENESSFACTOR = 10;
 	
 	// Maximum number of urls pull out of frontier database at a time
-	public static final int NMAXURLSFROMFRONTIERPERPULL = 1;
+	public static final int NMAXURLSFROMFRONTIERPERPULL = 10;
+	
+	// Maximum wait time to pull a page from frontier
+	public static final long MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC = 5 * 60 * 1000;
 	
 	// Database
 	public static final String username = "root";

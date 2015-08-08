@@ -73,6 +73,7 @@ public class Frontier implements IFrontier {
 		}
 		
 		private synchronized CrError pushUrl(URLObject url) {
+			writeGenericLog("Push url here " + url.toString());
 			m_urlsQueue.add(url);
 			
 			return CrError.CR_OK;
@@ -131,6 +132,7 @@ public class Frontier implements IFrontier {
 	@Override
 	public CrError releaseBackEndQueue(URLObject originalUrl) {
 		synchronized(m_backEndQueues) {
+		synchronized(m_domainToBackEndQueueMap) {
 			if (m_domainToBackEndQueueMap.containsKey(originalUrl.getDomain())) {
 				BackEndQueue backEndQueue = m_domainToBackEndQueueMap.get(originalUrl.getDomain());
 
@@ -140,6 +142,7 @@ public class Frontier implements IFrontier {
 					m_backEndQueues.add(backEndQueue);
 				}
 			}
+		}
 		}
 		
 		return CrError.CR_OK;
@@ -174,7 +177,7 @@ public class Frontier implements IFrontier {
 				return hr;
 			}
 			
-			// Print out front end queue size every 1000 times
+			// Print out front end queue size every 100 times
 			if (m_frontEndQueue.size() % 100 == 0) {
 				writeGenericLog("Front end queue size : " + m_frontEndQueue.size());
 			}
@@ -202,8 +205,9 @@ public class Frontier implements IFrontier {
 		CrError hr = CrError.CR_OK;
 
 		synchronized(m_backEndQueues) {
+		synchronized(m_domainToBackEndQueueMap) {
 			while (true) {
-				if (m_backEndQueues.isEmpty()) {
+				while (m_backEndQueues.isEmpty()) {
 					if (m_domainToBackEndQueueMap.size() < m_maxNumBackEndQueues) {
 						// Emtpy backend queue but the map is not full, try to get url from the front end queue
 						synchronized(m_frontEndQueue) {
@@ -226,25 +230,33 @@ public class Frontier implements IFrontier {
 								writeGenericLog("No more url in the front end queue to crawl");
 								return CrError.CR_EMPTY_QUEUE;
 							} else {
-								URLObject url = m_frontEndQueue.peek();
-								BackEndQueue newBackEndQueue = new BackEndQueue();
-								newBackEndQueue.setDomain(url.getDomain());
-								newBackEndQueue.setPriority(url.get_priority());
-								
-								m_backEndQueues.add(newBackEndQueue);
-								// TODO error this domain is not necessary not only 
-								m_domainToBackEndQueueMap.put(url.getDomain(), newBackEndQueue);
-								writeGenericLog("Num backend queues : " + m_domainToBackEndQueueMap.size());
-								
 								// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
+								boolean foundNew = false;
 								while (true) {
 									if (m_frontEndQueue.isEmpty()) {
 										break;
 									}
 									
 									URLObject curUrl = m_frontEndQueue.remove();
-									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain())) {
+									if (curUrl.getDomain() == null) {
+										continue;
+									}
+
+									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && foundNew) {
 										break;
+									}
+									
+									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && !foundNew) {
+										writeGenericLog("Create new back end queue with new domain " + curUrl.getDomain());
+										BackEndQueue newBackEndQueue = new BackEndQueue();
+										newBackEndQueue.setDomain(curUrl.getDomain());
+										newBackEndQueue.setPriority(curUrl.get_priority());
+										
+										m_backEndQueues.add(newBackEndQueue);
+										// TODO error this domain is not necessary not only 
+										m_domainToBackEndQueueMap.put(curUrl.getDomain(), newBackEndQueue);
+										
+										foundNew = true;
 									}
 									
 									hr = m_domainToBackEndQueueMap.get(curUrl.getDomain()).pushUrl(curUrl);
@@ -252,6 +264,13 @@ public class Frontier implements IFrontier {
 										return hr;
 									}
 								}
+								
+								StringBuilder builder = new StringBuilder();
+								builder.append("Num backend queues : " + m_domainToBackEndQueueMap.size() + "\n");
+								for (Map.Entry<String, BackEndQueue> entry : m_domainToBackEndQueueMap.entrySet()) {
+									builder.append("Domain " + entry.getKey() + " with queue size " + entry.getValue().size() + "\n");
+								}
+								writeGenericLog(builder.toString());
 							}
 						}
 					} else {
@@ -263,7 +282,7 @@ public class Frontier implements IFrontier {
 				
 				// The queue shouldn't be empty here
 				if (m_backEndQueues.isEmpty()) {
-					// TODO log error here
+					writeGenericLog("Back end queues is empty, unexpected");
 					System.exit(1);
 				}
 				
@@ -276,9 +295,10 @@ public class Frontier implements IFrontier {
 				}
 			}
 		}
+		}
 			
 		if (backEndQueue == null) {
-			// TODO log error
+			writeGenericLog("Back end queue is null unexpected");
 			return CrError.CR_UNEXPECTED;
 		}
 		
@@ -295,6 +315,17 @@ public class Frontier implements IFrontier {
 			outUrls.add(url);
 
 			++numResults;
+		}
+		
+		// Wait for politeness to the webserver
+		long minNextProcessTimeInMillisec = backEndQueue.get_minNextProcessTimeInMillisec();
+		long waitDuration = minNextProcessTimeInMillisec - Helper.getCurrentTimeInMillisec();
+		if ( waitDuration > 0) {
+			if (waitDuration > Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC) {
+				waitDuration = Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC;
+			}
+
+			Helper.waitMilliSec(waitDuration, waitDuration);
 		}
 		
 		return CrError.CR_OK;

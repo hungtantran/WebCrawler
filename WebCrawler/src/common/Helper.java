@@ -119,9 +119,21 @@ public class Helper {
 
 	// Make the current thread wait for a random amount of time between
 	// lowerBound and upperBound number of seconds
-	public static void waitSec(int lowerBound, int upperBound) {
+	public static void waitSec(long lowerBound, long upperBound) {
 		try {
-			int waitTime = lowerBound * 1000 + (int) (Math.random() * ((upperBound * 1000 - lowerBound * 1000) + 1));
+			long waitTime = lowerBound * 1000 + (long) (Math.random() * ((upperBound * 1000 - lowerBound * 1000) + 1));
+			writeGenericLog("Wait for " + waitTime + " millisec");
+
+			Thread.currentThread();
+			Thread.sleep(waitTime);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void waitMilliSec(long waitDuration, long waitDuration2) {
+		try {
+			long waitTime = waitDuration + (long) (Math.random() * ((waitDuration2 - waitDuration) + 1));
 			writeGenericLog("Wait for " + waitTime + " millisec");
 
 			Thread.currentThread();
