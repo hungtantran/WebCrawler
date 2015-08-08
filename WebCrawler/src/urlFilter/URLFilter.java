@@ -64,6 +64,18 @@ public class URLFilter implements IURLFilter {
 		return true;
 	}
 	
+	private static boolean isHttpLink(String url) {
+		if (url == null) {
+			return false;
+		}
+		
+		if (!url.startsWith("http")) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public CrError filterURLs(ArrayList<URLObject> inoutUrls) {
 		for (int i = 0; i < inoutUrls.size(); ++i) {
@@ -87,6 +99,13 @@ public class URLFilter implements IURLFilter {
 			
 			if (URLFilter.isPositionLinkInPage(absoluteLink)) {
 				writeGenericLog("Filter out position link in page " + absoluteLink);
+
+				inoutUrls.remove(i);
+				--i;
+			}
+			
+			if (!URLFilter.isHttpLink(absoluteLink)) {
+				writeGenericLog("Filter out non http or https link in page " + absoluteLink);
 
 				inoutUrls.remove(i);
 				--i;

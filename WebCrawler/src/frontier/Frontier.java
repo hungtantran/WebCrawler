@@ -156,6 +156,7 @@ public class Frontier implements IFrontier {
 		}
 
 		outUrl.assign(outUrls.get(0));
+		writeGenericLog("Pull url " + outUrl.toString());
 		
 		return hr;
 	}
@@ -173,7 +174,10 @@ public class Frontier implements IFrontier {
 				return hr;
 			}
 			
-			writeGenericLog("Push back : " + inUrl.getAbsoluteLink() + ", front end queue size : " + m_frontEndQueue.size());
+			// Print out front end queue size every 1000 times
+			if (m_frontEndQueue.size() % 100 == 0) {
+				writeGenericLog("Front end queue size : " + m_frontEndQueue.size());
+			}
 		}
 		
 		releaseBackEndQueue(originalUrl);

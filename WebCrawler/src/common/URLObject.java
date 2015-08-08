@@ -140,12 +140,24 @@ public class URLObject {
 	public void set_id(int id) {
 		this.m_id = id;
 	}
+
+	public boolean is_absolute() {
+		return m_absolute;
+	}
+
+	public void set_absolute(boolean absolute) {
+		this.m_absolute = absolute;
+	}
 	
 	public void assign(URLObject other) {
-		this.set_downloadDuration(other.get_downloadDuration());
-		this.set_priority(other.get_priority());
-		this.setDomain(other.getDomain());
+		this.set_id(other.m_id);
 		this.setLink(other.getLink());
+		this.setDomain(other.getDomain());
+		this.set_absolute(other.is_absolute());
+		this.set_priority(other.get_priority());
+		this.set_extractedTime(other.get_extractedTime());
+		this.set_crawledTime(other.get_crawledTime());
+		this.set_downloadDuration(other.get_downloadDuration());
 	}
 	
 	// Object overrides
@@ -155,5 +167,31 @@ public class URLObject {
 		
 		return this.m_link.equals(otherLink.m_link) &&
 			this.m_domain.equals(otherLink.m_domain);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("Id = " + m_id + ", ");
+		
+		if (m_link != null) {
+			builder.append("Link = " + m_link + ", ");
+		} else {
+			builder.append("Link = null, ");
+		}
+		
+		if (m_domain != null) {
+			builder.append("Domain = " + m_domain.toString() + ", ");
+		} else {
+			builder.append("Domain = null, ");
+		}
+		
+		builder.append("Absolute = " + m_absolute + ", ");
+		builder.append("Priority = " + m_priority + ", ");
+		builder.append("ExtractedTime = " + m_extractedTime + ", ");
+		builder.append("Download Duration = " + m_downloadDuration + ", ");
+		
+		return builder.toString();
 	}
 }

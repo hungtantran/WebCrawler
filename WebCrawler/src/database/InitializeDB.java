@@ -89,6 +89,7 @@ public class InitializeDB {
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "
 				+ "UNIQUE (id), "
+				+ "UNIQUE INDEX link_date (link, date_crawled), "
 				+ "FOREIGN KEY (domain_table_id_1) REFERENCES domain_table(id))");
 
 			st.executeUpdate("CREATE TABLE link_crawled_table ("

@@ -104,10 +104,9 @@ public class LogManager {
 			}
 	
 			Date currentDate = new Date();
-			String logFileName = this.logDir + Globals.PATHSEPARATOR + this.baseFileName + "."
-				+ Helper.getCurrentDate() + "-" + currentDate.getHours()
-				+ ".log";
+			String logFileName = this.logDir + Globals.PATHSEPARATOR + this.baseFileName + "." + Helper.getCurrentDate() + "-" + currentDate.getHours() + ".log";
 			File logFile = new File(logFileName);
+
 			if (!logFile.exists() && this.createFile(logFileName)) {
 				System.out.println("File " + logFileName + " created");
 			} else if (!logFile.exists()) {
@@ -115,10 +114,9 @@ public class LogManager {
 				return false;
 			}
 	
-			String logLine = "[" + fileName + ":" + lineNumber + "] [" + Helper.getCurrentDate() + "] ["
-					+ Helper.getCurrentTime() + "] [" + functionName + "]: [" + Thread.currentThread().getId() + "] " + log;
+			String logLine = "[" + fileName + ":" + lineNumber + "] [" + Helper.getCurrentDate() + "] [" + Helper.getCurrentTime() + "] [" + functionName + "]: [" + Thread.currentThread().getId() + "] " + log;
 			
-			System.out.println("Log: "+logLine);
+			System.out.println("Log: " + logLine);
 			if (writeToDisk) {
 				try {
 					PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFileName, true)));

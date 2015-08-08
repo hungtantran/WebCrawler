@@ -18,8 +18,6 @@ import static common.LogManager.*;
 
 // Helper is just a collection of utility function
 public class Helper {
-	private static Calendar cal = Calendar.getInstance();
-
 	private Helper() {
 		throw new AssertionError();
 	}
@@ -94,22 +92,25 @@ public class Helper {
 	
 	// Return the current date, e.g: 2014-05-23
 	public static String getCurrentDate() {
+		Calendar cal = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Helper.cal.add(Calendar.DATE, 0);
-        return dateFormat.format(Helper.cal.getTime());
+        cal.add(Calendar.DATE, 0);
+        return dateFormat.format(cal.getTime());
 	}
 
 	// Return the current time 22:11:30
 	public static String getCurrentTime() {
+		Calendar cal = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        Helper.cal.add(Calendar.DATE, 0);    
-        return dateFormat.format(Helper.cal.getTime());
+        cal.add(Calendar.DATE, 0);    
+        return dateFormat.format(cal.getTime());
 	}
 	
 	public static String getPastDate(int pastDays) {
+		Calendar cal = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Helper.cal.add(Calendar.DATE, -pastDays);    
-        return dateFormat.format(Helper.cal.getTime());
+        cal.add(Calendar.DATE, -pastDays);    
+        return dateFormat.format(cal.getTime());
 	}
 	
 	public static long getCurrentTimeInMillisec() {

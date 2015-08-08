@@ -41,17 +41,18 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 		
 		for (int i = 0; i < inoutUrls.size(); ++i) {
 			URLObject url = inoutUrls.get(i);
-			
+			String absoluteLink = url.getAbsoluteLink();
+
 			// Remove duplicated links in the list itself first
-			if (urls.contains(url.getAbsoluteLink())) {
+			if (urls.contains(absoluteLink)) {
 				inoutUrls.remove(i);
 				--i;
 				continue;
 			} else {
-				urls.add(url.getAbsoluteLink());
+				urls.add(absoluteLink);
 			}
 
-			int urlHashCode = Math.abs(Helper.encryptString(url.getAbsoluteLink()).hashCode());
+			int urlHashCode = Math.abs(Helper.encryptString(absoluteLink).hashCode());
 			
 			int indexInArray = (urlHashCode / 32) % (m_bloomFilterByteSize / 4);
 			int bitPosInInt = urlHashCode % 32;
@@ -63,7 +64,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 				val = val >> bitPosInInt;
 				val = val << 31;
 				if (val != 0) {
-					if (!m_setDuplicatedString.contains(url.getAbsoluteLink())) {
+					if (!m_setDuplicatedString.contains(absoluteLink)) {
 						exists = false;
 					} else {
 						exists = true;
@@ -71,7 +72,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 				} else {
 					int tmp = 1 << bitPosInInt;
 					m_bloomFilter[indexInArray] = m_bloomFilter[indexInArray] + tmp;
-					m_setDuplicatedString.add(url.getAbsoluteLink());
+					m_setDuplicatedString.add(absoluteLink);
 				}
 			}
 			
@@ -81,7 +82,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 					inoutUrls.remove(i);
 					--i;
 				} else {
-					writeGenericLog("Url " + url.getAbsoluteLink() + " got false positive");
+					writeGenericLog("Url " + absoluteLink + " got false positive");
 				}
 			} else {
 				// Even if the bloomfilter said no, we still needs to check (refer to TODO at the beginning)

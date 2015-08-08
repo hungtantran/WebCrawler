@@ -143,8 +143,7 @@ public class WebCrawler {
 					m_frontier.releaseBackEndQueue(outUrl);
 					continue;
 				}
-
-				
+			
 				// Store the crawled url in the database
 				ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
 				outUrls.add(outUrl);
