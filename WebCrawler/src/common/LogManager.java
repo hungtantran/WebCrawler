@@ -21,15 +21,15 @@ public class LogManager {
 		this.baseFileName = baseFileName;
 	}
 
-	public LogManager(String directory, String baseFileName,
-			boolean defaultWriteToDisk) {
+	public LogManager(String directory, String baseFileName, boolean defaultWriteToDisk) {
 		this(directory, baseFileName);
 		this.defaultWriteToDisk = defaultWriteToDisk;
 	}
 
 	private boolean createDir() {
-		if (this.logDir == null || this.logDir.length() == 0)
+		if (this.logDir == null || this.logDir.length() == 0) {
 			return false;
+		}
 
 		// Create the folder
 		File logDirectory = new File(this.logDir);
@@ -45,8 +45,9 @@ public class LogManager {
 	
 	// fileName is full path and fileName
 	private boolean createFile(String fileName) {
-		if (fileName == null || fileName.length() == 0)
+		if (fileName == null || fileName.length() == 0) {
 			return false;
+		}
 
 		// Create the folder
 		File file = new File(fileName);

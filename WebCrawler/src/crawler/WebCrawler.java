@@ -178,7 +178,7 @@ public class WebCrawler {
 	}
 	
 	public CrError crawl() {
-		for (int i = 0; i < Globals.NTHREADS + 5; ++i) {
+		for (int i = 0; i < Globals.NTHREADS; ++i) {
 			m_exec.execute(new CrawlTask());
 		}
 		

@@ -73,7 +73,6 @@ public class Frontier implements IFrontier {
 		}
 		
 		private synchronized CrError pushUrl(URLObject url) {
-			writeGenericLog("Push url here " + url.toString());
 			m_urlsQueue.add(url);
 			
 			return CrError.CR_OK;
@@ -320,7 +319,7 @@ public class Frontier implements IFrontier {
 		// Wait for politeness to the webserver
 		long minNextProcessTimeInMillisec = backEndQueue.get_minNextProcessTimeInMillisec();
 		long waitDuration = minNextProcessTimeInMillisec - Helper.getCurrentTimeInMillisec();
-		if ( waitDuration > 0) {
+		if (minNextProcessTimeInMillisec >0 && waitDuration > 0) {
 			if (waitDuration > Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC) {
 				waitDuration = Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC;
 			}
