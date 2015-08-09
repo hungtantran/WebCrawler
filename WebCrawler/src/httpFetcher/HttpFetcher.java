@@ -79,6 +79,7 @@ public class HttpFetcher implements IHttpFetcher {
 				long duration = Helper.getCurrentTimeInMillisec() - startTime;
 				writeGenericLog("duration here = " + duration + " start time = " + startTime + " current time = " + Helper.getCurrentTimeInMillisec());
 				inUrl.set_downloadDuration(duration);
+				inUrl.set_httpStatusCode(200);
 				
 				downloadedWebPage.setDownloadDuationInMillisec(duration);
 				downloadedWebPage.set_originalUrl(inUrl);
@@ -96,9 +97,12 @@ public class HttpFetcher implements IHttpFetcher {
 				// Only print out fail on the last fail
 				if (i == numRetries - 1) {
 					if (e instanceof HttpStatusException) {
-						writeGenericLog("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex] + " with status code " + ((HttpStatusException) e).getStatusCode());
+						HttpStatusException statusException = (HttpStatusException) e;
+						inUrl.set_httpStatusCode(statusException.getStatusCode());
+						writeGenericLog("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex] + " with status code " + statusException.getStatusCode());
 					} else {
 						writeGenericLog("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
+						inUrl.set_httpStatusCode(-1);
 					}
 
 					writeGenericLog(e.getMessage());

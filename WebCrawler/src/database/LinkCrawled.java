@@ -1,5 +1,8 @@
 package database;
 
+import common.Helper;
+import common.URLObject;
+
 public class LinkCrawled {
 	// Constants
 	// ----------------------------------------------------------------------------------
@@ -10,15 +13,32 @@ public class LinkCrawled {
 	// Properties
 	// ---------------------------------------------------------------------------------
 
-	Integer m_id;
-	String m_link;
-	Integer m_priority;
-	Integer m_domainTableId1;
-	Long m_downloadDuration;
-	Long m_extractedTime;
-	String m_timeCrawled;
-	String m_dateCrawled;
+	private Integer m_id;
+	private String m_link;
+	private Integer m_priority;
+	private Integer m_domainTableId1;
+	private Long m_downloadDuration;
+	private Long m_extractedTime;
+	private Integer m_httpStatusCode;
+	private Long m_relevance;
+	private Long m_distanceFromRelevantPage;
+	private Integer m_freshness;
+	private String m_timeCrawled;
+	private String m_dateCrawled;
 
+	public void Assign(URLObject url) {
+		this.setLink(url.getAbsoluteLink());
+		this.setPriority(url.get_priority());
+		this.set_downloadDuration(url.get_downloadDuration());
+		this.set_extractedTime(url.get_extractedTime());
+		this.set_httpStatusCode(url.get_httpStatusCode());
+		this.set_relevance(url.get_relevance());
+		this.set_distanceFromRelevantPage(url.get_distanceFromRelevantPage());
+		this.set_freshness(url.get_freshness());
+		this.setTimeCrawled(Helper.getCurrentTime());
+		this.setDateCrawled(Helper.getCurrentDate());
+	}
+	
 	// Getters/setters
 	// ----------------------------------------------------------------------------
 
@@ -84,6 +104,38 @@ public class LinkCrawled {
 
 	public void set_downloadDuration(Long downloadDuration) {
 		this.m_downloadDuration = downloadDuration;
+	}
+	
+	public Integer get_httpStatusCode() {
+		return m_httpStatusCode;
+	}
+
+	public void set_httpStatusCode(Integer httpStatusCode) {
+		this.m_httpStatusCode = httpStatusCode;
+	}
+
+	public Long get_relevance() {
+		return m_relevance;
+	}
+
+	public void set_relevance(Long relevance) {
+		this.m_relevance = relevance;
+	}
+
+	public Long get_distanceFromRelevantPage() {
+		return m_distanceFromRelevantPage;
+	}
+
+	public void set_distanceFromRelevantPage(Long distanceFromRelevantPage) {
+		this.m_distanceFromRelevantPage = distanceFromRelevantPage;
+	}
+
+	public Integer get_freshness() {
+		return m_freshness;
+	}
+
+	public void set_freshness(Integer freshness) {
+		this.m_freshness = freshness;
 	}
 	
 	// Object overrides

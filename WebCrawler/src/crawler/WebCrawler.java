@@ -51,117 +51,126 @@ public class WebCrawler {
 				
 		private CrawlTask() {
 		}
-	
+
 		@Override
 		public void run() {
 			threadId = Thread.currentThread().getId();
 			writeGenericLog("Start thread " + this.threadId);
-
+			CrError hr = CrError.CR_OK;
+			
 			while (true)
 			{
-				// Get urls from frontier
 				URLObject outUrl = new URLObject();
-				hr = m_frontier.pullUrl(outUrl);
-				if (hr == CrError.CR_EMPTY_QUEUE) {
-					Helper.waitSec(5, 10);
-					continue;
-				}
-				
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					break;
-				}
-				
-				//
-				// Process url got from the frontier
-				//
-				
-				// Fetch the url from the web server
-				IWebPage webPage = new WebPage();
-				try {
-					hr = m_httpFetcher.getWebPage(outUrl,  webPage);
-				} catch (Exception e) {
-					if (outUrl.getLink() != null) {
-						writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+				hr = crawlOnePage(outUrl);
+
+				if (FAILED(hr)) {
+					String outAbsoluteUrl = outUrl.getAbsoluteLink();
+					if (outAbsoluteUrl == null) {
+						writeGenericLog("Fail to get next page because hr = " + hr);
 					} else {
-						writeGenericLog("No outurl " + e.getMessage());
+						writeGenericLog("Fail to crawl page " + outAbsoluteUrl + " because hr = " + hr);
 					}
-				}
 
-				if (FAILED(hr))
-				{
 					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Extract all links from page
-				ArrayList<URLObject> extractedUrls = new ArrayList<URLObject>();
-				hr = m_linkExtractor.extractURLs(outUrl, webPage, extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Distribute links to appropriate distributor
-				hr = m_urlDistributor.distributeURLs(extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Filter out unwanted url like url with parameter, malformed, etc...
-				hr = m_urlFilter.filterURLs(extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Remove duplicated urls
-				hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Prioritize urls
-				hr = m_urlPrioritizer.prioritizeUrl(extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-				
-				// Push prioritized urls back into the frontier
-				hr = m_frontier.pushUrls(outUrl, extractedUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-			
-				// Store the crawled url in the database
-				ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
-				outUrls.add(outUrl);
-				hr = m_databaseConnection.pushURLDuplicationDatabase(outUrls);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
-				}
-
-				// Store the html in the database
-				hr = m_databaseConnection.storeWebPage(webPage);
-				if (FAILED(hr))
-				{
-					m_frontier.releaseBackEndQueue(outUrl);
-					continue;
 				}
 			}
+		}
+		
+		private CrError crawlOnePage(URLObject outUrl) {
+			// Get urls from frontier
+			hr = m_frontier.pullUrl(outUrl);
+			if (hr == CrError.CR_EMPTY_QUEUE) {
+				Helper.waitSec(5, 10);
+				return CrError.CR_OK;
+			}
+			
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			//
+			// Process url got from the frontier
+			//
+			
+			// Fetch the url from the web server
+			IWebPage webPage = new WebPage();
+			try {
+				hr = m_httpFetcher.getWebPage(outUrl,  webPage);
+			} catch (Exception e) {
+				if (outUrl.getLink() != null) {
+					writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+				} else {
+					writeGenericLog("No outurl " + e.getMessage());
+				}
+			}
+
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Extract all links from page
+			ArrayList<URLObject> extractedUrls = new ArrayList<URLObject>();
+			hr = m_linkExtractor.extractURLs(outUrl, webPage, extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Distribute links to appropriate distributor
+			hr = m_urlDistributor.distributeURLs(extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Filter out unwanted url like url with parameter, malformed, etc...
+			hr = m_urlFilter.filterURLs(extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Remove duplicated urls
+			hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Prioritize urls
+			hr = m_urlPrioritizer.prioritizeUrl(extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			
+			// Push prioritized urls back into the frontier
+			hr = m_frontier.pushUrls(outUrl, extractedUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+		
+			// Store the crawled url in the database
+			ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
+			outUrls.add(outUrl);
+			hr = m_databaseConnection.pushURLDuplicationDatabase(outUrls);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+
+			// Store the html in the database
+			hr = m_databaseConnection.storeWebPage(webPage);
+			if (FAILED(hr))
+			{
+				
+				return hr;
+			}
+			
+			return CrError.CR_OK;
 		}
 	}
 	

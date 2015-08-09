@@ -18,6 +18,10 @@ public class URLObject {
 	private long m_extractedTime;
 	private long m_crawledTime;
 	private long m_downloadDuration;
+	private int m_httpStatusCode;
+	private long m_relevance;
+	private long m_distanceFromRelevantPage;
+	private int m_freshness;
 
 	public URLObject()
 	{
@@ -25,14 +29,69 @@ public class URLObject {
 		this.m_domain = null;
 		this.m_absolute = false;
 		this.m_id = -1;
+		this.m_priority = Integer.MIN_VALUE;
+		this.m_extractedTime = Integer.MIN_VALUE;
+		this.m_crawledTime = Integer.MIN_VALUE;
+		this.m_downloadDuration = Integer.MIN_VALUE;
+		this.m_httpStatusCode = -1;
+		this.m_relevance = Integer.MIN_VALUE;
+		this.m_distanceFromRelevantPage = Integer.MAX_VALUE;
+		this.m_freshness = 0;
+	}
+
+	public void assign(URLObject other) {
+		this.set_id(other.m_id);
+		this.setLink(other.getLink());
+		this.setDomain(other.getDomain());
+		this.set_absolute(other.is_absolute());
+		this.set_priority(other.get_priority());
+		this.set_extractedTime(other.get_extractedTime());
+		this.set_crawledTime(other.get_crawledTime());
+		this.set_downloadDuration(other.get_downloadDuration());
+		this.set_httpStatusCode(other.get_httpStatusCode());
+		this.set_relevance(other.get_relevance());
+		this.set_distanceFromRelevantPage(other.get_distanceFromRelevantPage());
+		this.set_freshness(other.get_freshness());
+	}
+
+	public int get_freshness() {
+		return m_freshness;
+	}
+
+	public void set_freshness(int freshness) {
+		this.m_freshness = freshness;
+	}
+
+	public long get_distanceFromRelevantPage() {
+		return m_distanceFromRelevantPage;
+	}
+
+	public void set_distanceFromRelevantPage(long distanceFromRelevantPage) {
+		this.m_distanceFromRelevantPage = distanceFromRelevantPage;
+	}
+
+	public long get_relevance() {
+		return m_relevance;
+	}
+
+	public void set_relevance(long relevance) {
+		this.m_relevance = relevance;
 	}
 
 	public long get_downloadDuration() {
 		return m_downloadDuration;
 	}
 
-	public void set_downloadDuration(long m_downloadDuration) {
-		this.m_downloadDuration = m_downloadDuration;
+	public void set_downloadDuration(long downloadDuration) {
+		this.m_downloadDuration = downloadDuration;
+	}
+
+	public int get_httpStatusCode() {
+		return m_httpStatusCode;
+	}
+
+	public void set_httpStatusCode(int httpStatusCode) {
+		this.m_httpStatusCode = httpStatusCode;
 	}
 	
 	public String getLink() {
@@ -147,17 +206,6 @@ public class URLObject {
 
 	public void set_absolute(boolean absolute) {
 		this.m_absolute = absolute;
-	}
-	
-	public void assign(URLObject other) {
-		this.set_id(other.m_id);
-		this.setLink(other.getLink());
-		this.setDomain(other.getDomain());
-		this.set_absolute(other.is_absolute());
-		this.set_priority(other.get_priority());
-		this.set_extractedTime(other.get_extractedTime());
-		this.set_crawledTime(other.get_crawledTime());
-		this.set_downloadDuration(other.get_downloadDuration());
 	}
 	
 	// Object overrides

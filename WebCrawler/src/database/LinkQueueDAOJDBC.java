@@ -14,7 +14,7 @@ import static common.LogManager.*;
 public class LinkQueueDAOJDBC implements LinkQueueDAO {
 	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table LIMIT ?";
 	private final String SQL_DELETE_WITH_LIMIT = "DELETE FROM link_queue_table LIMIT ?";
-	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, extracted_time, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, extracted_time, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_queue_table WHERE link = ?";
 
 	private final DAOFactory daoFactory;
@@ -54,6 +54,21 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		linkQueue.set_extractedTime(resultSet.getLong("extracted_time"));
 		if (resultSet.wasNull()) {
 			linkQueue.set_extractedTime(null);
+		}
+		
+		linkQueue.set_relevance(resultSet.getLong("relevance"));
+		if (resultSet.wasNull()) {
+			linkQueue.set_relevance(null);
+		}
+		
+		linkQueue.set_distanceFromRelevantPage(resultSet.getLong("distanceFromRelevantPage"));
+		if (resultSet.wasNull()) {
+			linkQueue.set_distanceFromRelevantPage(null);
+		}
+		
+		linkQueue.set_freshness(resultSet.getInt("freshness"));
+		if (resultSet.wasNull()) {
+			linkQueue.set_freshness(null);
 		}
 
 		linkQueue.setTimeCrawled(resultSet.getString("time_crawled"));
@@ -145,7 +160,9 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			final Object[] values = { linkQueue.getLink(),
 				linkQueue.getDomainTableId1(), linkQueue.getPriority(),
 				linkQueue.getPersistent(), linkQueue.get_extractedTime(),
-				linkQueue.getTimeCrawled(), linkQueue.getDateCrawled() };
+				linkQueue.get_relevance(), linkQueue.get_distanceFromRelevantPage(),
+				linkQueue.get_freshness(), linkQueue.getTimeCrawled(),
+				linkQueue.getDateCrawled() };
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
 

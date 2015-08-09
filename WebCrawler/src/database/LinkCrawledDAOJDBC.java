@@ -13,7 +13,7 @@ import common.Helper;
 
 public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 	private final String SQL_SELECT_BY_DOMAINID = "SELECT * FROM link_crawled_table WHERE domain_table_id_1 = ?";
-	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, priority, domain_table_id_1, download_duration, extracted_time, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, priority, domain_table_id_1, download_duration, extracted_time, statusCode, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_UPDATE = "UPDATE link_crawled_table SET link = ?, priority = ? WHERE id = ?";
 	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_crawled_table WHERE link = ?";
 
@@ -54,6 +54,26 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 		linkCrawled.set_extractedTime(resultSet.getLong("extracted_time"));
 		if (resultSet.wasNull()) {
 			linkCrawled.set_extractedTime(null);
+		}
+		
+		linkCrawled.set_httpStatusCode(resultSet.getInt("statusCode"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_httpStatusCode(null);
+		}
+		
+		linkCrawled.set_relevance(resultSet.getLong("relevance"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_relevance(null);
+		}
+		
+		linkCrawled.set_distanceFromRelevantPage(resultSet.getLong("distanceFromRelevantPage"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_distanceFromRelevantPage(null);
+		}
+		
+		linkCrawled.set_freshness(resultSet.getInt("freshness"));
+		if (resultSet.wasNull()) {
+			linkCrawled.set_freshness(null);
 		}
 
 		linkCrawled.setTimeCrawled(resultSet.getString("time_crawled"));
@@ -115,9 +135,12 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 		try {
 			connection = this.daoFactory.getConnection();
 
-			final Object[] values = { linkCrawled.getLink(), linkCrawled.getPriority(),
+			final Object[] values = {
+				linkCrawled.getLink(), linkCrawled.getPriority(),
 				linkCrawled.getDomainTableId1(), linkCrawled.get_downloadDuration(),
-				linkCrawled.get_extractedTime(), linkCrawled.getTimeCrawled(),
+				linkCrawled.get_extractedTime(), linkCrawled.get_httpStatusCode(),
+				linkCrawled.get_relevance(), linkCrawled.get_distanceFromRelevantPage(),
+				linkCrawled.get_freshness(), linkCrawled.getTimeCrawled(),
 				linkCrawled.getDateCrawled() };
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);

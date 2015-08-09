@@ -1,5 +1,9 @@
 package database;
 
+import static common.ErrorCode.FAILED;
+import static common.ErrorCode.SUCCEEDED;
+import static common.LogManager.writeGenericLog;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,12 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import common.ErrorCode.CrError;
-import common.Helper;
 import common.IWebPage;
 import common.URLObject;
-
-import static common.LogManager.*;
-import static common.ErrorCode.*;
 
 public class MySQLDatabaseConnection implements IDatabaseConnection {
 	private LinkCrawledDAO m_linkCrawledDAO = null;
@@ -110,13 +110,8 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				
 				// TODO check this persistent to see if the logic is sound
 				LinkQueue linkQueue = new LinkQueue();
-				linkQueue.setLink(url.getAbsoluteLink());
 				linkQueue.setDomainTableId1(domainId);
-				linkQueue.setPersistent(0);
-				linkQueue.setPriority(url.get_priority());
-				linkQueue.set_extractedTime(url.get_extractedTime());
-				linkQueue.setTimeCrawled(Helper.getCurrentTime());
-				linkQueue.setDateCrawled(Helper.getCurrentDate());
+				linkQueue.Assign(url);
 				
 				synchronized(this.m_linkQueueDAO) {
 					int id = this.m_linkQueueDAO.create(linkQueue);
@@ -181,13 +176,8 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				
 				// TODO check this persistent to see if the logic is sound
 				LinkCrawled linkCrawled = new LinkCrawled();
-				linkCrawled.setLink(url.getAbsoluteLink());
-				linkCrawled.setPriority(url.get_priority());
 				linkCrawled.setDomainTableId1(domainId);
-				linkCrawled.set_downloadDuration(url.get_downloadDuration());
-				linkCrawled.set_extractedTime(url.get_extractedTime());
-				linkCrawled.setTimeCrawled(Helper.getCurrentTime());
-				linkCrawled.setDateCrawled(Helper.getCurrentDate());
+				linkCrawled.Assign(url);
 				
 				synchronized(this.m_linkCrawledDAO) {
 					int id = this.m_linkCrawledDAO.create(linkCrawled);

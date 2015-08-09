@@ -1,5 +1,8 @@
 package database;
 
+import common.Helper;
+import common.URLObject;
+
 public class LinkQueue {
 	// Constants
 	// ----------------------------------------------------------------------------------
@@ -10,16 +13,30 @@ public class LinkQueue {
 	// Properties
 	// ---------------------------------------------------------------------------------
 
-	Integer m_id;
-	String m_link;
-	Integer m_domainTableId1;
-	Integer m_priority;
-	Integer m_persistent;
-	Long m_extractedTime;
+	private Integer m_id;
+	private String m_link;
+	private Integer m_domainTableId1;
+	private Integer m_priority;
+	private Integer m_persistent;
+	private Long m_extractedTime;
+	private Long m_relevance;
+	private Long m_distanceFromRelevantPage;
+	private Integer m_freshness;
+	private String m_timeCrawled;
+	private String m_dateCrawled;
 
-	String m_timeCrawled;
-	String m_dateCrawled;
-
+	public void Assign(URLObject url) {
+		this.setLink(url.getAbsoluteLink());
+		this.setPersistent(0);
+		this.setPriority(url.get_priority());
+		this.set_extractedTime(url.get_extractedTime());
+		this.set_relevance(url.get_relevance());
+		this.set_distanceFromRelevantPage(url.get_distanceFromRelevantPage());
+		this.set_freshness(url.get_freshness());
+		this.setTimeCrawled(Helper.getCurrentTime());
+		this.setDateCrawled(Helper.getCurrentDate());
+	}
+	
 	// Getters/setters
 	// ----------------------------------------------------------------------------
 
@@ -85,6 +102,30 @@ public class LinkQueue {
 
 	public void set_extractedTime(Long extractedTime) {
 		this.m_extractedTime = extractedTime;
+	}
+
+	public Long get_relevance() {
+		return m_relevance;
+	}
+
+	public void set_relevance(Long relevance) {
+		this.m_relevance = relevance;
+	}
+
+	public Long get_distanceFromRelevantPage() {
+		return m_distanceFromRelevantPage;
+	}
+
+	public void set_distanceFromRelevantPage(Long distanceFromRelevantPage) {
+		this.m_distanceFromRelevantPage = distanceFromRelevantPage;
+	}
+
+	public Integer get_freshness() {
+		return m_freshness;
+	}
+
+	public void set_freshness(Integer freshness) {
+		this.m_freshness = freshness;
 	}
 
 	// Object overrides

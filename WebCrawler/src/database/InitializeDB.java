@@ -77,7 +77,7 @@ public class InitializeDB {
 		try {
 			Statement st = this.con.createStatement();
 			st.executeQuery("USE " + this.database);
-
+			
 			st.executeUpdate("CREATE TABLE link_queue_table ("
 				+ "id int unsigned AUTO_INCREMENT not null, "
 				+ "link char(255) not null, "
@@ -85,6 +85,9 @@ public class InitializeDB {
 				+ "priority int unsigned, "
 				+ "persistent int unsigned, "
 				+ "extracted_time bigint unsigned not null, "
+				+ "relevance int not null, "
+				+ "distanceFromRelevantPage int not null, "
+				+ "freshness int unsigned not null, "
 				+ "time_crawled char(128) not null, "
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "
@@ -99,6 +102,10 @@ public class InitializeDB {
 				+ "domain_table_id_1 int unsigned not null, "
 				+ "download_duration bigint unsigned not null, "
 				+ "extracted_time bigint unsigned not null, "
+				+ "statusCode int not null, "
+				+ "relevance int not null, "
+				+ "distanceFromRelevantPage int not null, "
+				+ "freshness int unsigned not null, "
 				+ "time_crawled char(128) not null, "
 				+ "date_crawled char(128) not null, "
 				+ "PRIMARY KEY(id), "

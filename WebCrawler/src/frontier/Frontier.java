@@ -207,75 +207,75 @@ public class Frontier implements IFrontier {
 		synchronized(m_domainToBackEndQueueMap) {
 			while (true) {
 				while (m_backEndQueues.isEmpty()) {
-					if (m_domainToBackEndQueueMap.size() < m_maxNumBackEndQueues) {
-						// Emtpy backend queue but the map is not full, try to get url from the front end queue
-						synchronized(m_frontEndQueue) {
-							if (m_frontEndQueue.isEmpty()) {
-								ArrayList<URLObject> frontierUrls = new ArrayList<URLObject>();
-								hr = m_databaseConnection.pullFrontierDatabase(frontierUrls, Globals.NMAXURLSFROMFRONTIERPERPULL);
-								
-								if (FAILED(hr)) {
-									writeGenericLog("Fail to pull urls from frontier");
-									return hr;
-								}
-								
-								for (URLObject frontierUrl : frontierUrls) {
-									m_frontEndQueue.add(frontierUrl);
-								}
-							}
-							
-							if (m_frontEndQueue.isEmpty()) {
-								// Empty front end queue, there is no more url to crawl, return error
-								writeGenericLog("No more url in the front end queue to crawl");
-								return CrError.CR_EMPTY_QUEUE;
-							} else {
-								// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
-								boolean foundNew = false;
-								while (true) {
-									if (m_frontEndQueue.isEmpty()) {
-										break;
-									}
-									
-									URLObject curUrl = m_frontEndQueue.remove();
-									if (curUrl.getDomain() == null) {
-										continue;
-									}
-
-									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && foundNew) {
-										break;
-									}
-									
-									if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && !foundNew) {
-										writeGenericLog("Create new back end queue with new domain " + curUrl.getDomain());
-										BackEndQueue newBackEndQueue = new BackEndQueue();
-										newBackEndQueue.setDomain(curUrl.getDomain());
-										newBackEndQueue.setPriority(curUrl.get_priority());
-										
-										m_backEndQueues.add(newBackEndQueue);
-										// TODO error this domain is not necessary not only 
-										m_domainToBackEndQueueMap.put(curUrl.getDomain(), newBackEndQueue);
-										
-										foundNew = true;
-									}
-									
-									hr = m_domainToBackEndQueueMap.get(curUrl.getDomain()).pushUrl(curUrl);
-									if (FAILED(hr)) {
-										return hr;
-									}
-								}
-								
-								StringBuilder builder = new StringBuilder();
-								builder.append("Num backend queues : " + m_domainToBackEndQueueMap.size() + "\n");
-								for (Map.Entry<String, BackEndQueue> entry : m_domainToBackEndQueueMap.entrySet()) {
-									builder.append("Domain " + entry.getKey() + " with queue size " + entry.getValue().size() + "\n");
-								}
-								writeGenericLog(builder.toString());
-							}
-						}
-					} else {
+					if (m_domainToBackEndQueueMap.size() >= m_maxNumBackEndQueues) {
 						// Empty backend queue and the map is already full, return error
 						writeGenericLog("All back-end queues are in active. Can't dequeue any more url to crawl.");
 						return CrError.CR_EMPTY_QUEUE;
+					}
+
+					// Emtpy backend queue but the map is not full, try to get url from the front end queue
+					synchronized(m_frontEndQueue) {
+						if (m_frontEndQueue.isEmpty()) {
+							ArrayList<URLObject> frontierUrls = new ArrayList<URLObject>();
+							hr = m_databaseConnection.pullFrontierDatabase(frontierUrls, Globals.NMAXURLSFROMFRONTIERPERPULL);
+							
+							if (FAILED(hr)) {
+								writeGenericLog("Fail to pull urls from frontier");
+								return hr;
+							}
+							
+							for (URLObject frontierUrl : frontierUrls) {
+								m_frontEndQueue.add(frontierUrl);
+							}
+						}
+						
+						if (m_frontEndQueue.isEmpty()) {
+							// Empty front end queue, there is no more url to crawl, return error
+							writeGenericLog("No more url in the front end queue to crawl");
+							return CrError.CR_EMPTY_QUEUE;
+						} else {
+							// Dequeue from the front end queue until we find a new web server that hasn't exists in the map yet
+							boolean foundNew = false;
+							while (true) {
+								if (m_frontEndQueue.isEmpty()) {
+									break;
+								}
+								
+								URLObject curUrl = m_frontEndQueue.remove();
+								if (curUrl.getDomain() == null) {
+									continue;
+								}
+
+								if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && foundNew) {
+									break;
+								}
+								
+								if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && !foundNew) {
+									writeGenericLog("Create new back end queue with new domain " + curUrl.getDomain());
+									BackEndQueue newBackEndQueue = new BackEndQueue();
+									newBackEndQueue.setDomain(curUrl.getDomain());
+									newBackEndQueue.setPriority(curUrl.get_priority());
+									
+									m_backEndQueues.add(newBackEndQueue);
+									// TODO error this domain is not necessary not only 
+									m_domainToBackEndQueueMap.put(curUrl.getDomain(), newBackEndQueue);
+									
+									foundNew = true;
+								}
+								
+								hr = m_domainToBackEndQueueMap.get(curUrl.getDomain()).pushUrl(curUrl);
+								if (FAILED(hr)) {
+									return hr;
+								}
+							}
+							
+							StringBuilder builder = new StringBuilder();
+							builder.append("Num backend queues : " + m_domainToBackEndQueueMap.size() + "\n");
+							for (Map.Entry<String, BackEndQueue> entry : m_domainToBackEndQueueMap.entrySet()) {
+								builder.append("Domain " + entry.getKey() + " with queue size " + entry.getValue().size() + "\n");
+							}
+							writeGenericLog(builder.toString());
+						}
 					}
 				}
 				
