@@ -91,6 +91,7 @@ public class HttpFetcher implements IHttpFetcher {
 				}
 				
 				if (SUCCEEDED(hr)) {
+					inUrl.set_webPage(downloadedWebPage);
 					return CrError.CR_OK;
 				}
 			} catch (Exception e) {

@@ -1,7 +1,9 @@
 package frontier;
 
+import static common.ErrorCode.FAILED;
+import static common.LogManager.writeGenericLog;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -9,13 +11,10 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import common.ErrorCode.CrError;
-import database.IDatabaseConnection;
 import common.Globals;
 import common.Helper;
 import common.URLObject;
-
-import static common.ErrorCode.*;
-import static common.LogManager.*;
+import database.IDatabaseConnection;
 
 public class Frontier implements IFrontier {
 	// Back end queue that disperse urls to crawler threads
@@ -30,99 +29,11 @@ public class Frontier implements IFrontier {
 	private int m_maxNumBackEndQueues;
 	
 	private IDatabaseConnection m_databaseConnection = null;
-
-	private class BackEndQueueComparator implements Comparator<BackEndQueue> {
-		@Override
-		public int compare(BackEndQueue arg0, BackEndQueue arg1) {
-			if (arg0.getPriority() != arg1.getPriority()) {
-				return arg0.getPriority() - arg1.getPriority();
-			}
-			
-			if (arg0.get_minNextProcessTimeInMillisec() - arg1.get_minNextProcessTimeInMillisec() > 0) {
-				return 1;
-			}
-			
-			return -1;
-		}
-	}
-	
-	// Backend queue, typically each queue contains URLs from 1 or a few web server at most
-	private class BackEndQueue {
-		private Queue<URLObject> m_urlsQueue = new LinkedList<URLObject>();
-		private long m_minNextProcessTimeInMillisec = Long.MIN_VALUE;
-		private String m_domain = null;
-		private int m_priority;
-		
-		private BackEndQueue() {
-		}
-		
-		private synchronized CrError pullUrl(URLObject url) {
-			CrError hr = CrError.CR_OK;
-			
-			// Get the next url from queue
-			URLObject nextUrl = m_urlsQueue.poll();
-			
-			// Return error if the queue is empty
-			if (nextUrl == null) {
-				return CrError.CR_EMPTY_QUEUE;
-			}
-			
-			url.assign(nextUrl);
-			
-			return hr; 
-		}
-		
-		private synchronized CrError pushUrl(URLObject url) {
-			m_urlsQueue.add(url);
-			
-			return CrError.CR_OK;
-		}
-		
-		private synchronized int size() {
-			return m_urlsQueue.size();
-		}
-
-		public long get_minNextProcessTimeInMillisec() {
-			return m_minNextProcessTimeInMillisec;
-		}
-
-		public void set_minNextProcessTimeInMillisec(long m_minNextProcessTimeInMillisec) {
-			this.m_minNextProcessTimeInMillisec = m_minNextProcessTimeInMillisec;
-		}
-
-		public String getDomain() {
-			return m_domain;
-		}
-
-		public void setDomain(String domain) {
-			this.m_domain = domain;
-		}
-
-		public int getPriority() {
-			return m_priority;
-		}
-
-		public void setPriority(int priority) {
-			this.m_priority = priority;
-		}
-		
-		@Override
-		public int hashCode() {
-			return this.m_domain.hashCode();
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-			BackEndQueue queue = (BackEndQueue)obj;
-			
-			return this.m_domain.equals(queue.getDomain());
-		}
-	}
 	
 	public Frontier(int numQueues, IDatabaseConnection databaseConnection)
 	{	
 		m_frontEndQueue = new LinkedList<URLObject>();
-		m_backEndQueues = new PriorityQueue<BackEndQueue>(numQueues /* initialCapacity */, new BackEndQueueComparator());
+		m_backEndQueues = new PriorityQueue<BackEndQueue>(numQueues /* initialCapacity */, new BackEndQueue.BackEndQueueComparator());
 		m_domainToBackEndQueueMap = new HashMap<String, BackEndQueue>();
 		m_maxNumBackEndQueues = numQueues;
 		m_databaseConnection = databaseConnection;
@@ -153,7 +64,7 @@ public class Frontier implements IFrontier {
 		
 		CrError hr = this.pullUrls(outUrls, 1);
 		if (FAILED(hr)) {
-			// TODO log error
+			writeGenericLog("Pull url fail with hr = " + hr);
 			return hr;
 		}
 
@@ -191,9 +102,8 @@ public class Frontier implements IFrontier {
 	public CrError pullUrls(ArrayList<URLObject> outUrls, int maxNumUrls) {
 		CrError hr = pullUrlsInternal(outUrls, maxNumUrls);
 		
-		writeGenericLog("Pull " + outUrls.size() + " urls with hr = " + hr);
 		if (FAILED(hr)) {
-			// TODO log error
+			writeGenericLog("Pull urls fail with hr = " + hr);
 		}
 		
 		return hr;
@@ -245,6 +155,11 @@ public class Frontier implements IFrontier {
 								if (curUrl.getDomain() == null) {
 									continue;
 								}
+								
+								// Ignore pages that are too far from relevant page
+								if (curUrl.get_distanceFromRelevantPage() > Globals.MAXDISTANCEFROMRELEVANTPAGE) {
+									continue;
+								}
 
 								if (!m_domainToBackEndQueueMap.containsKey(curUrl.getDomain()) && foundNew) {
 									break;
@@ -257,7 +172,6 @@ public class Frontier implements IFrontier {
 									newBackEndQueue.setPriority(curUrl.get_priority());
 									
 									m_backEndQueues.add(newBackEndQueue);
-									// TODO error this domain is not necessary not only 
 									m_domainToBackEndQueueMap.put(curUrl.getDomain(), newBackEndQueue);
 									
 									foundNew = true;
@@ -307,7 +221,7 @@ public class Frontier implements IFrontier {
 
 			hr = backEndQueue.pullUrl(url);
 			if (FAILED(hr)) {
-				// TODO log error
+				writeGenericLog("Pull urls from backend queue fail with hr = " + hr);
 				break;
 			}
 			

@@ -6,5 +6,5 @@ import common.URLObject;
 import common.ErrorCode.CrError;
 
 public interface IURLDuplicationEliminator {
-	public CrError eliminateDuplicatedURLs(ArrayList<URLObject> inoutUrls);
+	public CrError eliminateDuplicatedURLs(URLObject originalUrl, ArrayList<URLObject> inoutUrls);
 }

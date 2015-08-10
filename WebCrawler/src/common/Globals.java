@@ -29,6 +29,18 @@ public class Globals {
 	// Maximum wait time to pull a page from frontier
 	public static final long MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC = 5 * 60 * 1000;
 	
+	// Maximum relevance score
+	public static final long MAXRELEVANCESCORE = 10000;
+	
+	// Minimum relevance score of a page for it to be considered relevant
+	public static final long MINRELEVANCESCORETOBERELEVANT = 3000;
+	
+	// Relevance decay factor from parent to child page
+	public static final double RELEVANCEDECAYFACTOR = 0.8;
+	
+	// Max distance from relevant page to be considered
+	public static final int MAXDISTANCEFROMRELEVANTPAGE = 5;
+	
 	// Database
 	public static final String username = "root";
 	public static final String password = "";

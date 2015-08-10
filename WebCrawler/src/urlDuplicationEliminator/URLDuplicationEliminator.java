@@ -36,8 +36,10 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 	}
 	
 	@Override
-	public CrError eliminateDuplicatedURLs(ArrayList<URLObject> inoutUrls) {
+	public CrError eliminateDuplicatedURLs(URLObject originalUrl, ArrayList<URLObject> inoutUrls) {
 		Set<String> urls = new HashSet<String>();
+		// Don't recursively include itself in the new to-be-crawl link set
+		urls.add(originalUrl.getAbsoluteLink());
 		
 		for (int i = 0; i < inoutUrls.size(); ++i) {
 			URLObject url = inoutUrls.get(i);
@@ -82,7 +84,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 					inoutUrls.remove(i);
 					--i;
 				} else {
-					writeGenericLog("Url " + absoluteLink + " got false positive");
+					// writeGenericLog("Url " + absoluteLink + " got false positive");
 				}
 			} else {
 				// Even if the bloomfilter said no, we still needs to check (refer to TODO at the beginning)

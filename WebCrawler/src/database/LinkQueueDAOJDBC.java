@@ -12,10 +12,11 @@ import common.Helper;
 import static common.LogManager.*;
 
 public class LinkQueueDAOJDBC implements LinkQueueDAO {
-	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table LIMIT ?";
+	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table ORDER BY priority ASC, relevance DESC LIMIT ?";
 	private final String SQL_DELETE_WITH_LIMIT = "DELETE FROM link_queue_table LIMIT ?";
 	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, extracted_time, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_queue_table WHERE link = ?";
+	private final String SQL_UPDATE = "UPDATE link_queue_table SET relevance = ?, distanceFromRelevantPage = ?, freshness = ? WHERE link = ? AND relevance <= ? AND distanceFromRelevantPage >= ?";
 
 	private final DAOFactory daoFactory;
 
@@ -138,6 +139,51 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		}
 	}
 
+	public int update(LinkQueue linkQueue) throws SQLException {
+		if (linkQueue.getLink() == null) {
+			return -1;
+		}
+
+		// If the time crawled is not specified, use the current time
+		if (linkQueue.getTimeCrawled() == null || linkQueue.getDateCrawled() == null) {
+			linkQueue.setTimeCrawled(Helper.getCurrentTime());
+			linkQueue.setDateCrawled(Helper.getCurrentDate());
+		}
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = this.daoFactory.getConnection();
+			
+			final Object[] values = { 
+				linkQueue.get_relevance(), linkQueue.get_distanceFromRelevantPage(),
+				linkQueue.get_freshness(), linkQueue.getLink(),
+				linkQueue.get_relevance(), linkQueue.get_distanceFromRelevantPage() };
+
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_UPDATE, true, values);
+
+			preparedStatement.executeUpdate();
+
+			// Get the generated key (id)
+			resultSet = preparedStatement.getGeneratedKeys();
+			int generatedKey = -1;
+
+			if (resultSet.next()) {
+				generatedKey = resultSet.getInt(1);
+			}
+
+			return generatedKey;
+		} catch (final SQLException e) {
+			writeGenericLog("Update link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
+			// TODO return the real update id
+			return -1;
+		} finally {
+			DAOUtil.close(connection, preparedStatement, resultSet);
+		}
+	}
+	
 	@Override
 	public int create(LinkQueue linkQueue) throws SQLException {
 		if (linkQueue.getLink() == null) {
@@ -156,7 +202,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 		try {
 			connection = this.daoFactory.getConnection();
-
+			
 			final Object[] values = { linkQueue.getLink(),
 				linkQueue.getDomainTableId1(), linkQueue.getPriority(),
 				linkQueue.getPersistent(), linkQueue.get_extractedTime(),
@@ -178,7 +224,12 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 			return generatedKey;
 		} catch (final SQLException e) {
-			writeGenericLog("Insert into link_queue_table fails, " + e.getMessage());
+			// Duplicate entry, update in this case
+			if (e.getErrorCode() == 1062) {
+				return this.update(linkQueue);
+			} else {
+				writeGenericLog("Insert into link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
+			}
 
 			return -1;
 		} finally {

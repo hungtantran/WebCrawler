@@ -133,14 +133,14 @@ public class WebCrawler {
 			}
 			
 			// Remove duplicated urls
-			hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(extractedUrls);
+			hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(outUrl, extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 			
 			// Prioritize urls
-			hr = m_urlPrioritizer.prioritizeUrl(extractedUrls);
+			hr = m_urlPrioritizer.prioritizeUrl(outUrl, extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;

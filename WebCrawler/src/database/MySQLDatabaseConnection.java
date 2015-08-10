@@ -68,10 +68,14 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		if (SUCCEEDED(hr)) {
 			for (LinkQueue linkQueue : linkQueues) {
 				URLObject urlFrontier = new URLObject();
+
 				urlFrontier.setLink(linkQueue.getLink());
 				urlFrontier.setDomain(this.domainIdToDomainMap.get(linkQueue.getDomainTableId1()));
 				urlFrontier.set_priority(linkQueue.getPriority());
 				urlFrontier.set_extractedTime(linkQueue.get_extractedTime());
+				urlFrontier.set_relevance(linkQueue.get_relevance());
+				urlFrontier.set_distanceFromRelevantPage(linkQueue.get_distanceFromRelevantPage());
+				urlFrontier.set_freshness(linkQueue.get_freshness());
 				
 				outUrls.add(urlFrontier);
 			}
@@ -200,12 +204,8 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 			LinkCrawled linkCrawled = new LinkCrawled();
 			linkCrawled.setLink(link);
 			
-			LinkQueue linkQueue = new LinkQueue();
-			linkQueue.setLink(link);
-			
 			synchronized(this.m_linkCrawledDAO) {
-				boolean exists = this.m_linkCrawledDAO.linkExists(linkCrawled) || this.m_linkQueueDAO.linkExists(linkQueue);
-				return exists;
+				return this.m_linkCrawledDAO.linkExists(linkCrawled);
 			}
 		} catch (SQLException e) {
 			writeGenericLog("Fail to check if url " + inUrl.getAbsoluteLink() + " is duplicated or not, "+ e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());

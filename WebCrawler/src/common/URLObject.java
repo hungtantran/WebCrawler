@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Comparator;
 
 import common.ErrorCode.CrError;
 
@@ -22,7 +23,26 @@ public class URLObject {
 	private long m_relevance;
 	private long m_distanceFromRelevantPage;
 	private int m_freshness;
+	private IWebPage m_webPage;
 
+	public static class URLObjectRelevanceAndPriorityComparator implements Comparator<URLObject> {
+		public URLObjectRelevanceAndPriorityComparator() {
+		}
+
+		@Override
+		public int compare(URLObject arg0, URLObject arg1) {
+			if (arg0.get_priority() != arg1.get_priority()) {
+				return arg0.get_priority() - arg1.get_priority();
+			}
+			
+			if (arg0.get_relevance() > arg1.get_relevance()) {
+				return 1;
+			}
+			
+			return -1;
+		}
+	}
+	
 	public URLObject()
 	{
 		this.m_link = null;
@@ -34,9 +54,10 @@ public class URLObject {
 		this.m_crawledTime = Integer.MIN_VALUE;
 		this.m_downloadDuration = Integer.MIN_VALUE;
 		this.m_httpStatusCode = -1;
-		this.m_relevance = Integer.MIN_VALUE;
+		this.m_relevance = 0;
 		this.m_distanceFromRelevantPage = Integer.MAX_VALUE;
 		this.m_freshness = 0;
+		this.m_webPage = null;
 	}
 
 	public void assign(URLObject other) {
@@ -52,8 +73,17 @@ public class URLObject {
 		this.set_relevance(other.get_relevance());
 		this.set_distanceFromRelevantPage(other.get_distanceFromRelevantPage());
 		this.set_freshness(other.get_freshness());
+		this.set_webPage(other.get_webPage());
 	}
 
+	public IWebPage get_webPage() {
+		return m_webPage;
+	}
+
+	public void set_webPage(IWebPage webPage) {
+		this.m_webPage = webPage;
+	}
+	
 	public int get_freshness() {
 		return m_freshness;
 	}

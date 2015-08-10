@@ -19,6 +19,8 @@ public class Test_IURLDuplicationEliminator {
 	
 	public void Test_URLDuplicationEliminator() {
 		IURLDuplicationEliminator eliminator = new URLDuplicationEliminator(null);
+		URLObject originalUrl = new URLObject();
+		originalUrl.setLink("http://www.microsoft.com");
 		
 		ArrayList<URLObject> urls = new ArrayList<URLObject>();
 		for (int i = 2; i <= 9998; ++i) {
@@ -27,7 +29,7 @@ public class Test_IURLDuplicationEliminator {
 			url.setDomain("http://vnexpress.net/");
 			urls.add(url);
 		}
-		eliminator.eliminateDuplicatedURLs(urls);
+		eliminator.eliminateDuplicatedURLs(originalUrl,urls);
 		assertEquals(9997, urls.size());
 		
 		ArrayList<URLObject> url2s = new ArrayList<URLObject>();
@@ -37,7 +39,7 @@ public class Test_IURLDuplicationEliminator {
 			url.setDomain("http://vnexpress.net/");
 			url2s.add(url);
 		}
-		eliminator.eliminateDuplicatedURLs(url2s);
+		eliminator.eliminateDuplicatedURLs(originalUrl, url2s);
 		assertEquals(3, url2s.size());
 		
 		ArrayList<URLObject> url3s = new ArrayList<URLObject>();
@@ -47,7 +49,7 @@ public class Test_IURLDuplicationEliminator {
 			url.setDomain("http://google.com/");
 			url3s.add(url);
 		}
-		eliminator.eliminateDuplicatedURLs(url3s);
+		eliminator.eliminateDuplicatedURLs(originalUrl, url3s);
 		assertEquals(10000, url3s.size());
 		
 		ArrayList<URLObject> url4s = new ArrayList<URLObject>();
@@ -57,7 +59,7 @@ public class Test_IURLDuplicationEliminator {
 			url.setDomain("http://vnexpress.net/");
 			url4s.add(url);
 		}
-		eliminator.eliminateDuplicatedURLs(url4s);
+		eliminator.eliminateDuplicatedURLs(originalUrl, url4s);
 		assertEquals(1, url4s.size());
 	}
 }
