@@ -1,38 +1,79 @@
 package urlDuplicationEliminator;
 
+import static common.LogManager.writeGenericLog;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import common.ErrorCode.CrError;
-import database.IDatabaseConnection;
 import common.Globals;
 import common.Helper;
 import common.URLObject;
-
-import static common.LogManager.*;
+import database.IDatabaseConnection;
 
 public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 	private int[] m_bloomFilter;
 	private Set<String> m_setDuplicatedString;
 	private int m_bloomFilterByteSize;
-	private IDatabaseConnection m_databaseConnection = null;
+	private String m_bloomfilterFileName = null;
+	private int m_numWriteToBloomfilter = 0;
 	
 	public URLDuplicationEliminator(IDatabaseConnection databaseConnection) {
-		//TODO persist data onto disk or populate it in the database 
+		// Exit if can't create directory/file and the directory/file hasn't already been existed
+		File dir = Helper.createDir(Globals.DEFAULTBLOOMFILTERDIRECTORY);
+		if (dir == null) {
+			System.out.println("Can't create log folder");
+			System.exit(1);
+		}
+		
 		m_bloomFilterByteSize = Globals.NMEGABYTESFORBLOOMFILTER * 1024 * 1024;
 		if (m_bloomFilterByteSize <= 0) {
 			m_bloomFilterByteSize = Integer.MAX_VALUE;
 		}
 
 		int numElems = m_bloomFilterByteSize / 4;
-		m_bloomFilter = new int[numElems];
-		for (int i = 0; i < numElems; ++i) {
-			m_bloomFilter[i] = 0;
+
+		m_bloomfilterFileName = Globals.DEFAULTBLOOMFILTERDIRECTORY + Globals.PATHSEPARATOR + Globals.DEFAULTBLOOMFILTERFILENAME;
+		
+		// If file exists, deserialize the bloomfilter from that. Otherwises, recreate it
+		boolean createNewBloomfilter = true;
+		if (Helper.fileExists(m_bloomfilterFileName)) {
+			try {
+				FileInputStream bloomFilterInputStream = new FileInputStream(m_bloomfilterFileName);
+				ObjectInputStream inputOStream = new ObjectInputStream(bloomFilterInputStream);
+				m_bloomFilter = (int[]) inputOStream.readObject();
+				
+				if (m_bloomFilter.length == numElems) {
+					writeGenericLog("Reuse existing bloomfilter");
+					createNewBloomfilter = false;
+				}
+				
+				inputOStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				writeGenericLog(e.getMessage());
+				System.exit(1);
+			}
+		}
+		
+		// Create new bloomfilter if needed
+		if (createNewBloomfilter) {
+			writeGenericLog("Create new bloomfilter");
+			m_bloomFilter = new int[numElems];
+			for (int i = 0; i < numElems; ++i) {
+				m_bloomFilter[i] = 0;
+			}
 		}
 		
 		m_setDuplicatedString = new HashSet<String>();
-		m_databaseConnection = databaseConnection;
+		new ReentrantReadWriteLock();
 	}
 	
 	@Override
@@ -41,6 +82,8 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 		// Don't recursively include itself in the new to-be-crawl link set
 		urls.add(originalUrl.getAbsoluteLink());
 		
+		boolean changeToBloomfilter = false;
+
 		for (int i = 0; i < inoutUrls.size(); ++i) {
 			URLObject url = inoutUrls.get(i);
 			String absoluteLink = url.getAbsoluteLink();
@@ -75,26 +118,48 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 					int tmp = 1 << bitPosInInt;
 					m_bloomFilter[indexInArray] = m_bloomFilter[indexInArray] + tmp;
 					m_setDuplicatedString.add(absoluteLink);
+					++m_numWriteToBloomfilter;
+					changeToBloomfilter = true;
 				}
 			}
 			
 			// If bloomfilter said it exists, check with the database itself
 			if (exists) {
-				if (m_databaseConnection.checkURLDuplicationDatabase(url)) {
-					inoutUrls.remove(i);
-					--i;
-				} else {
-					// writeGenericLog("Url " + absoluteLink + " got false positive");
-				}
-			} else {
-				// Even if the bloomfilter said no, we still needs to check (refer to TODO at the beginning)
-				if (m_databaseConnection.checkURLDuplicationDatabase(url)) {
-					inoutUrls.remove(i);
-					--i;
-				}
+				inoutUrls.remove(i);
+				--i;
 			}
 		}
 		
+		synchronized(m_bloomFilter) {
+			try {
+				if (changeToBloomfilter && m_numWriteToBloomfilter >= Globals.MAXWRITETOBLOOMFILTERBEFOREFLUSHINGTODISK) {
+					writeGenericLog("Number of write to bloomfilter : " + m_numWriteToBloomfilter + ", flush to disk");
+					
+					File bloomFilterFile = Helper.createFile(this.m_bloomfilterFileName);
+					if (bloomFilterFile != null) {
+						if (!bloomFilterFile.delete()) {
+							writeGenericLog("Can't delete bloomfilter file " + m_bloomfilterFileName);
+							System.exit(1);
+						} else {
+							writeGenericLog("Delete old bloomfilter");
+						}
+					}
+					
+					FileOutputStream bloomfilterOutputStream = new FileOutputStream(m_bloomfilterFileName);
+					ObjectOutputStream outputOStream = new ObjectOutputStream(bloomfilterOutputStream);
+					outputOStream.writeObject(m_bloomFilter); 
+					outputOStream.flush(); 
+					outputOStream.close();
+
+					m_numWriteToBloomfilter = 0;					
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+				writeGenericLog(e.getMessage());
+				System.exit(1);
+			}
+		}
+
 		return null;
 	}
 

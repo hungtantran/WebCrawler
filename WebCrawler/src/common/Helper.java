@@ -1,6 +1,7 @@
 package common;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -104,6 +105,11 @@ public class Helper {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         cal.add(Calendar.DATE, 0);    
         return dateFormat.format(cal.getTime());
+	}
+	
+	// Return the current hour in the day. For ex: 10:00pm will return 22
+	public static int getCurrentHour() {
+		return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	}
 	
 	public static String getPastDate(int pastDays) {
@@ -419,9 +425,57 @@ public class Helper {
 			return new String(messageDigest.digest());
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println(e.getMessage());
-			System.exit(1);
+			return null;
 		}
-		
-		return new String();
+	}
+
+	public static File createDir(String directory) {
+		if (directory == null || directory.length() == 0) {
+			return null;
+		}
+
+		// Create the folder
+		File logDirectory = new File(directory);
+		if (!logDirectory.exists() && logDirectory.mkdir()) {
+			System.out.println("Directory: " + directory + " created");
+		} else if (!logDirectory.exists()) {
+			System.out.println("Fail to create directory " + directory);
+			return null;
+		}
+
+		return logDirectory;
+	}
+
+	// Return the the file. (fileName is full path and fileName)
+	public static File createFile(String fileName) {
+		if (fileName == null || fileName.length() == 0) {
+			return null;
+		}
+
+		// Create the file
+		File file = new File(fileName);
+		try {
+			if (!file.exists() && file.createNewFile()) {
+				System.out.println("File: " + fileName + " created");
+			} else if (!file.exists()) {
+				System.out.println("Fail to create file " + fileName);
+				return null;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return file;
+	}
+	
+	// Return if file/directory exists
+	public static boolean fileExists(String fileName) {
+		if (fileName == null || fileName.length() == 0) {
+			return false;
+		}
+
+		File file = new File(fileName);
+		return file.exists();
 	}
 }

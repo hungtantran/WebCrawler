@@ -17,7 +17,7 @@ public class URLPrioritizer implements IURLPrioritizer {
 	private long computeRelevanceScore(String text) {
 		long score = 0;
 		
-		int index = StringUtils.indexOfIgnoreCase(text, "microsoft");
+		int index = StringUtils.indexOfIgnoreCase(text, "preppy");
 		if (index != -1) {
 			score = Globals.MAXRELEVANCESCORE;
 		} else {
@@ -33,7 +33,12 @@ public class URLPrioritizer implements IURLPrioritizer {
 		
 		if (originalWebpage != null) {
 			long relevanceScore = computeRelevanceScore(originalWebpage.getString());
-			relevanceScore = (relevanceScore * 2 + originalUrl.get_relevance()) / 3;
+			
+			// Only dilute relevance score if it doesn't attain max score
+			if (relevanceScore != Globals.MAXRELEVANCESCORE) {
+				relevanceScore = (relevanceScore * 2 + originalUrl.get_relevance()) / 3;
+			}
+
 			originalUrl.set_relevance(relevanceScore);
 			
 			// If the original url exceeds the relevance threshold, it's relevant and its distance

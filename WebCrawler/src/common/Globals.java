@@ -5,6 +5,18 @@ import java.io.File;
 public class Globals {
 	public static final String PATHSEPARATOR = File.separator;
 	
+	// Directory to output log
+	public static final String DEFAULTLOGDIRECTORY = "Log";
+	
+	// Prefix for log file name
+	public static final String DEFAULTLOGFILEPREFIX = "generalLog";
+	
+	// The duration each log file should exists for in minutes
+	public static final int DEFAULTLOGFILEDURATIONINMIN = 5; 
+	
+	// The size of the log writer buffer before writing to disk
+	public static final int MAXLOGBUFFERSIZEINMB = 1;
+	
 	// Number of crawling thread
 	public static final int NTHREADS = 4;
 	
@@ -18,7 +30,16 @@ public class Globals {
 	public static final int NRETRIESDOWNLOAD = 3;
 	
 	// Number of megabytes used for the url duplication eliminator bloomfilter
-	public static final int NMEGABYTESFORBLOOMFILTER = 512; 
+	public static final int NMEGABYTESFORBLOOMFILTER = 32;
+	
+	// Directory to save/read bloomfilter
+	public static final String DEFAULTBLOOMFILTERDIRECTORY = "Bloomfilter";
+	
+	// Prefix for bloomfilter filename
+	public static final String DEFAULTBLOOMFILTERFILENAME = "bloomfilter";
+	
+	// The number of query to bloomfilter before writing it down to disk
+	public static final int MAXWRITETOBLOOMFILTERBEFOREFLUSHINGTODISK = 100;
 	
 	// Politeness factor to download a webpage, used in frontier
 	public static final int NPOLITENESSFACTOR = 10;
@@ -39,7 +60,7 @@ public class Globals {
 	public static final double RELEVANCEDECAYFACTOR = 0.8;
 	
 	// Max distance from relevant page to be considered
-	public static final int MAXDISTANCEFROMRELEVANTPAGE = 5;
+	public static final int MAXDISTANCEFROMRELEVANTPAGE = 3;
 	
 	// Database
 	public static final String username = "root";

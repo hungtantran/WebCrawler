@@ -246,17 +246,23 @@ public class Frontier implements IFrontier {
 
 	@Override
 	public CrError pushUrls(URLObject originalUrl, ArrayList<URLObject> inUrls) {
-		CrError hr = CrError.CR_OK;
-		
-		for (URLObject inUrl : inUrls) {
-			hr = this.pushUrl(originalUrl, inUrl);
+		synchronized(m_frontEndQueue) {
+			CrError hr = m_databaseConnection.pushFrontierDatabase(inUrls);
 			if (FAILED(hr)) {
+				writeGenericLog("Fail to push " + inUrls.size() + " urls extracted from url " + originalUrl.getAbsoluteLink() + " into frontier database");
 				return hr;
+			}
+			
+			m_frontEndQueue.addAll(inUrls);
+			
+			// Print out front end queue size every 100 times
+			if (m_frontEndQueue.size() % 100 == 0) {
+				writeGenericLog("Front end queue size : " + m_frontEndQueue.size());
 			}
 		}
 		
 		releaseBackEndQueue(originalUrl);
-		
+
 		return CrError.CR_OK;
 	}
 }
