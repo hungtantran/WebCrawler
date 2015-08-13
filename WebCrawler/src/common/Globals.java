@@ -1,6 +1,8 @@
 package common;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Globals {
 	public static final String PATHSEPARATOR = File.separator;
@@ -18,7 +20,7 @@ public class Globals {
 	public static final int MAXLOGBUFFERSIZEINMB = 1;
 	
 	// Number of crawling thread
-	public static final int NTHREADS = 4;
+	public static final int NTHREADS = 5;
 	
 	// Number of backend queue in the url frontier (should be approximately NTHREADS * 3)
 	public static final int NQUEUES = 12;
@@ -47,6 +49,9 @@ public class Globals {
 	// Maximum number of urls pull out of frontier database at a time
 	public static final int NMAXURLSFROMFRONTIERPERPULL = 10;
 	
+	// Minimum wait time to pull a page from frontier
+	public static final long MINWAITTIMETOPULLURLFROMFRONTIERINMILLISEC = 2 * 1000;
+	
 	// Maximum wait time to pull a page from frontier
 	public static final long MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC = 5 * 60 * 1000;
 	
@@ -60,11 +65,20 @@ public class Globals {
 	public static final double RELEVANCEDECAYFACTOR = 0.8;
 	
 	// Max distance from relevant page to be considered
-	public static final int MAXDISTANCEFROMRELEVANTPAGE = 3;
+	public static final int MAXDISTANCEFROMRELEVANTPAGE = 2;
+	
+	// Blacklist domain
+	public static final String[] BLACKLISTDOMAINS = { "https://www.facebook.com", "https://twitter.com", "https://www.google.com", "http://www.bing.com", "http://www.pinterest.com"};
+	public static Set<String> BLACKLISTDOMAINSET = new HashSet<String>();
+	static {
+		for (int i = 0; i < BLACKLISTDOMAINS.length; ++i) {
+			BLACKLISTDOMAINSET.add(BLACKLISTDOMAINS[i]);
+		}
+	}
 	
 	// Database
 	public static final String username = "root";
 	public static final String password = "";
 	public static final String server = "localhost:3306/";
-	public static final String database = "webcrawler";
+	public static final String database = "webcrawler2";
 }

@@ -233,9 +233,13 @@ public class Frontier implements IFrontier {
 		// Wait for politeness to the webserver
 		long minNextProcessTimeInMillisec = backEndQueue.get_minNextProcessTimeInMillisec();
 		long waitDuration = minNextProcessTimeInMillisec - Helper.getCurrentTimeInMillisec();
-		if (minNextProcessTimeInMillisec >0 && waitDuration > 0) {
+		if (minNextProcessTimeInMillisec > 0 && waitDuration > 0) {
 			if (waitDuration > Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC) {
 				waitDuration = Globals.MAXWAITTIMETOPULLURLFROMFRONTIERINMILLISEC;
+			}
+			
+			if (waitDuration < Globals.MINWAITTIMETOPULLURLFROMFRONTIERINMILLISEC) {
+				waitDuration = Globals.MINWAITTIMETOPULLURLFROMFRONTIERINMILLISEC;
 			}
 
 			Helper.waitMilliSec(waitDuration, waitDuration);

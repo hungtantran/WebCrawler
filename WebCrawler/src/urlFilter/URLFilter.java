@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import common.ErrorCode.CrError;
+import common.Globals;
 import database.IDatabaseConnection;
 import common.URLObject;
 
@@ -82,30 +83,15 @@ public class URLFilter implements IURLFilter {
 			String absoluteLink = url.getAbsoluteLink();
 			
 			// TODO filter out using regex instead of separate functions like this
-			if (URLFilter.isFile(absoluteLink)) {
-				// writeGenericLog("Filter out link file " + absoluteLink);
-
-				inoutUrls.remove(i);
-				--i;
-			}
+			// TODO filter non-english pages
+			boolean filterPage =
+				URLFilter.isFile(absoluteLink) ||
+				URLFilter.isLinkWithQueryParameter(absoluteLink) ||
+				URLFilter.isPositionLinkInPage(absoluteLink) ||
+				!URLFilter.isHttpLink(absoluteLink) ||
+				Globals.BLACKLISTDOMAINSET.contains(url.getDomain());
 			
-			if (URLFilter.isLinkWithQueryParameter(absoluteLink)) {
-				// writeGenericLog("Filter out link with query parameter " + absoluteLink);
-
-				inoutUrls.remove(i);
-				--i;
-			}
-			
-			if (URLFilter.isPositionLinkInPage(absoluteLink)) {
-				// writeGenericLog("Filter out position link in page " + absoluteLink);
-
-				inoutUrls.remove(i);
-				--i;
-			}
-			
-			if (!URLFilter.isHttpLink(absoluteLink)) {
-				// writeGenericLog("Filter out non http or https link in page " + absoluteLink);
-
+			if (filterPage) {
 				inoutUrls.remove(i);
 				--i;
 			}
