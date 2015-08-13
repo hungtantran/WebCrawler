@@ -20,46 +20,49 @@ import database.IDatabaseConnection;
 
 public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 	private int[] m_bloomFilter;
-	private Set<String> m_setDuplicatedString;
 	private int m_bloomFilterByteSize;
 	private String m_bloomfilterFileName = null;
 	private int m_numWriteToBloomfilter = 0;
 	
-	public URLDuplicationEliminator(IDatabaseConnection databaseConnection) {
-		// Exit if can't create directory/file and the directory/file hasn't already been existed
-		File dir = Helper.createDir(Globals.DEFAULTBLOOMFILTERDIRECTORY);
-		if (dir == null) {
-			System.out.println("Can't create log folder");
-			System.exit(1);
-		}
-		
-		m_bloomFilterByteSize = Globals.NMEGABYTESFORBLOOMFILTER * 1024 * 1024;
+	public URLDuplicationEliminator(String bloomFilterDirectory, String bloomFilterFileName, int bloomFilterSizeInMB, IDatabaseConnection databaseConnection) {		
+		m_bloomFilterByteSize = bloomFilterSizeInMB * 1024 * 1024;
 		if (m_bloomFilterByteSize <= 0) {
 			m_bloomFilterByteSize = Integer.MAX_VALUE;
 		}
 
 		int numElems = m_bloomFilterByteSize / 4;
-
-		m_bloomfilterFileName = Globals.DEFAULTBLOOMFILTERDIRECTORY + Globals.PATHSEPARATOR + Globals.DEFAULTBLOOMFILTERFILENAME;
-		
-		// If file exists, deserialize the bloomfilter from that. Otherwises, recreate it
 		boolean createNewBloomfilter = true;
-		if (Helper.fileExists(m_bloomfilterFileName)) {
-			try {
-				FileInputStream bloomFilterInputStream = new FileInputStream(m_bloomfilterFileName);
-				ObjectInputStream inputOStream = new ObjectInputStream(bloomFilterInputStream);
-				m_bloomFilter = (int[]) inputOStream.readObject();
-				
-				if (m_bloomFilter.length == numElems) {
-					writeGenericLog("Reuse existing bloomfilter");
-					createNewBloomfilter = false;
-				}
-				
-				inputOStream.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				writeGenericLog(e.getMessage());
+		
+		// If the directory and filename exists, check to see if we can deserialize existing bloomfilter
+		if (bloomFilterDirectory != null && bloomFilterFileName != null) {
+			m_bloomfilterFileName = bloomFilterDirectory + Globals.PATHSEPARATOR + bloomFilterFileName;
+	
+			// Exit if can't create directory/file and the directory/file hasn't already been existed
+			File dir = Helper.createDir(bloomFilterDirectory);
+			if (dir == null) {
+				System.out.println("Can't create log folder");
 				System.exit(1);
+			}
+			
+			// If file exists, deserialize the bloomfilter from that. Otherwises, recreate it
+			
+			if (Helper.fileExists(m_bloomfilterFileName)) {
+				try {
+					FileInputStream bloomFilterInputStream = new FileInputStream(m_bloomfilterFileName);
+					ObjectInputStream inputOStream = new ObjectInputStream(bloomFilterInputStream);
+					m_bloomFilter = (int[]) inputOStream.readObject();
+					
+					if (m_bloomFilter.length == numElems) {
+						writeGenericLog("Reuse existing bloomfilter");
+						createNewBloomfilter = false;
+					}
+					
+					inputOStream.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					writeGenericLog(e.getMessage());
+					System.exit(1);
+				}
 			}
 		}
 		
@@ -72,7 +75,6 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 			}
 		}
 		
-		m_setDuplicatedString = new HashSet<String>();
 		new ReentrantReadWriteLock();
 	}
 	
@@ -109,15 +111,10 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 				val = val >> bitPosInInt;
 				val = val << 31;
 				if (val != 0) {
-					if (!m_setDuplicatedString.contains(absoluteLink)) {
-						exists = false;
-					} else {
-						exists = true;
-					}
+					exists = true;
 				} else {
 					int tmp = 1 << bitPosInInt;
 					m_bloomFilter[indexInArray] = m_bloomFilter[indexInArray] + tmp;
-					m_setDuplicatedString.add(absoluteLink);
 					++m_numWriteToBloomfilter;
 					changeToBloomfilter = true;
 				}
@@ -130,33 +127,38 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 			}
 		}
 		
-		synchronized(m_bloomFilter) {
-			try {
-				if (changeToBloomfilter && m_numWriteToBloomfilter >= Globals.MAXWRITETOBLOOMFILTERBEFOREFLUSHINGTODISK) {
-					writeGenericLog("Number of write to bloomfilter : " + m_numWriteToBloomfilter + ", flush to disk");
-					
-					File bloomFilterFile = Helper.createFile(this.m_bloomfilterFileName);
-					if (bloomFilterFile != null) {
-						if (!bloomFilterFile.delete()) {
-							writeGenericLog("Can't delete bloomfilter file " + m_bloomfilterFileName);
-							System.exit(1);
-						} else {
-							writeGenericLog("Delete old bloomfilter");
+		// If bloomfilter file exists, check if we should write to it yet
+		if (m_bloomfilterFileName != null) {
+			synchronized(m_bloomFilter) {
+				try {
+					if (changeToBloomfilter && m_numWriteToBloomfilter >= Globals.MAXWRITETOBLOOMFILTERBEFOREFLUSHINGTODISK) {
+						writeGenericLog("Number of write to bloomfilter : " + m_numWriteToBloomfilter + ", flush to disk");
+						
+						File bloomFilterFile = Helper.createFile(this.m_bloomfilterFileName);
+						if (bloomFilterFile != null) {
+							if (!bloomFilterFile.delete()) {
+								writeGenericLog("Can't delete bloomfilter file " + m_bloomfilterFileName);
+								System.exit(1);
+							} else {
+								writeGenericLog("Delete old bloomfilter");
+							}
 						}
+						
+						FileOutputStream bloomfilterOutputStream = new FileOutputStream(m_bloomfilterFileName);
+						ObjectOutputStream outputOStream = new ObjectOutputStream(bloomfilterOutputStream);
+						outputOStream.writeObject(m_bloomFilter); 
+						outputOStream.flush(); 
+						outputOStream.close();
+						
+						writeGenericLog("Flush new bloomfilter file");
+	
+						m_numWriteToBloomfilter = 0;					
 					}
-					
-					FileOutputStream bloomfilterOutputStream = new FileOutputStream(m_bloomfilterFileName);
-					ObjectOutputStream outputOStream = new ObjectOutputStream(bloomfilterOutputStream);
-					outputOStream.writeObject(m_bloomFilter); 
-					outputOStream.flush(); 
-					outputOStream.close();
-
-					m_numWriteToBloomfilter = 0;					
+				} catch(Exception e) {
+					e.printStackTrace();
+					writeGenericLog(e.getMessage());
+					System.exit(1);
 				}
-			} catch(Exception e) {
-				e.printStackTrace();
-				writeGenericLog(e.getMessage());
-				System.exit(1);
 			}
 		}
 

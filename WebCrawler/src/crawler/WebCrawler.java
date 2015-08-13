@@ -182,7 +182,7 @@ public class WebCrawler {
 		m_linkExtractor = new LinkExtractor();
 		m_urlDistributor = new URLDistributor(m_databaseConnection);
 		m_urlFilter = new URLFilter(m_databaseConnection);
-		m_urlDuplicationEliminator = new URLDuplicationEliminator(m_databaseConnection);
+		m_urlDuplicationEliminator = new URLDuplicationEliminator(Globals.DEFAULTBLOOMFILTERDIRECTORY, Globals.DEFAULTBLOOMFILTERFILENAME, Globals.NMEGABYTESFORBLOOMFILTER, m_databaseConnection);
 		m_urlPrioritizer = new URLPrioritizer(m_databaseConnection);
 	}
 	
