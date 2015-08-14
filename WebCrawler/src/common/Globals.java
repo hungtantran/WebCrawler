@@ -68,7 +68,19 @@ public class Globals {
 	public static final int MAXDISTANCEFROMRELEVANTPAGE = 2;
 	
 	// Blacklist domain
-	public static final String[] BLACKLISTDOMAINS = { "https://www.facebook.com", "https://twitter.com", "https://www.google.com", "http://www.bing.com", "http://www.pinterest.com"};
+	public static final String[] BLACKLISTDOMAINS = {
+			"https://www.facebook.com",
+			"http://www.facebook.com",
+			"https://twitter.com",
+			"https://twitter.com",
+			"https://www.google.com",
+			"http://www.google.com",
+			"http://www.bing.com",
+			"http://www.pinterest.com",
+			"http://www.youtube.com",
+			"http://bit.ly",
+			"http://t.co",
+			"https://t.co"};
 	public static Set<String> BLACKLISTDOMAINSET = new HashSet<String>();
 	static {
 		for (int i = 0; i < BLACKLISTDOMAINS.length; ++i) {

@@ -1,0 +1,19 @@
+package message;
+
+option java_package = "proto.message";
+option java_outer_classname = "message";
+
+message URLObject {
+	required int32 m_id 							= 1;
+	required string m_link 							= 2;
+	required string m_domain 						= 3;
+	required bool m_absolute 						= 4;
+	required int32 m_priority						= 5;
+	required int64 m_extractedTime					= 6;
+	required int64 m_crawledTime					= 7;
+	required int64 m_downloadDuration				= 8;
+	required int32 m_httpStatusCode					= 9;
+	required int64 m_relevance						= 10;
+	required int64 m_distanceFromRelevantPage		= 11;
+	required int32 m_freshness						= 12;
+}

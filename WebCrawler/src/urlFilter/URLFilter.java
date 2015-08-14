@@ -84,6 +84,7 @@ public class URLFilter implements IURLFilter {
 			
 			// TODO filter out using regex instead of separate functions like this
 			// TODO filter non-english pages
+			// TODO filter out javascript, mailto, etc... links
 			boolean filterPage =
 				URLFilter.isFile(absoluteLink) ||
 				URLFilter.isLinkWithQueryParameter(absoluteLink) ||
