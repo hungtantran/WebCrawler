@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Comparator;
 
 import common.ErrorCode.CrError;
+import proto.message.message.URLmessage;
 
 public class URLObject {
 	private int m_id;
@@ -271,5 +272,25 @@ public class URLObject {
 		builder.append("Download Duration = " + m_downloadDuration + ", ");
 		
 		return builder.toString();
+	}
+	
+	public URLmessage toProtobufMessage() {
+		return URLObject.convertToProtobufMessage(this);
+	}
+	
+	public static URLmessage convertToProtobufMessage(URLObject url) {
+		return URLmessage.newBuilder()
+			.setId(url.get_id())
+			.setLink(url.getLink())
+			.setAbsolute(url.is_absolute())
+			.setPriority(url.get_priority())
+			.setExtractedTime(url.get_extractedTime())
+			.setCrawledTime(url.get_crawledTime())
+			.setDownloadDuration(url.get_downloadDuration())
+			.setHttpStatusCode(url.get_httpStatusCode())
+			.setRelevance(url.get_relevance())
+			.setDistanceFromRelevantPage(url.get_distanceFromRelevantPage())
+			.setFreshness(url.get_freshness())
+			.build();
 	}
 }

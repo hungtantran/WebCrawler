@@ -3,17 +3,17 @@ package message;
 option java_package = "proto.message";
 option java_outer_classname = "message";
 
-message URLObject {
-	required int32 m_id 							= 1;
-	required string m_link 							= 2;
-	required string m_domain 						= 3;
-	required bool m_absolute 						= 4;
-	required int32 m_priority						= 5;
-	required int64 m_extractedTime					= 6;
-	required int64 m_crawledTime					= 7;
-	required int64 m_downloadDuration				= 8;
-	required int32 m_httpStatusCode					= 9;
-	required int64 m_relevance						= 10;
-	required int64 m_distanceFromRelevantPage		= 11;
-	required int32 m_freshness						= 12;
+message URLmessage {
+	required int32 id 								= 1;
+	required string link 							= 2;
+	optional string domain 							= 3;
+	optional bool absolute 							= 4;
+	optional int32 priority							= 5;
+	optional int64 extracted_time					= 6;
+	optional int64 crawled_time						= 7;
+	optional int64 download_duration				= 8;
+	optional int32 http_status_code					= 9;
+	optional int64 relevance						= 10;
+	optional int64 distance_from_relevant_page		= 11;
+	optional int32 freshness						= 12;
 }
