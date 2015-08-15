@@ -6,10 +6,14 @@ import common.ErrorCode.CrError;
 import common.URLObject;
 import database.IDatabaseConnection;
 import proto.message.message.URLmessage;
+import socket.TcpClient;
+import socket.TcpServer;
 
 public class URLDistributor implements IURLDistributor {
 	private IDatabaseConnection m_databaseConnection = null;
-
+	private TcpClient m_client = null;
+	private TcpServer m_server = null;
+	
 	public URLDistributor(IDatabaseConnection databaseConnection) {
 		m_databaseConnection = databaseConnection;
 	}

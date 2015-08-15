@@ -72,15 +72,19 @@ public class Globals {
 			"https://www.facebook.com",
 			"http://www.facebook.com",
 			"https://twitter.com",
-			"https://twitter.com",
+			"http://twitter.com",
 			"https://www.google.com",
 			"http://www.google.com",
+			"https://www.bing.com",
 			"http://www.bing.com",
+			"https://www.pinterest.com",
 			"http://www.pinterest.com",
+			"https://www.youtube.com",
 			"http://www.youtube.com",
+			"https://bit.ly",
 			"http://bit.ly",
-			"http://t.co",
-			"https://t.co"};
+			"https://t.co",
+			"http://t.co"};
 	public static Set<String> BLACKLISTDOMAINSET = new HashSet<String>();
 	static {
 		for (int i = 0; i < BLACKLISTDOMAINS.length; ++i) {

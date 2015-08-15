@@ -293,4 +293,22 @@ public class URLObject {
 			.setFreshness(url.get_freshness())
 			.build();
 	}
+	
+	public static URLObject convertFromProtobufMessage(URLmessage url) {
+		URLObject urlObject = new URLObject();
+
+		urlObject.set_id(url.getId());
+		urlObject.setLink(url.getLink());
+		urlObject.set_absolute(url.getAbsolute());
+		urlObject.set_priority(url.getPriority());
+		urlObject.set_extractedTime(url.getExtractedTime());
+		urlObject.set_crawledTime(url.getCrawledTime());
+		urlObject.set_downloadDuration(url.getDownloadDuration());
+		urlObject.set_httpStatusCode(url.getHttpStatusCode());
+		urlObject.set_relevance(url.getRelevance());
+		urlObject.set_distanceFromRelevantPage(url.getDistanceFromRelevantPage());
+		urlObject.set_freshness(url.getFreshness());
+		
+		return urlObject;
+	}
 }

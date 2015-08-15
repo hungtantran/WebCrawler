@@ -1,55 +1,71 @@
 package socket;
 
-import java.io.BufferedReader;
+import static common.LogManager.writeGenericLog;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import static common.LogManager.*;
 
 public class TcpServer implements Runnable {
 	private int m_portNum = 0;
 	private ServerSocket m_server = null;
+	private IProcessPacket m_process = null;
 
 	private class ServerWorker implements Runnable {
 		private Socket m_socket = null;
+		private IProcessPacket m_process = null;
+		private DataInputStream m_in = null;
+		private DataOutputStream m_out = null;
 		
-		ServerWorker(Socket socket) {
+		ServerWorker(Socket socket, IProcessPacket process) {
 			m_socket = socket;
+			m_process = process;
+
+			try {
+				m_in = new DataInputStream(m_socket.getInputStream());
+				m_out = new DataOutputStream(m_socket.getOutputStream());
+			} catch (IOException e) {
+				writeGenericLog("Fail to listen to request from client " + e.getMessage());
+			}
+			
+			writeGenericLog("Create new server worker with socket " + m_socket.toString());
 		}
 		
 		public void run() {
-			try{
-				BufferedReader in = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
-				PrintWriter out = new PrintWriter(m_socket.getOutputStream(), true);
+			while(true){
+				try	{
+					// Read length of incoming message
+					int length = m_in.readInt();
 
-				while(true){
-					String line = in.readLine();
-					out.println(line);
-					
-				}
-			} catch (IOException e) {
-				writeGenericLog("Fail to listen to request from client " + e.getMessage());
-			} finally {
-				try {
-					writeGenericLog("Try to close socket connection " + m_socket.toString());
-					m_socket.close();
-				} catch (IOException e1) {
-					writeGenericLog("Fail to close socket connection " + m_socket.toString() + ", error " + e1.getMessage());
+					if(length > 0) {
+					    byte[] packet = new byte[length];
+
+					    // Read the message
+					    m_in.readFully(packet, 0, packet.length);
+					    
+					    // Process the packet
+						m_process.process(packet, m_out);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					writeGenericLog("Fail to get packet from socket " + e.getMessage());
+					return;
 				}
 			}
 		}
 	}
 	
-	public TcpServer(int portNum) throws IOException {
+	public TcpServer(int portNum, IProcessPacket process) throws IOException {
 		m_portNum = portNum;
+		m_process = process;
 
 		try{
-			m_server = new ServerSocket(m_portNum); 
+			m_server = new ServerSocket(m_portNum);
+			writeGenericLog("Successfully create server " + m_server.toString());
 		} catch (IOException e) {
-			System.out.println("Could not listen on port " + m_portNum);
+			writeGenericLog("Could not listen on port " + m_portNum);
 		    throw e;
 		}
 	}
@@ -58,10 +74,15 @@ public class TcpServer implements Runnable {
 		try {
 			while (true) {
 				try{
-					ServerWorker newServerWorker = new ServerWorker(m_server.accept());
+					if (m_server.isClosed()) {
+						writeGenericLog("Socket is closed. Exit");
+						return;
+					}
+
+					ServerWorker newServerWorker = new ServerWorker(m_server.accept(), m_process);
 					newServerWorker.run();
 				} catch (IOException e) {
-					System.out.println("Accept failed: " + m_portNum);
+					writeGenericLog("Accept failed: " + m_portNum);
 					System.exit(-1);
 				}
 			}
