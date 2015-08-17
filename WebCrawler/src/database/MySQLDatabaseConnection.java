@@ -72,6 +72,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				URLObject urlFrontier = new URLObject();
 
 				urlFrontier.setLink(linkQueue.getLink());
+				urlFrontier.set_originalLink(linkQueue.get_originalLink());
 				urlFrontier.setDomain(this.domainIdToDomainMap.get(linkQueue.getDomainTableId1()));
 				urlFrontier.set_priority(linkQueue.getPriority());
 				urlFrontier.set_extractedTime(linkQueue.get_extractedTime());

@@ -42,6 +42,7 @@ public class DownloadURLProvider implements IURLProcessor, IURLProcessorProvider
 					writeGenericLog("Can't extract filename from link " + absoluteLink);
 				}
 				
+				// TODO create folder structure mimic link structure
 				String downloadLocation = "Download" + Globals.PATHSEPARATOR + fileName;
 				FileOutputStream fos = new FileOutputStream(downloadLocation);
 				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);

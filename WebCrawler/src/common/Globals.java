@@ -81,16 +81,20 @@ public class Globals {
 	public static final int MAXDISTANCEFROMRELEVANTPAGE = 2;
 	
 	// Whether to limit to only domain of the existing urls in the current frontier and doesn't expand to new domain
-	public static final boolean LIMITTOEXISTINGDOMAINS = true;
+	public static final boolean LIMITTOEXISTINGDOMAINS = false;
 	
 	// The name of the url filter to use
 	public static final String URLFILTERTYPE = "DefaultURLFilter";
 	
 	// Filter base on include/exlude file types
 	public static boolean FILTERBASEDONEXLUCDEFILETYPE = true;
-	public static final Set<String> EXLUCDEFILETYPES = new HashSet<String>(Arrays.asList("jpeg", "png", "jpg", "eps", "ps", "svg", "indd", "pct", "xlr", "xls", "xlsx", "accdb", "db", "dbf", "mdb", "pdb", "sql", "apk", "app", "bat", "cgi", "exe", "gadget", "jar", "pif", "vb", "wsf", "dem", "gam", "nes", "rom", "sav", "dwg", "dxf", "gpx", "kml", "kmz", "asp", "aspx", "cer", "cfm", "csr", "css", "js", "jsp", "php", "rss", "xhtml", "crx", "plugin", "fnt", "fon", "otf", "ttf", "cab", "cpl", "cur", "deskthemepack", "dll", "dmp", "drv", "icns", "ico", "lnk", "sys", "cfg", "ini", "prf", "hqx", "mim", "uue", "7z", "cbr", "deb", "gz", "pkg", "rar", "rpm", "sitx", "tar.gz", "zip", "zipx", "bin", "cue", "dmg", "iso", "mdf", "toast", "vcd", "c", "class", "cpp", "cs", "dtd", "fla", "h", "java", "lua", "m", "pl", "py", "sh", "sln", "swift", "vcxproj", "xcodeproj", "bak", "tmp", "crdownload", "ics", "msi", "part", "torrent"));
+	public static final Set<String> EXLUCDEFILETYPES = new HashSet<String>(Arrays.asList(
+			// "pdf",
+			"jpeg", "png", "jpg",
+			"eps", "ps", "svg", "indd", "pct", "xlr", "xls", "xlsx", "accdb", "db", "dbf", "mdb", "pdb", "sql", "apk", "app", "bat", "cgi", "exe", "gadget", "jar", "pif", "vb", "wsf", "dem", "gam", "nes", "rom", "sav", "dwg", "dxf", "gpx", "kml", "kmz", "asp", "aspx", "cer", "cfm", "csr", "css", "js", "jsp", "php", "rss", "xhtml", "crx", "plugin", "fnt", "fon", "otf", "ttf", "cab", "cpl", "cur", "deskthemepack", "dll", "dmp", "drv", "icns", "ico", "lnk", "sys", "cfg", "ini", "prf", "hqx", "mim", "uue", "7z", "cbr", "deb", "gz", "pkg", "rar", "rpm", "sitx", "tar.gz", "zip", "zipx", "bin", "cue", "dmg", "iso", "mdf", "toast", "vcd", "c", "class", "cpp", "cs", "dtd", "fla", "h", "java", "lua", "m", "pl", "py", "sh", "sln", "swift", "vcxproj", "xcodeproj", "bak", "tmp", "crdownload", "ics", "msi", "part", "torrent"));
 	
 	public static boolean FILTERBASEDOINCLUDEFILETYPE = true;
+	// public static final Set<String> INLUCDEFILETYPES = new HashSet<String>(Arrays.asList("jpeg", "png", "jpg"));
 	public static final Set<String> INLUCDEFILETYPES = new HashSet<String>(Arrays.asList("pdf"));
 
 	static {

@@ -54,8 +54,6 @@ public class LinkExtractor implements ILinkExtractor {
 
 		Elements linkElems = doc.select("a[href]");
 		for (Element linkElem : linkElems) {
-			URLObject url = new URLObject();
-			
 			String link = linkElem.attr("href").toString().trim();
 			link = sanitizeURL(link);
 
@@ -65,9 +63,25 @@ public class LinkExtractor implements ILinkExtractor {
 			} else {
 				extractedUrlsSet.add(link);
 			}
+		}
 
+		Elements imgLinkElems = doc.select("img[src]");
+		for (Element imgLinkElem : imgLinkElems) {
+			String link = imgLinkElem.attr("src").toString().trim();
+			link = sanitizeURL(link);
+
+			// Don't duplicate url
+			if (extractedUrlsSet.contains(link)) {
+				continue;
+			} else {
+				extractedUrlsSet.add(link);
+			}
+		}
+		
+		for (String link : extractedUrlsSet) {
 			builder.append(link + "; ");
 
+			URLObject url = new URLObject();
 			url.setDomain(originalUrl.getDomain());
 			url.setLink(link);
 			url.set_originalLink(originalUrl.getAbsoluteLink());
