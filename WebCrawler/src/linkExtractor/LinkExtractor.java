@@ -70,6 +70,7 @@ public class LinkExtractor implements ILinkExtractor {
 
 			url.setDomain(originalUrl.getDomain());
 			url.setLink(link);
+			url.set_originalLink(originalUrl.getAbsoluteLink());
 			url.set_downloadDuration(webPage.getDownloadDuationInhMillisec());
 			url.set_extractedTime(Helper.getCurrentTimeInMillisec());
 			extractedUrls.add(url);

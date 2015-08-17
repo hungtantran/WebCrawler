@@ -125,7 +125,7 @@ public class URLPrioritizer implements IURLPrioritizer {
 		}
 		
 		for (URLObject inoutUrl : inoutUrls) {
-			// TODO have some priority logic here
+			// TODO have some priority logic here based on anchor text, around text
 			inoutUrl.set_priority(1);
 			
 			inoutUrl.set_relevance((long)(originalUrl.get_relevance() * Globals.RELEVANCEDECAYFACTOR));

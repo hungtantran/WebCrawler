@@ -14,7 +14,7 @@ import static common.LogManager.*;
 public class LinkQueueDAOJDBC implements LinkQueueDAO {
 	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table ORDER BY priority ASC, relevance DESC LIMIT ?";
 	private final String SQL_DELETE_WITH_LIMIT = "DELETE FROM link_queue_table LIMIT ?";
-	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, domain_table_id_1, priority, persistent, extracted_time, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, originalLink, domain_table_id_1, priority, persistent, extracted_time, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_CHECK_EXISTS = "SELECT COUNT(*) AS count FROM link_queue_table WHERE link = ?";
 	private final String SQL_UPDATE = "UPDATE link_queue_table SET relevance = ?, distanceFromRelevantPage = ?, freshness = ? WHERE link = ? AND relevance <= ? AND distanceFromRelevantPage >= ?";
 
@@ -32,6 +32,11 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			linkQueue.setId(null);
 		}
 
+		linkQueue.set_originalLink(resultSet.getString("originalLink"));
+		if (resultSet.wasNull()) {
+			linkQueue.set_originalLink(null);
+		}
+		
 		linkQueue.setLink(resultSet.getString("link"));
 		if (resultSet.wasNull()) {
 			linkQueue.setLink(null);
@@ -203,7 +208,8 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 		try {
 			connection = this.daoFactory.getConnection();
 			
-			final Object[] values = { linkQueue.getLink(),
+			final Object[] values = {
+				linkQueue.getLink(), linkQueue.get_originalLink(),
 				linkQueue.getDomainTableId1(), linkQueue.getPriority(),
 				linkQueue.getPersistent(), linkQueue.get_extractedTime(),
 				linkQueue.get_relevance(), linkQueue.get_distanceFromRelevantPage(),

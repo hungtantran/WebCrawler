@@ -36,97 +36,111 @@ public final class message {
         getLinkBytes();
 
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>required string original_link = 3;</code>
+     */
+    boolean hasOriginalLink();
+    /**
+     * <code>required string original_link = 3;</code>
+     */
+    java.lang.String getOriginalLink();
+    /**
+     * <code>required string original_link = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getOriginalLinkBytes();
+
+    /**
+     * <code>optional string domain = 4;</code>
      */
     boolean hasDomain();
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>optional string domain = 4;</code>
      */
     java.lang.String getDomain();
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>optional string domain = 4;</code>
      */
     com.google.protobuf.ByteString
         getDomainBytes();
 
     /**
-     * <code>optional bool absolute = 4;</code>
+     * <code>optional bool absolute = 5;</code>
      */
     boolean hasAbsolute();
     /**
-     * <code>optional bool absolute = 4;</code>
+     * <code>optional bool absolute = 5;</code>
      */
     boolean getAbsolute();
 
     /**
-     * <code>optional int32 priority = 5;</code>
+     * <code>optional int32 priority = 6;</code>
      */
     boolean hasPriority();
     /**
-     * <code>optional int32 priority = 5;</code>
+     * <code>optional int32 priority = 6;</code>
      */
     int getPriority();
 
     /**
-     * <code>optional int64 extracted_time = 6;</code>
+     * <code>optional int64 extracted_time = 7;</code>
      */
     boolean hasExtractedTime();
     /**
-     * <code>optional int64 extracted_time = 6;</code>
+     * <code>optional int64 extracted_time = 7;</code>
      */
     long getExtractedTime();
 
     /**
-     * <code>optional int64 crawled_time = 7;</code>
+     * <code>optional int64 crawled_time = 8;</code>
      */
     boolean hasCrawledTime();
     /**
-     * <code>optional int64 crawled_time = 7;</code>
+     * <code>optional int64 crawled_time = 8;</code>
      */
     long getCrawledTime();
 
     /**
-     * <code>optional int64 download_duration = 8;</code>
+     * <code>optional int64 download_duration = 9;</code>
      */
     boolean hasDownloadDuration();
     /**
-     * <code>optional int64 download_duration = 8;</code>
+     * <code>optional int64 download_duration = 9;</code>
      */
     long getDownloadDuration();
 
     /**
-     * <code>optional int32 http_status_code = 9;</code>
+     * <code>optional int32 http_status_code = 10;</code>
      */
     boolean hasHttpStatusCode();
     /**
-     * <code>optional int32 http_status_code = 9;</code>
+     * <code>optional int32 http_status_code = 10;</code>
      */
     int getHttpStatusCode();
 
     /**
-     * <code>optional int64 relevance = 10;</code>
+     * <code>optional int64 relevance = 11;</code>
      */
     boolean hasRelevance();
     /**
-     * <code>optional int64 relevance = 10;</code>
+     * <code>optional int64 relevance = 11;</code>
      */
     long getRelevance();
 
     /**
-     * <code>optional int64 distance_from_relevant_page = 11;</code>
+     * <code>optional int64 distance_from_relevant_page = 12;</code>
      */
     boolean hasDistanceFromRelevantPage();
     /**
-     * <code>optional int64 distance_from_relevant_page = 11;</code>
+     * <code>optional int64 distance_from_relevant_page = 12;</code>
      */
     long getDistanceFromRelevantPage();
 
     /**
-     * <code>optional int32 freshness = 12;</code>
+     * <code>optional int32 freshness = 13;</code>
      */
     boolean hasFreshness();
     /**
-     * <code>optional int32 freshness = 12;</code>
+     * <code>optional int32 freshness = 13;</code>
      */
     int getFreshness();
   }
@@ -196,51 +210,57 @@ public final class message {
             case 26: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              domain_ = bs;
+              originalLink_ = bs;
               break;
             }
-            case 32: {
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              absolute_ = input.readBool();
+              domain_ = bs;
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              priority_ = input.readInt32();
+              absolute_ = input.readBool();
               break;
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              extractedTime_ = input.readInt64();
+              priority_ = input.readInt32();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              crawledTime_ = input.readInt64();
+              extractedTime_ = input.readInt64();
               break;
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              downloadDuration_ = input.readInt64();
+              crawledTime_ = input.readInt64();
               break;
             }
             case 72: {
               bitField0_ |= 0x00000100;
-              httpStatusCode_ = input.readInt32();
+              downloadDuration_ = input.readInt64();
               break;
             }
             case 80: {
               bitField0_ |= 0x00000200;
-              relevance_ = input.readInt64();
+              httpStatusCode_ = input.readInt32();
               break;
             }
             case 88: {
               bitField0_ |= 0x00000400;
-              distanceFromRelevantPage_ = input.readInt64();
+              relevance_ = input.readInt64();
               break;
             }
             case 96: {
               bitField0_ |= 0x00000800;
+              distanceFromRelevantPage_ = input.readInt64();
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
               freshness_ = input.readInt32();
               break;
             }
@@ -341,16 +361,58 @@ public final class message {
       }
     }
 
-    public static final int DOMAIN_FIELD_NUMBER = 3;
-    private java.lang.Object domain_;
+    public static final int ORIGINAL_LINK_FIELD_NUMBER = 3;
+    private java.lang.Object originalLink_;
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>required string original_link = 3;</code>
      */
-    public boolean hasDomain() {
+    public boolean hasOriginalLink() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>required string original_link = 3;</code>
+     */
+    public java.lang.String getOriginalLink() {
+      java.lang.Object ref = originalLink_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          originalLink_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string original_link = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOriginalLinkBytes() {
+      java.lang.Object ref = originalLink_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalLink_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DOMAIN_FIELD_NUMBER = 4;
+    private java.lang.Object domain_;
+    /**
+     * <code>optional string domain = 4;</code>
+     */
+    public boolean hasDomain() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string domain = 4;</code>
      */
     public java.lang.String getDomain() {
       java.lang.Object ref = domain_;
@@ -367,7 +429,7 @@ public final class message {
       }
     }
     /**
-     * <code>optional string domain = 3;</code>
+     * <code>optional string domain = 4;</code>
      */
     public com.google.protobuf.ByteString
         getDomainBytes() {
@@ -383,136 +445,136 @@ public final class message {
       }
     }
 
-    public static final int ABSOLUTE_FIELD_NUMBER = 4;
+    public static final int ABSOLUTE_FIELD_NUMBER = 5;
     private boolean absolute_;
     /**
-     * <code>optional bool absolute = 4;</code>
+     * <code>optional bool absolute = 5;</code>
      */
     public boolean hasAbsolute() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional bool absolute = 4;</code>
+     * <code>optional bool absolute = 5;</code>
      */
     public boolean getAbsolute() {
       return absolute_;
     }
 
-    public static final int PRIORITY_FIELD_NUMBER = 5;
+    public static final int PRIORITY_FIELD_NUMBER = 6;
     private int priority_;
     /**
-     * <code>optional int32 priority = 5;</code>
+     * <code>optional int32 priority = 6;</code>
      */
     public boolean hasPriority() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional int32 priority = 5;</code>
+     * <code>optional int32 priority = 6;</code>
      */
     public int getPriority() {
       return priority_;
     }
 
-    public static final int EXTRACTED_TIME_FIELD_NUMBER = 6;
+    public static final int EXTRACTED_TIME_FIELD_NUMBER = 7;
     private long extractedTime_;
     /**
-     * <code>optional int64 extracted_time = 6;</code>
+     * <code>optional int64 extracted_time = 7;</code>
      */
     public boolean hasExtractedTime() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional int64 extracted_time = 6;</code>
+     * <code>optional int64 extracted_time = 7;</code>
      */
     public long getExtractedTime() {
       return extractedTime_;
     }
 
-    public static final int CRAWLED_TIME_FIELD_NUMBER = 7;
+    public static final int CRAWLED_TIME_FIELD_NUMBER = 8;
     private long crawledTime_;
     /**
-     * <code>optional int64 crawled_time = 7;</code>
+     * <code>optional int64 crawled_time = 8;</code>
      */
     public boolean hasCrawledTime() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional int64 crawled_time = 7;</code>
+     * <code>optional int64 crawled_time = 8;</code>
      */
     public long getCrawledTime() {
       return crawledTime_;
     }
 
-    public static final int DOWNLOAD_DURATION_FIELD_NUMBER = 8;
+    public static final int DOWNLOAD_DURATION_FIELD_NUMBER = 9;
     private long downloadDuration_;
     /**
-     * <code>optional int64 download_duration = 8;</code>
+     * <code>optional int64 download_duration = 9;</code>
      */
     public boolean hasDownloadDuration() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>optional int64 download_duration = 8;</code>
+     * <code>optional int64 download_duration = 9;</code>
      */
     public long getDownloadDuration() {
       return downloadDuration_;
     }
 
-    public static final int HTTP_STATUS_CODE_FIELD_NUMBER = 9;
+    public static final int HTTP_STATUS_CODE_FIELD_NUMBER = 10;
     private int httpStatusCode_;
     /**
-     * <code>optional int32 http_status_code = 9;</code>
+     * <code>optional int32 http_status_code = 10;</code>
      */
     public boolean hasHttpStatusCode() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>optional int32 http_status_code = 9;</code>
+     * <code>optional int32 http_status_code = 10;</code>
      */
     public int getHttpStatusCode() {
       return httpStatusCode_;
     }
 
-    public static final int RELEVANCE_FIELD_NUMBER = 10;
+    public static final int RELEVANCE_FIELD_NUMBER = 11;
     private long relevance_;
     /**
-     * <code>optional int64 relevance = 10;</code>
+     * <code>optional int64 relevance = 11;</code>
      */
     public boolean hasRelevance() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>optional int64 relevance = 10;</code>
+     * <code>optional int64 relevance = 11;</code>
      */
     public long getRelevance() {
       return relevance_;
     }
 
-    public static final int DISTANCE_FROM_RELEVANT_PAGE_FIELD_NUMBER = 11;
+    public static final int DISTANCE_FROM_RELEVANT_PAGE_FIELD_NUMBER = 12;
     private long distanceFromRelevantPage_;
     /**
-     * <code>optional int64 distance_from_relevant_page = 11;</code>
+     * <code>optional int64 distance_from_relevant_page = 12;</code>
      */
     public boolean hasDistanceFromRelevantPage() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>optional int64 distance_from_relevant_page = 11;</code>
+     * <code>optional int64 distance_from_relevant_page = 12;</code>
      */
     public long getDistanceFromRelevantPage() {
       return distanceFromRelevantPage_;
     }
 
-    public static final int FRESHNESS_FIELD_NUMBER = 12;
+    public static final int FRESHNESS_FIELD_NUMBER = 13;
     private int freshness_;
     /**
-     * <code>optional int32 freshness = 12;</code>
+     * <code>optional int32 freshness = 13;</code>
      */
     public boolean hasFreshness() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     /**
-     * <code>optional int32 freshness = 12;</code>
+     * <code>optional int32 freshness = 13;</code>
      */
     public int getFreshness() {
       return freshness_;
@@ -521,6 +583,7 @@ public final class message {
     private void initFields() {
       id_ = 0;
       link_ = "";
+      originalLink_ = "";
       domain_ = "";
       absolute_ = false;
       priority_ = 0;
@@ -546,6 +609,10 @@ public final class message {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasOriginalLink()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -560,34 +627,37 @@ public final class message {
         output.writeBytes(2, getLinkBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDomainBytes());
+        output.writeBytes(3, getOriginalLinkBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBool(4, absolute_);
+        output.writeBytes(4, getDomainBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, priority_);
+        output.writeBool(5, absolute_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt64(6, extractedTime_);
+        output.writeInt32(6, priority_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt64(7, crawledTime_);
+        output.writeInt64(7, extractedTime_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt64(8, downloadDuration_);
+        output.writeInt64(8, crawledTime_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, httpStatusCode_);
+        output.writeInt64(9, downloadDuration_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt64(10, relevance_);
+        output.writeInt32(10, httpStatusCode_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt64(11, distanceFromRelevantPage_);
+        output.writeInt64(11, relevance_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeInt32(12, freshness_);
+        output.writeInt64(12, distanceFromRelevantPage_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeInt32(13, freshness_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -608,43 +678,47 @@ public final class message {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDomainBytes());
+          .computeBytesSize(3, getOriginalLinkBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, absolute_);
+          .computeBytesSize(4, getDomainBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, priority_);
+          .computeBoolSize(5, absolute_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, extractedTime_);
+          .computeInt32Size(6, priority_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(7, crawledTime_);
+          .computeInt64Size(7, extractedTime_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(8, downloadDuration_);
+          .computeInt64Size(8, crawledTime_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, httpStatusCode_);
+          .computeInt64Size(9, downloadDuration_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(10, relevance_);
+          .computeInt32Size(10, httpStatusCode_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(11, distanceFromRelevantPage_);
+          .computeInt64Size(11, relevance_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, freshness_);
+          .computeInt64Size(12, distanceFromRelevantPage_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, freshness_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -767,26 +841,28 @@ public final class message {
         bitField0_ = (bitField0_ & ~0x00000001);
         link_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        domain_ = "";
+        originalLink_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        absolute_ = false;
+        domain_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        priority_ = 0;
+        absolute_ = false;
         bitField0_ = (bitField0_ & ~0x00000010);
-        extractedTime_ = 0L;
+        priority_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
-        crawledTime_ = 0L;
+        extractedTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
-        downloadDuration_ = 0L;
+        crawledTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000080);
-        httpStatusCode_ = 0;
+        downloadDuration_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000100);
-        relevance_ = 0L;
+        httpStatusCode_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
-        distanceFromRelevantPage_ = 0L;
+        relevance_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000400);
-        freshness_ = 0;
+        distanceFromRelevantPage_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000800);
+        freshness_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -826,41 +902,45 @@ public final class message {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.domain_ = domain_;
+        result.originalLink_ = originalLink_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.absolute_ = absolute_;
+        result.domain_ = domain_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.priority_ = priority_;
+        result.absolute_ = absolute_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.extractedTime_ = extractedTime_;
+        result.priority_ = priority_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.crawledTime_ = crawledTime_;
+        result.extractedTime_ = extractedTime_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.downloadDuration_ = downloadDuration_;
+        result.crawledTime_ = crawledTime_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.httpStatusCode_ = httpStatusCode_;
+        result.downloadDuration_ = downloadDuration_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.relevance_ = relevance_;
+        result.httpStatusCode_ = httpStatusCode_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.distanceFromRelevantPage_ = distanceFromRelevantPage_;
+        result.relevance_ = relevance_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
+        }
+        result.distanceFromRelevantPage_ = distanceFromRelevantPage_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
         }
         result.freshness_ = freshness_;
         result.bitField0_ = to_bitField0_;
@@ -887,8 +967,13 @@ public final class message {
           link_ = other.link_;
           onChanged();
         }
-        if (other.hasDomain()) {
+        if (other.hasOriginalLink()) {
           bitField0_ |= 0x00000004;
+          originalLink_ = other.originalLink_;
+          onChanged();
+        }
+        if (other.hasDomain()) {
+          bitField0_ |= 0x00000008;
           domain_ = other.domain_;
           onChanged();
         }
@@ -929,6 +1014,10 @@ public final class message {
           return false;
         }
         if (!hasLink()) {
+          
+          return false;
+        }
+        if (!hasOriginalLink()) {
           
           return false;
         }
@@ -1062,15 +1151,91 @@ public final class message {
         return this;
       }
 
-      private java.lang.Object domain_ = "";
+      private java.lang.Object originalLink_ = "";
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>required string original_link = 3;</code>
        */
-      public boolean hasDomain() {
+      public boolean hasOriginalLink() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>required string original_link = 3;</code>
+       */
+      public java.lang.String getOriginalLink() {
+        java.lang.Object ref = originalLink_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            originalLink_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string original_link = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOriginalLinkBytes() {
+        java.lang.Object ref = originalLink_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalLink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string original_link = 3;</code>
+       */
+      public Builder setOriginalLink(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        originalLink_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string original_link = 3;</code>
+       */
+      public Builder clearOriginalLink() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        originalLink_ = getDefaultInstance().getOriginalLink();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string original_link = 3;</code>
+       */
+      public Builder setOriginalLinkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        originalLink_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object domain_ = "";
+      /**
+       * <code>optional string domain = 4;</code>
+       */
+      public boolean hasDomain() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional string domain = 4;</code>
        */
       public java.lang.String getDomain() {
         java.lang.Object ref = domain_;
@@ -1087,7 +1252,7 @@ public final class message {
         }
       }
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>optional string domain = 4;</code>
        */
       public com.google.protobuf.ByteString
           getDomainBytes() {
@@ -1103,36 +1268,36 @@ public final class message {
         }
       }
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>optional string domain = 4;</code>
        */
       public Builder setDomain(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         domain_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>optional string domain = 4;</code>
        */
       public Builder clearDomain() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         domain_ = getDefaultInstance().getDomain();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string domain = 3;</code>
+       * <code>optional string domain = 4;</code>
        */
       public Builder setDomainBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         domain_ = value;
         onChanged();
         return this;
@@ -1140,31 +1305,31 @@ public final class message {
 
       private boolean absolute_ ;
       /**
-       * <code>optional bool absolute = 4;</code>
+       * <code>optional bool absolute = 5;</code>
        */
       public boolean hasAbsolute() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional bool absolute = 4;</code>
+       * <code>optional bool absolute = 5;</code>
        */
       public boolean getAbsolute() {
         return absolute_;
       }
       /**
-       * <code>optional bool absolute = 4;</code>
+       * <code>optional bool absolute = 5;</code>
        */
       public Builder setAbsolute(boolean value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         absolute_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool absolute = 4;</code>
+       * <code>optional bool absolute = 5;</code>
        */
       public Builder clearAbsolute() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         absolute_ = false;
         onChanged();
         return this;
@@ -1172,31 +1337,31 @@ public final class message {
 
       private int priority_ ;
       /**
-       * <code>optional int32 priority = 5;</code>
+       * <code>optional int32 priority = 6;</code>
        */
       public boolean hasPriority() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional int32 priority = 5;</code>
+       * <code>optional int32 priority = 6;</code>
        */
       public int getPriority() {
         return priority_;
       }
       /**
-       * <code>optional int32 priority = 5;</code>
+       * <code>optional int32 priority = 6;</code>
        */
       public Builder setPriority(int value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         priority_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 priority = 5;</code>
+       * <code>optional int32 priority = 6;</code>
        */
       public Builder clearPriority() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         priority_ = 0;
         onChanged();
         return this;
@@ -1204,31 +1369,31 @@ public final class message {
 
       private long extractedTime_ ;
       /**
-       * <code>optional int64 extracted_time = 6;</code>
+       * <code>optional int64 extracted_time = 7;</code>
        */
       public boolean hasExtractedTime() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional int64 extracted_time = 6;</code>
+       * <code>optional int64 extracted_time = 7;</code>
        */
       public long getExtractedTime() {
         return extractedTime_;
       }
       /**
-       * <code>optional int64 extracted_time = 6;</code>
+       * <code>optional int64 extracted_time = 7;</code>
        */
       public Builder setExtractedTime(long value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         extractedTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 extracted_time = 6;</code>
+       * <code>optional int64 extracted_time = 7;</code>
        */
       public Builder clearExtractedTime() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         extractedTime_ = 0L;
         onChanged();
         return this;
@@ -1236,31 +1401,31 @@ public final class message {
 
       private long crawledTime_ ;
       /**
-       * <code>optional int64 crawled_time = 7;</code>
+       * <code>optional int64 crawled_time = 8;</code>
        */
       public boolean hasCrawledTime() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional int64 crawled_time = 7;</code>
+       * <code>optional int64 crawled_time = 8;</code>
        */
       public long getCrawledTime() {
         return crawledTime_;
       }
       /**
-       * <code>optional int64 crawled_time = 7;</code>
+       * <code>optional int64 crawled_time = 8;</code>
        */
       public Builder setCrawledTime(long value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         crawledTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 crawled_time = 7;</code>
+       * <code>optional int64 crawled_time = 8;</code>
        */
       public Builder clearCrawledTime() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         crawledTime_ = 0L;
         onChanged();
         return this;
@@ -1268,31 +1433,31 @@ public final class message {
 
       private long downloadDuration_ ;
       /**
-       * <code>optional int64 download_duration = 8;</code>
+       * <code>optional int64 download_duration = 9;</code>
        */
       public boolean hasDownloadDuration() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional int64 download_duration = 8;</code>
+       * <code>optional int64 download_duration = 9;</code>
        */
       public long getDownloadDuration() {
         return downloadDuration_;
       }
       /**
-       * <code>optional int64 download_duration = 8;</code>
+       * <code>optional int64 download_duration = 9;</code>
        */
       public Builder setDownloadDuration(long value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         downloadDuration_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 download_duration = 8;</code>
+       * <code>optional int64 download_duration = 9;</code>
        */
       public Builder clearDownloadDuration() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         downloadDuration_ = 0L;
         onChanged();
         return this;
@@ -1300,31 +1465,31 @@ public final class message {
 
       private int httpStatusCode_ ;
       /**
-       * <code>optional int32 http_status_code = 9;</code>
+       * <code>optional int32 http_status_code = 10;</code>
        */
       public boolean hasHttpStatusCode() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>optional int32 http_status_code = 9;</code>
+       * <code>optional int32 http_status_code = 10;</code>
        */
       public int getHttpStatusCode() {
         return httpStatusCode_;
       }
       /**
-       * <code>optional int32 http_status_code = 9;</code>
+       * <code>optional int32 http_status_code = 10;</code>
        */
       public Builder setHttpStatusCode(int value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         httpStatusCode_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 http_status_code = 9;</code>
+       * <code>optional int32 http_status_code = 10;</code>
        */
       public Builder clearHttpStatusCode() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         httpStatusCode_ = 0;
         onChanged();
         return this;
@@ -1332,31 +1497,31 @@ public final class message {
 
       private long relevance_ ;
       /**
-       * <code>optional int64 relevance = 10;</code>
+       * <code>optional int64 relevance = 11;</code>
        */
       public boolean hasRelevance() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional int64 relevance = 10;</code>
+       * <code>optional int64 relevance = 11;</code>
        */
       public long getRelevance() {
         return relevance_;
       }
       /**
-       * <code>optional int64 relevance = 10;</code>
+       * <code>optional int64 relevance = 11;</code>
        */
       public Builder setRelevance(long value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         relevance_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 relevance = 10;</code>
+       * <code>optional int64 relevance = 11;</code>
        */
       public Builder clearRelevance() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         relevance_ = 0L;
         onChanged();
         return this;
@@ -1364,31 +1529,31 @@ public final class message {
 
       private long distanceFromRelevantPage_ ;
       /**
-       * <code>optional int64 distance_from_relevant_page = 11;</code>
+       * <code>optional int64 distance_from_relevant_page = 12;</code>
        */
       public boolean hasDistanceFromRelevantPage() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>optional int64 distance_from_relevant_page = 11;</code>
+       * <code>optional int64 distance_from_relevant_page = 12;</code>
        */
       public long getDistanceFromRelevantPage() {
         return distanceFromRelevantPage_;
       }
       /**
-       * <code>optional int64 distance_from_relevant_page = 11;</code>
+       * <code>optional int64 distance_from_relevant_page = 12;</code>
        */
       public Builder setDistanceFromRelevantPage(long value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         distanceFromRelevantPage_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 distance_from_relevant_page = 11;</code>
+       * <code>optional int64 distance_from_relevant_page = 12;</code>
        */
       public Builder clearDistanceFromRelevantPage() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         distanceFromRelevantPage_ = 0L;
         onChanged();
         return this;
@@ -1396,31 +1561,31 @@ public final class message {
 
       private int freshness_ ;
       /**
-       * <code>optional int32 freshness = 12;</code>
+       * <code>optional int32 freshness = 13;</code>
        */
       public boolean hasFreshness() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>optional int32 freshness = 12;</code>
+       * <code>optional int32 freshness = 13;</code>
        */
       public int getFreshness() {
         return freshness_;
       }
       /**
-       * <code>optional int32 freshness = 12;</code>
+       * <code>optional int32 freshness = 13;</code>
        */
       public Builder setFreshness(int value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         freshness_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 freshness = 12;</code>
+       * <code>optional int32 freshness = 13;</code>
        */
       public Builder clearFreshness() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         freshness_ = 0;
         onChanged();
         return this;
@@ -1451,14 +1616,15 @@ public final class message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\007message\"\210\002\n\nURLmessage\022" +
-      "\n\n\002id\030\001 \002(\005\022\014\n\004link\030\002 \002(\t\022\016\n\006domain\030\003 \001(" +
-      "\t\022\020\n\010absolute\030\004 \001(\010\022\020\n\010priority\030\005 \001(\005\022\026\n" +
-      "\016extracted_time\030\006 \001(\003\022\024\n\014crawled_time\030\007 " +
-      "\001(\003\022\031\n\021download_duration\030\010 \001(\003\022\030\n\020http_s" +
-      "tatus_code\030\t \001(\005\022\021\n\trelevance\030\n \001(\003\022#\n\033d" +
-      "istance_from_relevant_page\030\013 \001(\003\022\021\n\tfres" +
-      "hness\030\014 \001(\005B\030\n\rproto.messageB\007message"
+      "\n\rmessage.proto\022\007message\"\237\002\n\nURLmessage\022" +
+      "\n\n\002id\030\001 \002(\005\022\014\n\004link\030\002 \002(\t\022\025\n\roriginal_li" +
+      "nk\030\003 \002(\t\022\016\n\006domain\030\004 \001(\t\022\020\n\010absolute\030\005 \001" +
+      "(\010\022\020\n\010priority\030\006 \001(\005\022\026\n\016extracted_time\030\007" +
+      " \001(\003\022\024\n\014crawled_time\030\010 \001(\003\022\031\n\021download_d" +
+      "uration\030\t \001(\003\022\030\n\020http_status_code\030\n \001(\005\022" +
+      "\021\n\trelevance\030\013 \001(\003\022#\n\033distance_from_rele" +
+      "vant_page\030\014 \001(\003\022\021\n\tfreshness\030\r \001(\005B\030\n\rpr" +
+      "oto.messageB\007message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1477,7 +1643,7 @@ public final class message {
     internal_static_message_URLmessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_message_URLmessage_descriptor,
-        new java.lang.String[] { "Id", "Link", "Domain", "Absolute", "Priority", "ExtractedTime", "CrawledTime", "DownloadDuration", "HttpStatusCode", "Relevance", "DistanceFromRelevantPage", "Freshness", });
+        new java.lang.String[] { "Id", "Link", "OriginalLink", "Domain", "Absolute", "Priority", "ExtractedTime", "CrawledTime", "DownloadDuration", "HttpStatusCode", "Relevance", "DistanceFromRelevantPage", "Freshness", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

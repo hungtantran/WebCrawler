@@ -15,6 +15,7 @@ public class LinkQueue {
 
 	private Integer m_id;
 	private String m_link;
+	private String m_originalLink;
 	private Integer m_domainTableId1;
 	private Integer m_priority;
 	private Integer m_persistent;
@@ -27,6 +28,7 @@ public class LinkQueue {
 
 	public void Assign(URLObject url) {
 		this.setLink(url.getAbsoluteLink());
+		this.set_originalLink(url.get_originalLink());
 		this.setPersistent(0);
 		this.setPriority(url.get_priority());
 		this.set_extractedTime(url.get_extractedTime());
@@ -54,6 +56,14 @@ public class LinkQueue {
 
 	public void setLink(String link) {
 		this.m_link = link;
+	}
+	
+	public String get_originalLink() {
+		return m_originalLink;
+	}
+
+	public void set_originalLink(String originalLink) {
+		this.m_originalLink = originalLink;
 	}
 
 	public Integer getPriority() {

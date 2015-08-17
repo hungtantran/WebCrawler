@@ -1,6 +1,7 @@
 package database;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import common.ErrorCode.CrError;
 import common.IWebPage;
@@ -25,4 +26,6 @@ public interface IDatabaseConnection {
 	public boolean checkURLDuplicationDatabase(URLObject inUrl);
 	
 	public CrError storeWebPage(IWebPage inWebPage);
+	
+	public CrError getExistingDomains(Set<String> domains);
 }

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 public class Main {
 	public static void main(String[] args) {
+		new Globals();
+
 		WebCrawler crawler;
 		try {
 			crawler = new WebCrawler(Globals.username, Globals.password, Globals.server, Globals.database);

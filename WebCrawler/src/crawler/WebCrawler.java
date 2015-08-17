@@ -5,6 +5,8 @@ import static common.LogManager.writeGenericLog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -28,9 +30,11 @@ import urlDistributor.URLDistributor;
 import urlDuplicationEliminator.IURLDuplicationEliminator;
 import urlDuplicationEliminator.URLDuplicationEliminator;
 import urlFilter.IURLFilter;
-import urlFilter.URLFilter;
+import urlFilter.URLFilters;
 import urlPrioritizer.IURLPrioritizer;
 import urlPrioritizer.URLPrioritizer;
+import urlProcessor.IURLProcessor;
+import urlProcessor.URLProcessors;
 
 public class WebCrawler {
 	private IFrontier m_frontier = null;
@@ -41,6 +45,7 @@ public class WebCrawler {
 	private IURLDuplicationEliminator m_urlDuplicationEliminator = null;
 	private IURLPrioritizer m_urlPrioritizer = null;
 	private IDatabaseConnection m_databaseConnection = null;
+	private ArrayList<IURLProcessor> m_urlProcessors = new ArrayList<IURLProcessor>();
 	
 	private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
 	
@@ -152,6 +157,10 @@ public class WebCrawler {
 			{
 				return hr;
 			}
+			
+			for (IURLProcessor processor : m_urlProcessors) {
+				processor.processURLs(extractedUrls);
+			}
 		
 			// Store the crawled url in the database
 			ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
@@ -181,9 +190,31 @@ public class WebCrawler {
 		m_httpFetcher = new HttpFetcher();
 		m_linkExtractor = new LinkExtractor();
 		m_urlDistributor = new URLDistributor(m_databaseConnection);
-		m_urlFilter = new URLFilter(m_databaseConnection);
+		
+		Set<String> existingDomains = new HashSet<String>();
+		m_databaseConnection.getExistingDomains(existingDomains);
+		m_urlFilter = URLFilters.getURLFilter(Globals.URLFILTERTYPE);
+		m_urlFilter.setDatabaseConnection(m_databaseConnection);
+		
+		if (Globals.LIMITTOEXISTINGDOMAINS) {
+			m_urlFilter.setFilterNonExistingDomains(existingDomains);
+		}
+		
+		if (Globals.FILTERBASEDONEXLUCDEFILETYPE) {
+			m_urlFilter.setFileTypesToExclude(Globals.EXLUCDEFILETYPES);
+		}
+		
+		if (Globals.FILTERBASEDOINCLUDEFILETYPE) {
+			m_urlFilter.setFileTypesToInclude(Globals.INLUCDEFILETYPES);
+		}
+
 		m_urlDuplicationEliminator = new URLDuplicationEliminator(Globals.DEFAULTBLOOMFILTERDIRECTORY, Globals.DEFAULTBLOOMFILTERFILENAME, Globals.NMEGABYTESFORBLOOMFILTER, m_databaseConnection);
 		m_urlPrioritizer = new URLPrioritizer(m_databaseConnection);
+		
+		for (String urlProcessorStr : Globals.URLPROCESSORS) {
+			IURLProcessor processor = URLProcessors.getURLProcessor(urlProcessorStr);
+			m_urlProcessors.add(processor);
+		}
 	}
 	
 	public CrError crawl() {

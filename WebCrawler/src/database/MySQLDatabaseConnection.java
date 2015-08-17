@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import common.ErrorCode.CrError;
 import common.IWebPage;
@@ -232,5 +234,20 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		}
 		
 		return hr;
+	}
+
+	@Override
+	public CrError getExistingDomains(Set<String> domains) {
+		if (this.domainToDomainIdMap == null) {
+			writeGenericLog("No information of existing domains");
+			return CrError.CR_UNEXPECTED;
+		}
+		
+		domains.clear();
+		for (Map.Entry<String, Integer> entry : this.domainToDomainIdMap.entrySet()) {
+			domains.add(entry.getKey());
+		}
+		
+		return CrError.CR_OK;
 	}
 }

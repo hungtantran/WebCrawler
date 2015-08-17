@@ -6,14 +6,15 @@ option java_outer_classname = "message";
 message URLmessage {
 	required int32 id 								= 1;
 	required string link 							= 2;
-	optional string domain 							= 3;
-	optional bool absolute 							= 4;
-	optional int32 priority							= 5;
-	optional int64 extracted_time					= 6;
-	optional int64 crawled_time						= 7;
-	optional int64 download_duration				= 8;
-	optional int32 http_status_code					= 9;
-	optional int64 relevance						= 10;
-	optional int64 distance_from_relevant_page		= 11;
-	optional int32 freshness						= 12;
+	required string original_link 				    = 3;
+	optional string domain 							= 4;
+	optional bool absolute 							= 5;
+	optional int32 priority							= 6;
+	optional int64 extracted_time					= 7;
+	optional int64 crawled_time						= 8;
+	optional int64 download_duration				= 9;
+	optional int32 http_status_code					= 10;
+	optional int64 relevance						= 11;
+	optional int64 distance_from_relevant_page		= 12;
+	optional int32 freshness						= 13;
 }

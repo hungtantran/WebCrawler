@@ -1,10 +1,23 @@
 package common;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import urlFilter.DefaultURLFilterProvider;
+import urlFilter.URLFilters;
+import urlProcessor.DownloadURLProvider;
+import urlProcessor.URLProcessors;
+
 public class Globals {
+	// Database
+	public static final String username = "root";
+	public static final String password = "";
+	public static final String server = "localhost:3306/";
+	public static final String database = "webcrawler3";
+
+	// Path separator
 	public static final String PATHSEPARATOR = File.separator;
 	
 	// Directory to output log
@@ -67,6 +80,30 @@ public class Globals {
 	// Max distance from relevant page to be considered
 	public static final int MAXDISTANCEFROMRELEVANTPAGE = 2;
 	
+	// Whether to limit to only domain of the existing urls in the current frontier and doesn't expand to new domain
+	public static final boolean LIMITTOEXISTINGDOMAINS = true;
+	
+	// The name of the url filter to use
+	public static final String URLFILTERTYPE = "DefaultURLFilter";
+	
+	// Filter base on include/exlude file types
+	public static boolean FILTERBASEDONEXLUCDEFILETYPE = true;
+	public static final Set<String> EXLUCDEFILETYPES = new HashSet<String>(Arrays.asList("jpeg", "png", "jpg", "eps", "ps", "svg", "indd", "pct", "xlr", "xls", "xlsx", "accdb", "db", "dbf", "mdb", "pdb", "sql", "apk", "app", "bat", "cgi", "exe", "gadget", "jar", "pif", "vb", "wsf", "dem", "gam", "nes", "rom", "sav", "dwg", "dxf", "gpx", "kml", "kmz", "asp", "aspx", "cer", "cfm", "csr", "css", "js", "jsp", "php", "rss", "xhtml", "crx", "plugin", "fnt", "fon", "otf", "ttf", "cab", "cpl", "cur", "deskthemepack", "dll", "dmp", "drv", "icns", "ico", "lnk", "sys", "cfg", "ini", "prf", "hqx", "mim", "uue", "7z", "cbr", "deb", "gz", "pkg", "rar", "rpm", "sitx", "tar.gz", "zip", "zipx", "bin", "cue", "dmg", "iso", "mdf", "toast", "vcd", "c", "class", "cpp", "cs", "dtd", "fla", "h", "java", "lua", "m", "pl", "py", "sh", "sln", "swift", "vcxproj", "xcodeproj", "bak", "tmp", "crdownload", "ics", "msi", "part", "torrent"));
+	
+	public static boolean FILTERBASEDOINCLUDEFILETYPE = true;
+	public static final Set<String> INLUCDEFILETYPES = new HashSet<String>(Arrays.asList("pdf"));
+
+	static {
+		URLFilters.RegisterURLFilterProvider("DefaultURLFilter", new DefaultURLFilterProvider());
+	}
+	
+	// URL processors to use
+	public static final String[] URLPROCESSORS = { "DownloadURL" };
+	
+	static {
+		URLProcessors.RegisterURLProcessorProvider("DownloadURL", new DownloadURLProvider());
+	}
+	
 	// Blacklist domain
 	public static final String[] BLACKLISTDOMAINS = {
 			"https://www.facebook.com",
@@ -86,15 +123,10 @@ public class Globals {
 			"https://t.co",
 			"http://t.co"};
 	public static Set<String> BLACKLISTDOMAINSET = new HashSet<String>();
-	static {
+
+	{
 		for (int i = 0; i < BLACKLISTDOMAINS.length; ++i) {
 			BLACKLISTDOMAINSET.add(BLACKLISTDOMAINS[i]);
 		}
 	}
-	
-	// Database
-	public static final String username = "root";
-	public static final String password = "";
-	public static final String server = "localhost:3306/";
-	public static final String database = "webcrawler2";
 }

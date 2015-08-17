@@ -14,6 +14,7 @@ import proto.message.message.URLmessage;
 public class URLObject {
 	private int m_id;
 	private String m_link;
+	private String m_originalLink;
 	private URL m_domain;
 	private boolean m_absolute;
 	private int m_priority;
@@ -47,6 +48,7 @@ public class URLObject {
 	public URLObject()
 	{
 		this.m_link = null;
+		this.m_originalLink = null;
 		this.m_domain = null;
 		this.m_absolute = false;
 		this.m_id = -1;
@@ -64,6 +66,7 @@ public class URLObject {
 	public void assign(URLObject other) {
 		this.set_id(other.m_id);
 		this.setLink(other.getLink());
+		this.set_originalLink(other.get_originalLink());
 		this.setDomain(other.getDomain());
 		this.set_absolute(other.is_absolute());
 		this.set_priority(other.get_priority());
@@ -76,7 +79,15 @@ public class URLObject {
 		this.set_freshness(other.get_freshness());
 		this.set_webPage(other.get_webPage());
 	}
+	
+	public String get_originalLink() {
+		return m_originalLink;
+	}
 
+	public void set_originalLink(String originalLink) {
+		this.m_originalLink = originalLink;
+	}
+	
 	public IWebPage get_webPage() {
 		return m_webPage;
 	}
@@ -138,7 +149,13 @@ public class URLObject {
 
 		if (!m_absolute) {
 			try {
-				URL absoluteURL = new URL(this.m_domain, this.m_link.toString());
+				URL absoluteURL = null;
+				if (this.m_originalLink == null) {
+					absoluteURL = new URL(this.m_domain, this.m_link.toString());
+				} else {
+					absoluteURL = new URL(new URL(this.m_originalLink), this.m_link.toString());
+				}
+
 				absoluteLink = absoluteURL.toString();
 			} catch (MalformedURLException e) {
 				return null;
@@ -260,6 +277,12 @@ public class URLObject {
 			builder.append("Link = null, ");
 		}
 		
+		if (m_link != null) {
+			builder.append("Original Link = " + m_link + ", ");
+		} else {
+			builder.append("Original Link = null, ");
+		}
+		
 		if (m_domain != null) {
 			builder.append("Domain = " + m_domain.toString() + ", ");
 		} else {
@@ -282,6 +305,7 @@ public class URLObject {
 		return URLmessage.newBuilder()
 			.setId(url.get_id())
 			.setLink(url.getLink())
+			.setOriginalLink(url.get_originalLink())
 			.setAbsolute(url.is_absolute())
 			.setPriority(url.get_priority())
 			.setExtractedTime(url.get_extractedTime())
@@ -299,6 +323,7 @@ public class URLObject {
 
 		urlObject.set_id(url.getId());
 		urlObject.setLink(url.getLink());
+		urlObject.set_originalLink(url.getOriginalLink());
 		urlObject.set_absolute(url.getAbsolute());
 		urlObject.set_priority(url.getPriority());
 		urlObject.set_extractedTime(url.getExtractedTime());
