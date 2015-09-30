@@ -15,7 +15,7 @@ public class Globals {
 	public static final String username = "root";
 	public static final String password = "";
 	public static final String server = "localhost:3306/";
-	public static final String database = "webcrawler3";
+	public static final String database = "webcrawler5";
 
 	// Path separator
 	public static final String PATHSEPARATOR = File.separator;
@@ -78,10 +78,10 @@ public class Globals {
 	public static final double RELEVANCEDECAYFACTOR = 0.8;
 	
 	// Max distance from relevant page to be considered
-	public static final int MAXDISTANCEFROMRELEVANTPAGE = 2;
+	public static final int MAXDISTANCEFROMRELEVANTPAGE = 0;
 	
 	// Whether to limit to only domain of the existing urls in the current frontier and doesn't expand to new domain
-	public static final boolean LIMITTOEXISTINGDOMAINS = false;
+	public static final boolean LIMITTOEXISTINGDOMAINS = true;
 	
 	// The name of the url filter to use
 	public static final String URLFILTERTYPE = "DefaultURLFilter";
