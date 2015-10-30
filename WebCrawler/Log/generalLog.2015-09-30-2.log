@@ -1,0 +1,842 @@
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:11:54] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:11:54] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:11:54] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:11:54] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:11:54] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:11:54] [run]: [15] Start thread 15
+[Frontier.java:144] [2015-09-30] [02:11:55] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:11:55] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:11:55] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:11:55] [waitSec]: [11] Wait for 6854 millisec
+[Frontier.java:144] [2015-09-30] [02:11:55] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:11:55] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:11:55] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:11:55] [waitSec]: [15] Wait for 9992 millisec
+[Frontier.java:144] [2015-09-30] [02:11:55] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:11:55] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:11:55] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:11:55] [waitSec]: [14] Wait for 6349 millisec
+[Frontier.java:144] [2015-09-30] [02:11:55] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:11:55] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:11:55] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:11:55] [waitSec]: [13] Wait for 7461 millisec
+[Frontier.java:144] [2015-09-30] [02:11:55] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:11:55] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:11:55] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:11:55] [waitSec]: [12] Wait for 7689 millisec
+[Frontier.java:144] [2015-09-30] [02:12:01] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:01] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:01] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:01] [waitSec]: [14] Wait for 8624 millisec
+[Frontier.java:144] [2015-09-30] [02:12:01] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:01] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:01] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:01] [waitSec]: [11] Wait for 6693 millisec
+[Frontier.java:144] [2015-09-30] [02:12:02] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:02] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:02] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:02] [waitSec]: [13] Wait for 5214 millisec
+[Frontier.java:144] [2015-09-30] [02:12:02] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:02] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:02] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:02] [waitSec]: [12] Wait for 9457 millisec
+[Frontier.java:144] [2015-09-30] [02:12:05] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:05] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:05] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:05] [waitSec]: [15] Wait for 5609 millisec
+[Frontier.java:144] [2015-09-30] [02:12:07] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:07] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:07] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:07] [waitSec]: [13] Wait for 5024 millisec
+[Frontier.java:144] [2015-09-30] [02:12:08] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:08] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:08] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:08] [waitSec]: [11] Wait for 5099 millisec
+[Frontier.java:144] [2015-09-30] [02:12:10] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:10] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:10] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:10] [waitSec]: [14] Wait for 6185 millisec
+[Frontier.java:144] [2015-09-30] [02:12:10] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:10] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:10] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:10] [waitSec]: [15] Wait for 6933 millisec
+[Frontier.java:144] [2015-09-30] [02:12:12] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:12] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:12] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:12] [waitSec]: [12] Wait for 7326 millisec
+[Frontier.java:144] [2015-09-30] [02:12:12] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:12] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:12] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:12:12] [waitSec]: [13] Wait for 9624 millisec
+[Frontier.java:144] [2015-09-30] [02:12:13] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:12:13] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:12:13] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:14:44] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:14:44] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:14:44] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:14:44] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:14:44] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:14:44] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:14:44] [pullUrlsInternal]: [11] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:14:44] [pullUrlsInternal]: [11] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:14:44] [pullUrl]: [11] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:14:44] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:44] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:44] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:44] [waitSec]: [15] Wait for 9483 millisec
+[Frontier.java:144] [2015-09-30] [02:14:44] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:44] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:44] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:44] [waitSec]: [14] Wait for 9230 millisec
+[Frontier.java:144] [2015-09-30] [02:14:44] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:44] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:44] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:44] [waitSec]: [13] Wait for 8826 millisec
+[Frontier.java:144] [2015-09-30] [02:14:44] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:44] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:44] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:44] [waitSec]: [12] Wait for 5343 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:14:44] [getWebPage]: [11] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/4.0 (compatible; MSIE 5.15; Mac_PowerPC)
+[HttpFetcher.java:80] [2015-09-30] [02:14:44] [getWebPage]: [11] duration here = 529 start time = 1443604484463 current time = 1443604484992
+[HTMLCompressor.java:57] [2015-09-30] [02:14:45] [compressHtmlContent]: [11] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:14:45] [compressHtmlContent]: [11] Compressed length = 20653
+[LinkExtractor.java:94] [2015-09-30] [02:14:45] [extractURLs]: [11] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLPrioritizer.java:97] [2015-09-30] [02:14:45] [computeRelevanceScore]: [11] Compute score for url http://web.stanford.edu/class/cs103x: score = 0, headerScore = 0, descriptionScore = 0, bodyScore = 0
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:191] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 0
+
+[Frontier.java:144] [2015-09-30] [02:14:50] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:50] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:50] [2015-09-30] [02:14:50] [releaseBackEndQueue]: [11] Push back back end queue of domain http://web.stanford.edu with download duration 529
+[Frontier.java:67] [2015-09-30] [02:14:50] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:50] [waitSec]: [12] Wait for 7859 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:51] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/cs103x-info.pdf, with error http://web.stanford.edu/class/cs103x-info.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:51] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework2.pdf, with error http://web.stanford.edu/class/2006/homework2.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:51] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/cs103x-notes.pdf, with error http://web.stanford.edu/class/cs103x-notes.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:52] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midtermsolutions2007.pdf, with error http://web.stanford.edu/class/midtermsolutions2007.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:52] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions1.pdf, with error http://web.stanford.edu/class/2007/solutions1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:53] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midterm_sol.pdf, with error http://web.stanford.edu/class/midterm_sol.pdf
+[Frontier.java:144] [2015-09-30] [02:14:53] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:53] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:53] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:53] [waitSec]: [13] Wait for 9275 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:53] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset7_sol.pdf, with error http://web.stanford.edu/class/pset7_sol.pdf
+[Frontier.java:144] [2015-09-30] [02:14:53] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:53] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:53] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:53] [waitSec]: [14] Wait for 7849 millisec
+[Frontier.java:144] [2015-09-30] [02:14:53] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:14:53] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:14:53] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:14:53] [waitSec]: [15] Wait for 9251 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:54] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/finalsolutions.pdf, with error http://web.stanford.edu/class/2007/finalsolutions.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:54] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework1.pdf, with error http://web.stanford.edu/class/2006/homework1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:54] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset4_sol.pdf, with error http://web.stanford.edu/class/pset4_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:55] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset1.pdf, with error http://web.stanford.edu/class/pset1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:14:55] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions7.pdf, with error http://web.stanford.edu/class/2007/solutions7.pdf
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:16:16] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:16:16] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:16:16] [run]: [15] Start thread 15
+[WebCrawler.java:63] [2015-09-30] [02:16:16] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:16:16] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:16:16] [run]: [14] Start thread 14
+[Frontier.java:169] [2015-09-30] [02:16:16] [pullUrlsInternal]: [11] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:16:16] [pullUrlsInternal]: [11] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:16:16] [pullUrl]: [11] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:16:16] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:16] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:16] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:16] [waitSec]: [14] Wait for 8758 millisec
+[Frontier.java:144] [2015-09-30] [02:16:16] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:16] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:16] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:16] [waitSec]: [13] Wait for 6440 millisec
+[Frontier.java:144] [2015-09-30] [02:16:16] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:16] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:16] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:16] [waitSec]: [12] Wait for 5939 millisec
+[Frontier.java:144] [2015-09-30] [02:16:16] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:16] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:16] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:16] [waitSec]: [15] Wait for 6368 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:16:16] [getWebPage]: [11] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6
+[HttpFetcher.java:80] [2015-09-30] [02:16:16] [getWebPage]: [11] duration here = 407 start time = 1443604576587 current time = 1443604576994
+[HTMLCompressor.java:57] [2015-09-30] [02:16:17] [compressHtmlContent]: [11] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:16:17] [compressHtmlContent]: [11] Compressed length = 20653
+[LinkExtractor.java:94] [2015-09-30] [02:16:17] [extractURLs]: [11] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLPrioritizer.java:97] [2015-09-30] [02:16:17] [computeRelevanceScore]: [11] Compute score for url http://web.stanford.edu/class/cs103x: score = 0, headerScore = 0, descriptionScore = 0, bodyScore = 0
+[Frontier.java:50] [2015-09-30] [02:16:21] [releaseBackEndQueue]: [11] Push back back end queue of domain http://web.stanford.edu with download duration 407
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:21] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/cs103x-info.pdf, with error http://web.stanford.edu/class/cs103x-info.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:22] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework2.pdf, with error http://web.stanford.edu/class/2006/homework2.pdf
+[Frontier.java:191] [2015-09-30] [02:16:22] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:16:22] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:16:22] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:16:22] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:16:22] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:23] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/cs103x-notes.pdf, with error http://web.stanford.edu/class/cs103x-notes.pdf
+[Frontier.java:191] [2015-09-30] [02:16:23] [pullUrlsInternal]: [12] Num backend queues : 0
+
+[Frontier.java:144] [2015-09-30] [02:16:23] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:23] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:23] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:23] [waitSec]: [12] Wait for 7813 millisec
+[Frontier.java:144] [2015-09-30] [02:16:23] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:23] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:23] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:23] [waitSec]: [13] Wait for 6019 millisec
+[Frontier.java:144] [2015-09-30] [02:16:23] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:23] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:23] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:23] [waitSec]: [15] Wait for 8703 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:23] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midtermsolutions2007.pdf, with error http://web.stanford.edu/class/midtermsolutions2007.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:24] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions1.pdf, with error http://web.stanford.edu/class/2007/solutions1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:25] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midterm_sol.pdf, with error http://web.stanford.edu/class/midterm_sol.pdf
+[Frontier.java:144] [2015-09-30] [02:16:25] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:25] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:25] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:25] [waitSec]: [14] Wait for 5152 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:25] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset7_sol.pdf, with error http://web.stanford.edu/class/pset7_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:26] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/finalsolutions.pdf, with error http://web.stanford.edu/class/2007/finalsolutions.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:26] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework1.pdf, with error http://web.stanford.edu/class/2006/homework1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:27] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset4_sol.pdf, with error http://web.stanford.edu/class/pset4_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:27] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset1.pdf, with error http://web.stanford.edu/class/pset1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:28] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions7.pdf, with error http://web.stanford.edu/class/2007/solutions7.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:28] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset2.pdf, with error http://web.stanford.edu/class/pset2.pdf
+[Frontier.java:144] [2015-09-30] [02:16:29] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:29] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:29] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:29] [waitSec]: [13] Wait for 7232 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:29] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midterm2007.pdf, with error http://web.stanford.edu/class/midterm2007.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:29] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/midtermStuffPruned.pdf, with error http://web.stanford.edu/class/midtermStuffPruned.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:30] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions8.pdf, with error http://web.stanford.edu/class/2007/solutions8.pdf
+[Frontier.java:144] [2015-09-30] [02:16:30] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:30] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:30] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:30] [waitSec]: [14] Wait for 5895 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:30] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework7.pdf, with error http://web.stanford.edu/class/2006/homework7.pdf
+[Frontier.java:144] [2015-09-30] [02:16:30] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:30] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:30] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:30] [waitSec]: [12] Wait for 8292 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:30] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset3.pdf, with error http://web.stanford.edu/class/pset3.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:31] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions5.pdf, with error http://web.stanford.edu/class/2007/solutions5.pdf
+[Frontier.java:144] [2015-09-30] [02:16:31] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:31] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:31] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:31] [waitSec]: [15] Wait for 8259 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:31] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework6.pdf, with error http://web.stanford.edu/class/2007/homework6.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:32] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework8.pdf, with error http://web.stanford.edu/class/2006/homework8.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:32] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework5.pdf, with error http://web.stanford.edu/class/2007/homework5.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:33] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions6.pdf, with error http://web.stanford.edu/class/2007/solutions6.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:35] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset4.pdf, with error http://web.stanford.edu/class/pset4.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:35] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework4.pdf, with error http://web.stanford.edu/class/2007/homework4.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:35] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework6.pdf, with error http://web.stanford.edu/class/2006/homework6.pdf
+[Frontier.java:144] [2015-09-30] [02:16:36] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:36] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:36] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:36] [waitSec]: [13] Wait for 8255 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:36] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework7.pdf, with error http://web.stanford.edu/class/2007/homework7.pdf
+[Frontier.java:144] [2015-09-30] [02:16:36] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:36] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:36] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:36] [waitSec]: [14] Wait for 7991 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:36] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/Final.pdf, with error http://web.stanford.edu/class/Final.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:38] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework9.pdf, with error http://web.stanford.edu/class/2006/homework9.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:38] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset6_sol.pdf, with error http://web.stanford.edu/class/pset6_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:38] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/final.pdf, with error http://web.stanford.edu/class/2007/final.pdf
+[Frontier.java:144] [2015-09-30] [02:16:39] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:39] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:39] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:39] [waitSec]: [12] Wait for 6124 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:39] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework3.pdf, with error http://web.stanford.edu/class/2007/homework3.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:39] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework8.pdf, with error http://web.stanford.edu/class/2007/homework8.pdf
+[Frontier.java:144] [2015-09-30] [02:16:40] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:40] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:40] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:40] [waitSec]: [15] Wait for 8253 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:40] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset5_sol.pdf, with error http://web.stanford.edu/class/pset5_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:40] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework5.pdf, with error http://web.stanford.edu/class/2006/homework5.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:41] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset3_sol.pdf, with error http://web.stanford.edu/class/pset3_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:41] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset6.pdf, with error http://web.stanford.edu/class/pset6.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:42] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions2.pdf, with error http://web.stanford.edu/class/2007/solutions2.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:43] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset5.pdf, with error http://web.stanford.edu/class/pset5.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:43] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions3.pdf, with error http://web.stanford.edu/class/2007/solutions3.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:44] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/final.pdf, with error http://web.stanford.edu/class/2006/final.pdf
+[Frontier.java:144] [2015-09-30] [02:16:44] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:44] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:44] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:44] [waitSec]: [14] Wait for 8224 millisec
+[Frontier.java:144] [2015-09-30] [02:16:44] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:44] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework2.pdf, with error http://web.stanford.edu/class/2007/homework2.pdf
+[Frontier.java:106] [2015-09-30] [02:16:44] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:44] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:44] [waitSec]: [13] Wait for 5089 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:45] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework4.pdf, with error http://web.stanford.edu/class/2006/homework4.pdf
+[Frontier.java:144] [2015-09-30] [02:16:45] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:45] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:45] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:45] [waitSec]: [12] Wait for 9008 millisec
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:45] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/solutions4.pdf, with error http://web.stanford.edu/class/2007/solutions4.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:46] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset7.pdf, with error http://web.stanford.edu/class/pset7.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:46] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2007/homework1.pdf, with error http://web.stanford.edu/class/2007/homework1.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:47] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/pset1_sol.pdf, with error http://web.stanford.edu/class/pset1_sol.pdf
+[DownloadURLProvider.java:54] [2015-09-30] [02:16:47] [processURLs]: [11] Fail to download link http://web.stanford.edu/class/2006/homework3.pdf, with error http://web.stanford.edu/class/2006/homework3.pdf
+[RawHTMLDAOJDBC.java:144] [2015-09-30] [02:16:47] [create]: [11] INSERT INTO RawHTML 2, Content Length = 20653
+[Frontier.java:144] [2015-09-30] [02:16:47] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:47] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:47] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:47] [waitSec]: [11] Wait for 6274 millisec
+[Frontier.java:144] [2015-09-30] [02:16:48] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:48] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:48] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:48] [waitSec]: [15] Wait for 7178 millisec
+[Frontier.java:144] [2015-09-30] [02:16:49] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:49] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:49] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:49] [waitSec]: [13] Wait for 7999 millisec
+[Frontier.java:144] [2015-09-30] [02:16:52] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:52] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:52] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:52] [waitSec]: [14] Wait for 5254 millisec
+[Frontier.java:144] [2015-09-30] [02:16:54] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:54] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:54] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:54] [waitSec]: [11] Wait for 8063 millisec
+[Frontier.java:144] [2015-09-30] [02:16:54] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:54] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:54] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:54] [waitSec]: [12] Wait for 8195 millisec
+[Frontier.java:144] [2015-09-30] [02:16:55] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:55] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:55] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:55] [waitSec]: [15] Wait for 7382 millisec
+[Frontier.java:144] [2015-09-30] [02:16:57] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:57] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:57] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:57] [waitSec]: [13] Wait for 5322 millisec
+[Frontier.java:144] [2015-09-30] [02:16:57] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:16:57] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:16:57] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:16:57] [waitSec]: [14] Wait for 6186 millisec
+[Frontier.java:144] [2015-09-30] [02:17:02] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:02] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:02] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:02] [waitSec]: [11] Wait for 5408 millisec
+[Frontier.java:144] [2015-09-30] [02:17:02] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:02] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:02] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:02] [waitSec]: [12] Wait for 7741 millisec
+[Frontier.java:144] [2015-09-30] [02:17:02] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:02] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:02] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:02] [waitSec]: [15] Wait for 6986 millisec
+[Frontier.java:144] [2015-09-30] [02:17:03] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:03] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:03] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:03] [waitSec]: [13] Wait for 6294 millisec
+[Frontier.java:144] [2015-09-30] [02:17:04] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:04] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:04] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:04] [waitSec]: [14] Wait for 5054 millisec
+[Frontier.java:144] [2015-09-30] [02:17:07] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:07] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:07] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:07] [waitSec]: [11] Wait for 8781 millisec
+[Frontier.java:144] [2015-09-30] [02:17:09] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:09] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:09] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:09] [waitSec]: [14] Wait for 8147 millisec
+[Frontier.java:144] [2015-09-30] [02:17:09] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:09] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:09] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:09] [waitSec]: [13] Wait for 5198 millisec
+[Frontier.java:144] [2015-09-30] [02:17:09] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:09] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:09] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:09] [waitSec]: [15] Wait for 5871 millisec
+[Frontier.java:144] [2015-09-30] [02:17:10] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:10] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:10] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:10] [waitSec]: [12] Wait for 7847 millisec
+[Frontier.java:144] [2015-09-30] [02:17:14] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:14] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:14] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:14] [waitSec]: [13] Wait for 5446 millisec
+[Frontier.java:144] [2015-09-30] [02:17:15] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:15] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:15] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:15] [waitSec]: [15] Wait for 6854 millisec
+[Frontier.java:144] [2015-09-30] [02:17:16] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:16] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:16] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:16] [waitSec]: [11] Wait for 5673 millisec
+[Frontier.java:144] [2015-09-30] [02:17:17] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:17] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:17] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:17] [waitSec]: [14] Wait for 6449 millisec
+[Frontier.java:144] [2015-09-30] [02:17:18] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:18] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:18] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:18] [waitSec]: [12] Wait for 9018 millisec
+[Frontier.java:144] [2015-09-30] [02:17:19] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:19] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:19] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:19] [waitSec]: [13] Wait for 8850 millisec
+[Frontier.java:144] [2015-09-30] [02:17:22] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:22] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:22] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:22] [waitSec]: [11] Wait for 5917 millisec
+[Frontier.java:144] [2015-09-30] [02:17:22] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:22] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:22] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:22] [waitSec]: [15] Wait for 8928 millisec
+[Frontier.java:144] [2015-09-30] [02:17:23] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:23] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:23] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:23] [waitSec]: [14] Wait for 7863 millisec
+[Frontier.java:144] [2015-09-30] [02:17:27] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:27] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:27] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:27] [waitSec]: [12] Wait for 6865 millisec
+[Frontier.java:144] [2015-09-30] [02:17:28] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:28] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:28] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:28] [waitSec]: [11] Wait for 5678 millisec
+[Frontier.java:144] [2015-09-30] [02:17:28] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:28] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:28] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:28] [waitSec]: [13] Wait for 7162 millisec
+[Frontier.java:144] [2015-09-30] [02:17:31] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:31] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:31] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:31] [waitSec]: [15] Wait for 6527 millisec
+[Frontier.java:144] [2015-09-30] [02:17:31] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:31] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:31] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:31] [waitSec]: [14] Wait for 7647 millisec
+[Frontier.java:144] [2015-09-30] [02:17:33] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:33] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:33] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:33] [waitSec]: [11] Wait for 5496 millisec
+[Frontier.java:144] [2015-09-30] [02:17:34] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:34] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:34] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:34] [waitSec]: [12] Wait for 6858 millisec
+[Frontier.java:144] [2015-09-30] [02:17:35] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:35] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:35] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:35] [waitSec]: [13] Wait for 7002 millisec
+[Frontier.java:144] [2015-09-30] [02:17:38] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:38] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:38] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:38] [waitSec]: [15] Wait for 7450 millisec
+[Frontier.java:144] [2015-09-30] [02:17:39] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:39] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:39] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:39] [waitSec]: [14] Wait for 5205 millisec
+[Frontier.java:144] [2015-09-30] [02:17:39] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:39] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:39] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:39] [waitSec]: [11] Wait for 8346 millisec
+[Frontier.java:144] [2015-09-30] [02:17:40] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:40] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:40] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:40] [waitSec]: [12] Wait for 10000 millisec
+[Frontier.java:144] [2015-09-30] [02:17:42] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:42] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:42] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:42] [waitSec]: [13] Wait for 7572 millisec
+[Frontier.java:144] [2015-09-30] [02:17:44] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:44] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:44] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:44] [waitSec]: [14] Wait for 7984 millisec
+[Frontier.java:144] [2015-09-30] [02:17:45] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:45] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:45] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:45] [waitSec]: [15] Wait for 8022 millisec
+[Frontier.java:144] [2015-09-30] [02:17:47] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:47] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:47] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:47] [waitSec]: [11] Wait for 7079 millisec
+[Frontier.java:144] [2015-09-30] [02:17:50] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:50] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:50] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:50] [waitSec]: [13] Wait for 6559 millisec
+[Frontier.java:144] [2015-09-30] [02:17:50] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:50] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:50] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:17:50] [waitSec]: [12] Wait for 5561 millisec
+[Frontier.java:144] [2015-09-30] [02:17:52] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:17:52] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:17:52] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:25:34] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:25:34] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:25:34] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:25:34] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:25:34] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:25:34] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:25:34] [pullUrlsInternal]: [11] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:25:34] [pullUrlsInternal]: [11] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:25:34] [pullUrl]: [11] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:25:34] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:25:34] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:25:34] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:25:34] [waitSec]: [15] Wait for 8567 millisec
+[Frontier.java:144] [2015-09-30] [02:25:34] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:25:34] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:25:34] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:25:34] [waitSec]: [14] Wait for 5563 millisec
+[Frontier.java:144] [2015-09-30] [02:25:34] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:25:34] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:25:34] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:25:34] [waitSec]: [13] Wait for 6987 millisec
+[Frontier.java:144] [2015-09-30] [02:25:34] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:25:34] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:25:34] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:25:34] [waitSec]: [12] Wait for 5180 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:25:34] [getWebPage]: [11] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/125.2 (KHTML, like Gecko) Safari/125.8
+[HttpFetcher.java:80] [2015-09-30] [02:25:34] [getWebPage]: [11] duration here = 337 start time = 1443605134533 current time = 1443605134870
+[HTMLCompressor.java:57] [2015-09-30] [02:25:34] [compressHtmlContent]: [11] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:25:34] [compressHtmlContent]: [11] Compressed length = 20653
+[LinkExtractor.java:96] [2015-09-30] [02:25:34] [extractURLs]: [11] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:26:48] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:26:48] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:26:48] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:26:48] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:26:48] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:26:48] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:26:48] [pullUrlsInternal]: [12] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:26:48] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:26:48] [pullUrl]: [12] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:26:48] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:26:48] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:26:48] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:26:48] [waitSec]: [15] Wait for 7538 millisec
+[Frontier.java:144] [2015-09-30] [02:26:48] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:26:48] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:26:48] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:26:48] [waitSec]: [14] Wait for 6620 millisec
+[Frontier.java:144] [2015-09-30] [02:26:48] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:26:48] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:26:48] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:26:48] [waitSec]: [11] Wait for 7520 millisec
+[Frontier.java:144] [2015-09-30] [02:26:48] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:26:48] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:26:48] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:26:48] [waitSec]: [13] Wait for 7353 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:26:48] [getWebPage]: [12] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.29 Safari/525.13
+[HttpFetcher.java:80] [2015-09-30] [02:26:48] [getWebPage]: [12] duration here = 362 start time = 1443605208281 current time = 1443605208643
+[HTMLCompressor.java:57] [2015-09-30] [02:26:48] [compressHtmlContent]: [12] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:26:48] [compressHtmlContent]: [12] Compressed length = 20653
+[LinkExtractor.java:98] [2015-09-30] [02:26:48] [extractURLs]: [12] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:29:09] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:29:09] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:29:09] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:29:09] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:29:09] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:29:09] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:29:09] [pullUrlsInternal]: [12] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:29:09] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:29:09] [pullUrl]: [12] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:29:09] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:29:09] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:29:09] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:29:09] [waitSec]: [11] Wait for 8938 millisec
+[Frontier.java:144] [2015-09-30] [02:29:09] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:29:09] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:29:09] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:29:09] [waitSec]: [15] Wait for 8478 millisec
+[Frontier.java:144] [2015-09-30] [02:29:09] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:29:09] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:29:09] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:29:09] [waitSec]: [13] Wait for 6041 millisec
+[Frontier.java:144] [2015-09-30] [02:29:09] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:29:09] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:29:09] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:29:09] [waitSec]: [14] Wait for 5061 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:29:09] [getWebPage]: [12] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6
+[HttpFetcher.java:80] [2015-09-30] [02:29:09] [getWebPage]: [12] duration here = 365 start time = 1443605349463 current time = 1443605349828
+[HTMLCompressor.java:57] [2015-09-30] [02:29:09] [compressHtmlContent]: [12] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:29:09] [compressHtmlContent]: [12] Compressed length = 20653
+[LinkExtractor.java:94] [2015-09-30] [02:29:09] [extractURLs]: [12] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:31:28] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:31:28] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:31:28] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:31:28] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:31:28] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:31:28] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:31:28] [pullUrlsInternal]: [12] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:31:28] [pullUrlsInternal]: [12] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:31:28] [pullUrl]: [12] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:31:28] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:31:28] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:31:28] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:31:28] [waitSec]: [15] Wait for 8071 millisec
+[Frontier.java:144] [2015-09-30] [02:31:28] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:31:28] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:31:28] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:31:28] [waitSec]: [14] Wait for 6060 millisec
+[Frontier.java:144] [2015-09-30] [02:31:28] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:31:28] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:31:28] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:31:28] [waitSec]: [13] Wait for 6303 millisec
+[Frontier.java:144] [2015-09-30] [02:31:28] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:31:28] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:31:28] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:31:28] [waitSec]: [11] Wait for 5695 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:31:28] [getWebPage]: [12] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/125.2 (KHTML, like Gecko) Safari/125.8
+[HttpFetcher.java:80] [2015-09-30] [02:31:28] [getWebPage]: [12] duration here = 359 start time = 1443605488629 current time = 1443605488988
+[HTMLCompressor.java:57] [2015-09-30] [02:31:29] [compressHtmlContent]: [12] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:31:29] [compressHtmlContent]: [12] Compressed length = 20653
+[LinkExtractor.java:94] [2015-09-30] [02:31:29] [extractURLs]: [12] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLDuplicationEliminator.java:56] [2015-09-30] [02:32:21] [<init>]: [1] Reuse existing bloomfilter
+[WebCrawler.java:63] [2015-09-30] [02:32:21] [run]: [11] Start thread 11
+[WebCrawler.java:63] [2015-09-30] [02:32:21] [run]: [12] Start thread 12
+[WebCrawler.java:63] [2015-09-30] [02:32:21] [run]: [13] Start thread 13
+[WebCrawler.java:63] [2015-09-30] [02:32:21] [run]: [14] Start thread 14
+[WebCrawler.java:63] [2015-09-30] [02:32:21] [run]: [15] Start thread 15
+[Frontier.java:169] [2015-09-30] [02:32:21] [pullUrlsInternal]: [11] Create new back end queue with new domain http://web.stanford.edu
+[Frontier.java:191] [2015-09-30] [02:32:21] [pullUrlsInternal]: [11] Num backend queues : 1
+Domain http://web.stanford.edu with queue size 1
+
+[Frontier.java:72] [2015-09-30] [02:32:21] [pullUrl]: [11] Pull url Id = -1, Link = http://web.stanford.edu/class/cs103x, Original Link = http://web.stanford.edu/class/cs103x, Domain = http://web.stanford.edu, Absolute = true, Priority = 1, ExtractedTime = 1, Download Duration = -2147483648, 
+[Frontier.java:144] [2015-09-30] [02:32:21] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:21] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:21] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:21] [waitSec]: [15] Wait for 8753 millisec
+[Frontier.java:144] [2015-09-30] [02:32:21] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:21] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:21] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:21] [waitSec]: [14] Wait for 5528 millisec
+[Frontier.java:144] [2015-09-30] [02:32:21] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:21] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:21] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:21] [waitSec]: [13] Wait for 8896 millisec
+[Frontier.java:144] [2015-09-30] [02:32:21] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:21] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:21] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:21] [waitSec]: [12] Wait for 5973 millisec
+[HttpFetcher.java:77] [2015-09-30] [02:32:22] [getWebPage]: [11] Download successfully link http://web.stanford.edu/class/cs103x after 0 retries with user agent Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; en) Opera 8.0
+[HttpFetcher.java:80] [2015-09-30] [02:32:22] [getWebPage]: [11] duration here = 782 start time = 1443605541418 current time = 1443605542200
+[HTMLCompressor.java:57] [2015-09-30] [02:32:22] [compressHtmlContent]: [11] Original length = 28498
+[HTMLCompressor.java:60] [2015-09-30] [02:32:22] [compressHtmlContent]: [11] Compressed length = 20653
+[LinkExtractor.java:94] [2015-09-30] [02:32:22] [extractURLs]: [11] Extract links: cs103x-info.pdf; 2006/homework2.pdf; cs103x-notes.pdf; midtermsolutions2007.pdf; 2007/solutions1.pdf; midterm_sol.pdf; pset7_sol.pdf; 2007/finalsolutions.pdf; 2006/homework1.pdf; pset4_sol.pdf; pset1.pdf; 2007/solutions7.pdf; pset2.pdf; midterm2007.pdf; midtermStuffPruned.pdf; 2007/solutions8.pdf; 2006/homework7.pdf; pset2_sol.pdf; pset3.pdf; 2007/solutions5.pdf; 2007/homework6.pdf; 2006/homework8.pdf; 2007/homework5.pdf; 2007/solutions6.pdf; pset4.pdf; 2007/homework4.pdf; 2006/homework6.pdf; 2007/homework7.pdf; Final.pdf; 2006/homework9.pdf; pset6_sol.pdf; 2007/final.pdf; 2007/homework3.pdf; 2007/homework8.pdf; pset5_sol.pdf; 2006/homework5.pdf; pset3_sol.pdf; pset6.pdf; 2007/solutions2.pdf; pset5.pdf; 2007/solutions3.pdf; 2006/final.pdf; 2007/homework2.pdf; 2006/homework4.pdf; stanford.seal64.gif; 2007/solutions4.pdf; pset7.pdf; 2007/homework1.pdf; pset1_sol.pdf; 2006/homework3.pdf; . Size: 50
+[URLPrioritizer.java:97] [2015-09-30] [02:32:22] [computeRelevanceScore]: [11] Compute score for url http://web.stanford.edu/class/cs103x: score = 0, headerScore = 0, descriptionScore = 0, bodyScore = 0
+[Frontier.java:50] [2015-09-30] [02:32:26] [releaseBackEndQueue]: [11] Push back back end queue of domain http://web.stanford.edu with download duration 782
+[Frontier.java:191] [2015-09-30] [02:32:26] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[Frontier.java:191] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] Num backend queues : 0
+
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:27] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/cs103x-info.pdf to Download\cs103x-info.pdf
+[Frontier.java:144] [2015-09-30] [02:32:27] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:27] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:27] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:27] [waitSec]: [14] Wait for 8373 millisec
+[Frontier.java:144] [2015-09-30] [02:32:27] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:27] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:27] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:27] [waitSec]: [12] Wait for 5384 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:27] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework2.pdf to Download\homework2.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:28] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/cs103x-notes.pdf to Download\cs103x-notes.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:29] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/midtermsolutions2007.pdf to Download\midtermsolutions2007.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:29] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions1.pdf to Download\solutions1.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:29] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/midterm_sol.pdf to Download\midterm_sol.pdf
+[Frontier.java:144] [2015-09-30] [02:32:30] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:30] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:30] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:30] [waitSec]: [15] Wait for 7588 millisec
+[Frontier.java:144] [2015-09-30] [02:32:30] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:30] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:30] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:30] [waitSec]: [13] Wait for 5575 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:30] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset7_sol.pdf to Download\pset7_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:31] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/finalsolutions.pdf to Download\finalsolutions.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:31] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework1.pdf to Download\homework1.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:31] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset4_sol.pdf to Download\pset4_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:32] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset1.pdf to Download\pset1.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:32] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions7.pdf to Download\solutions7.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:32] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset2.pdf to Download\pset2.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:32] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/midterm2007.pdf to Download\midterm2007.pdf
+[Frontier.java:144] [2015-09-30] [02:32:33] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:33] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:33] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:33] [waitSec]: [12] Wait for 5965 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:33] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/midtermStuffPruned.pdf to Download\midtermStuffPruned.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:33] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions8.pdf to Download\solutions8.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:33] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework7.pdf to Download\homework7.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:34] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset2_sol.pdf to Download\pset2_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:34] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset3.pdf to Download\pset3.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:34] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions5.pdf to Download\solutions5.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:35] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework6.pdf to Download\homework6.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:35] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework8.pdf to Download\homework8.pdf
+[Frontier.java:144] [2015-09-30] [02:32:35] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:35] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:35] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:35] [waitSec]: [13] Wait for 6813 millisec
+[Frontier.java:144] [2015-09-30] [02:32:36] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:36] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:36] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:36] [waitSec]: [14] Wait for 9717 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:36] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework5.pdf to Download\homework5.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:36] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions6.pdf to Download\solutions6.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:36] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset4.pdf to Download\pset4.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:36] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework4.pdf to Download\homework4.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:37] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework6.pdf to Download\homework6.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:37] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework7.pdf to Download\homework7.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:37] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/Final.pdf to Download\Final.pdf
+[Frontier.java:144] [2015-09-30] [02:32:37] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:37] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:37] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:37] [waitSec]: [15] Wait for 9136 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:37] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework9.pdf to Download\homework9.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:38] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset6_sol.pdf to Download\pset6_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:38] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/final.pdf to Download\final.pdf
+[Frontier.java:144] [2015-09-30] [02:32:39] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:39] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:39] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:39] [waitSec]: [12] Wait for 8446 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:39] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework3.pdf to Download\homework3.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:39] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework8.pdf to Download\homework8.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:39] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset5_sol.pdf to Download\pset5_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:40] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework5.pdf to Download\homework5.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:40] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset3_sol.pdf to Download\pset3_sol.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:40] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset6.pdf to Download\pset6.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:41] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions2.pdf to Download\solutions2.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:41] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset5.pdf to Download\pset5.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:42] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions3.pdf to Download\solutions3.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:42] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/final.pdf to Download\final.pdf
+[Frontier.java:144] [2015-09-30] [02:32:42] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:42] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:42] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:42] [waitSec]: [13] Wait for 8075 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:43] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework2.pdf to Download\homework2.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:43] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework4.pdf to Download\homework4.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:44] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/solutions4.pdf to Download\solutions4.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:44] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset7.pdf to Download\pset7.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:44] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2007/homework1.pdf to Download\homework1.pdf
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:45] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/pset1_sol.pdf to Download\pset1_sol.pdf
+[Frontier.java:144] [2015-09-30] [02:32:45] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:45] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:45] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:45] [waitSec]: [14] Wait for 6117 millisec
+[DownloadURLProvider.java:51] [2015-09-30] [02:32:46] [processURLs]: [11] Finish downloading link http://web.stanford.edu/class/cs103x/2006/homework3.pdf to Download\homework3.pdf
+[RawHTMLDAOJDBC.java:144] [2015-09-30] [02:32:46] [create]: [11] INSERT INTO RawHTML 3, Content Length = 20653
+[Frontier.java:144] [2015-09-30] [02:32:46] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:46] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:46] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:46] [waitSec]: [11] Wait for 9469 millisec
+[Frontier.java:144] [2015-09-30] [02:32:46] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:46] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:46] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:46] [waitSec]: [15] Wait for 9408 millisec
+[Frontier.java:144] [2015-09-30] [02:32:47] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:47] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:47] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:47] [waitSec]: [12] Wait for 5389 millisec
+[Frontier.java:144] [2015-09-30] [02:32:50] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:50] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:50] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:50] [waitSec]: [13] Wait for 5968 millisec
+[Frontier.java:144] [2015-09-30] [02:32:51] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:51] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:51] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:51] [waitSec]: [14] Wait for 8029 millisec
+[Frontier.java:144] [2015-09-30] [02:32:52] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:52] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:52] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:52] [waitSec]: [12] Wait for 8802 millisec
+[Frontier.java:144] [2015-09-30] [02:32:56] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:56] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:56] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:56] [waitSec]: [11] Wait for 7460 millisec
+[Frontier.java:144] [2015-09-30] [02:32:56] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:56] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:56] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:56] [waitSec]: [15] Wait for 7588 millisec
+[Frontier.java:144] [2015-09-30] [02:32:56] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:56] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:56] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:56] [waitSec]: [13] Wait for 6935 millisec
+[Frontier.java:144] [2015-09-30] [02:32:59] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:32:59] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:32:59] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:32:59] [waitSec]: [14] Wait for 5643 millisec
+[Frontier.java:144] [2015-09-30] [02:33:01] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:01] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:01] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:01] [waitSec]: [12] Wait for 8928 millisec
+[Frontier.java:144] [2015-09-30] [02:33:03] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:03] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:03] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:03] [waitSec]: [13] Wait for 6727 millisec
+[Frontier.java:144] [2015-09-30] [02:33:03] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:03] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:03] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:03] [waitSec]: [11] Wait for 9866 millisec
+[Frontier.java:144] [2015-09-30] [02:33:03] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:03] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:03] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:03] [waitSec]: [15] Wait for 6563 millisec
+[Frontier.java:144] [2015-09-30] [02:33:05] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:05] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:05] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:05] [waitSec]: [14] Wait for 5938 millisec
+[Frontier.java:144] [2015-09-30] [02:33:10] [pullUrlsInternal]: [13] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:10] [pullUrls]: [13] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:10] [pullUrl]: [13] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:10] [waitSec]: [13] Wait for 6817 millisec
+[Frontier.java:144] [2015-09-30] [02:33:10] [pullUrlsInternal]: [15] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:10] [pullUrls]: [15] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:10] [pullUrl]: [15] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:10] [waitSec]: [15] Wait for 8796 millisec
+[Frontier.java:144] [2015-09-30] [02:33:10] [pullUrlsInternal]: [12] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:10] [pullUrls]: [12] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:10] [pullUrl]: [12] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:10] [waitSec]: [12] Wait for 6934 millisec
+[Frontier.java:144] [2015-09-30] [02:33:11] [pullUrlsInternal]: [14] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:11] [pullUrls]: [14] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:11] [pullUrl]: [14] Pull url fail with hr = CR_EMPTY_QUEUE
+[Helper.java:131] [2015-09-30] [02:33:11] [waitSec]: [14] Wait for 9289 millisec
+[Frontier.java:144] [2015-09-30] [02:33:13] [pullUrlsInternal]: [11] No more url in the front end queue to crawl
+[Frontier.java:106] [2015-09-30] [02:33:13] [pullUrls]: [11] Pull urls fail with hr = CR_EMPTY_QUEUE
+[Frontier.java:67] [2015-09-30] [02:33:13] [pullUrl]: [11] Pull url fail with hr = CR_EMPTY_QUEUE

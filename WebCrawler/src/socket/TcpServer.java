@@ -1,14 +1,19 @@
 package socket;
 
-import static common.LogManager.writeGenericLog;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import common.Helper;
+
 public class TcpServer implements Runnable {
+	private static Logger LOG = LogManager.getLogger(TcpServer.class.getName());
+
 	private int m_portNum = 0;
 	private ServerSocket m_server = null;
 	private IProcessPacket m_process = null;
@@ -27,10 +32,10 @@ public class TcpServer implements Runnable {
 				m_in = new DataInputStream(m_socket.getInputStream());
 				m_out = new DataOutputStream(m_socket.getOutputStream());
 			} catch (IOException e) {
-				writeGenericLog("Fail to listen to request from client " + e.getMessage());
+				LOG.error("Fail to listen to request from client " + e.getMessage());
 			}
 			
-			writeGenericLog("Create new server worker with socket " + m_socket.toString());
+			LOG.info("Create new server worker with socket " + m_socket.toString());
 		}
 		
 		public void run() {
@@ -50,7 +55,7 @@ public class TcpServer implements Runnable {
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
-					writeGenericLog("Fail to get packet from socket " + e.getMessage());
+					LOG.error("Fail to get packet from socket " + e.getMessage());
 					return;
 				}
 			}
@@ -63,9 +68,9 @@ public class TcpServer implements Runnable {
 
 		try{
 			m_server = new ServerSocket(m_portNum);
-			writeGenericLog("Successfully create server " + m_server.toString());
+			LOG.info("Successfully create server " + m_server.toString());
 		} catch (IOException e) {
-			writeGenericLog("Could not listen on port " + m_portNum);
+			LOG.error("Could not listen on port " + m_portNum);
 		    throw e;
 		}
 	}
@@ -75,23 +80,23 @@ public class TcpServer implements Runnable {
 			while (true) {
 				try{
 					if (m_server.isClosed()) {
-						writeGenericLog("Socket is closed. Exit");
+						LOG.info("Socket is closed. Exit");
 						return;
 					}
 
 					ServerWorker newServerWorker = new ServerWorker(m_server.accept(), m_process);
 					newServerWorker.run();
 				} catch (IOException e) {
-					writeGenericLog("Accept failed: " + m_portNum);
+					LOG.error("Accept failed: " + m_portNum);
 					System.exit(-1);
 				}
 			}
 		} finally {
 			try {
-				writeGenericLog("Try to close server " + m_server.toString());
+				LOG.info("Try to close server " + m_server.toString());
 				m_server.close();
 			} catch (IOException e) {
-				writeGenericLog("Fail to close server" + m_server.toString() + ", error " + e.getMessage());
+				LOG.error("Fail to close server" + m_server.toString() + ", error " + e.getMessage());
 			}
 		}
 	}

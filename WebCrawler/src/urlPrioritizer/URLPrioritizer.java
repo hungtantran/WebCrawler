@@ -1,9 +1,9 @@
 package urlPrioritizer;
 
-import static common.LogManager.writeGenericLog;
-
 import java.util.ArrayList;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,8 +13,11 @@ import common.Globals;
 import common.IWebPage;
 import common.URLObject;
 import database.IDatabaseConnection;
+import unittest.Test_IURLDuplicationEliminator;
 
 public class URLPrioritizer implements IURLPrioritizer {
+	private static Logger LOG = LogManager.getLogger(URLPrioritizer.class.getName());
+
 	private final String[] m_relevantWords = { "microsoft", "excel", "windows", "xbox", "bing", "visual studio", "sql server", "internet explorer" };
 	private final String[] m_headerTags = { "h1", "h2", "h3" };
 	private final String m_descriptionTag = "meta[name=description]";
@@ -94,7 +97,7 @@ public class URLPrioritizer implements IURLPrioritizer {
 			score = (long) ((descriptionScore * 3 + bodyScore) / 4);
 		}
 		
-		writeGenericLog("Compute score for url " + webPage.get_originalUrl().getAbsoluteLink() + ": score = " + score + ", headerScore = " + headerScore + ", descriptionScore = " + descriptionScore + ", bodyScore = " + bodyScore);
+		LOG.info("Compute score for url " + webPage.get_originalUrl().getAbsoluteLink() + ": score = " + score + ", headerScore = " + headerScore + ", descriptionScore = " + descriptionScore + ", bodyScore = " + bodyScore);
 		
 		return score;
 	}

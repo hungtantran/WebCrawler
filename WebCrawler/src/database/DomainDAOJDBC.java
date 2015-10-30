@@ -1,7 +1,5 @@
 package database;
 
-import static common.LogManager.writeGenericLog;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import common.Helper;
+
 public class DomainDAOJDBC implements DomainDAO {
+	private static Logger LOG = LogManager.getLogger(DomainDAOJDBC.class.getName());
+
 	private final String SQL_SELECT = "SELECT * FROM domain_table";
 	private final String SQL_INSERT = "INSERT INTO domain_table (id, domain) values (?, ?)";
 
@@ -54,7 +59,7 @@ public class DomainDAOJDBC implements DomainDAO {
 
 			return domains;
 		} catch (final SQLException e) {
-			writeGenericLog("Get domain_table fails, " + e.getMessage());
+			LOG.error("Get domain_table fails, " + e.getMessage());
 
 			throw e;
 		} finally {
@@ -75,7 +80,7 @@ public class DomainDAOJDBC implements DomainDAO {
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
 			
-			writeGenericLog(preparedStatement.toString());
+			LOG.info(preparedStatement.toString());
 
 			preparedStatement.executeUpdate();
 
@@ -89,7 +94,7 @@ public class DomainDAOJDBC implements DomainDAO {
 
 			return generatedKey;
 		} catch (final SQLException e) {
-			writeGenericLog("Insert into domain_table fails, " + e.getMessage());
+			LOG.error("Insert into domain_table fails, " + e.getMessage());
 
 			return -1;
 		} finally {

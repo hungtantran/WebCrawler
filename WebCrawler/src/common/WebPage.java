@@ -1,12 +1,15 @@
 package common;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import common.ErrorCode.CrError;
-import static common.LogManager.writeGenericLog;
 
 public class WebPage implements IWebPage {
+	private static Logger LOG = LogManager.getLogger(WebPage.class.getName());
+
 	private Document m_doc = null;
 	private String m_html = null;
 	private URLObject m_originalUrl = null;
@@ -43,7 +46,7 @@ public class WebPage implements IWebPage {
 					
 			this.m_doc = doc;
 		} catch (Exception e) {
-			writeGenericLog(e.getMessage());
+			LOG.error(e.getMessage());
 			return CrError.CR_MALFORM_HTML;
 		}
 		

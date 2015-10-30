@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="E:/Project/jsoup-1.8.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="E:/Project/mysql-connector-java-5.1.36-bin.jar"/>
+	<classpathentry kind="lib" path="E:/Project/apache-log4j-2.4.1-bin/log4j-1.2-api-2.4.1.jar"/>
+	<classpathentry kind="lib" path="E:/Project/apache-log4j-2.4.1-bin/log4j-api-2.4.1.jar"/>
+	<classpathentry kind="lib" path="E:/Project/apache-log4j-2.4.1-bin/log4j-core-2.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,11 +4,15 @@ import common.ErrorCode.*;
 import common.Globals;
 
 import static common.ErrorCode.*;
-import static common.LogManager.*;
 
 import java.sql.SQLException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Main {
+	private static Logger LOG = LogManager.getLogger(Main.class.getName()); 
+	
 	public static void main(String[] args) {
 		new Globals();
 
@@ -21,12 +25,12 @@ public class Main {
 			
 			if (FAILED(hr))
 			{
-				writeGenericLog("Crawl fails, hr = " + hr);
+				LOG.error("Crawl fails, hr = " + hr);
 			}
 		} catch (ClassNotFoundException e) {
-			writeGenericLog(e.getMessage());
+			LOG.error(e.getMessage());
 		} catch (SQLException e) {
-			writeGenericLog(e.getMessage());
+			LOG.error(e.getMessage());
 		}
 	}
 }

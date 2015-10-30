@@ -5,13 +5,18 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.ErrorCode.CrError;
+import unittest.Test_IURLDuplicationEliminator;
 import common.Globals;
 import common.URLObject;
 
-import static common.LogManager.*;
-
 public class DownloadURLProvider implements IURLProcessor, IURLProcessorProvider {
+	private static Logger LOG = LogManager.getLogger(DownloadURLProvider.class.getName());
+
 	private static String getFileName(String url) {
 		if (url == null) {
 			return null;
@@ -39,7 +44,7 @@ public class DownloadURLProvider implements IURLProcessor, IURLProcessorProvider
 				
 				String fileName = DownloadURLProvider.getFileName(absoluteLink);
 				if (fileName == null) {
-					writeGenericLog("Can't extract filename from link " + absoluteLink);
+					LOG.error("Can't extract filename from link " + absoluteLink);
 				}
 				
 				// TODO create folder structure mimic link structure
@@ -48,10 +53,10 @@ public class DownloadURLProvider implements IURLProcessor, IURLProcessorProvider
 				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 				fos.close();
 				
-				writeGenericLog("Finish downloading link " + absoluteLink + " to " + downloadLocation);
+				LOG.info("Finish downloading link " + absoluteLink + " to " + downloadLocation);
 			} catch (Exception e) {
 				e.printStackTrace();
-				writeGenericLog("Fail to download link " + url.getAbsoluteLink() + ", with error " + e.getMessage());
+				LOG.error("Fail to download link " + url.getAbsoluteLink() + ", with error " + e.getMessage());
 				continue;
 			}
 		}

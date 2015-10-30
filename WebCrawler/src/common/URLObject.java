@@ -1,17 +1,20 @@
 package common;
 
-import static common.LogManager.writeGenericLog;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Comparator;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.ErrorCode.CrError;
 import proto.message.message.URLmessage;
 
 public class URLObject {
+	private static Logger LOG = LogManager.getLogger(URLObject.class.getName());
+
 	private int m_id;
 	private String m_link;
 	private String m_originalLink;
@@ -188,10 +191,10 @@ public class URLObject {
 				this.m_domain = new URL(linkURL.getProtocol() + "://" +linkURL.getHost());
 			}
 		} catch (URISyntaxException e) {
-			writeGenericLog("Malformed link " + e.getMessage());
+			LOG.error("Malformed link " + e.getMessage());
 			return CrError.CR_MALFORM_URL;
 		} catch (MalformedURLException e) {
-			writeGenericLog("Malformed link " + e.getMessage());
+			LOG.error("Malformed link " + e.getMessage());
 			return CrError.CR_MALFORM_URL;
 		}
 		
@@ -216,7 +219,7 @@ public class URLObject {
 		try {
 			this.m_domain = new URL(domain);
 		} catch (MalformedURLException e) {
-			writeGenericLog("Malformed domain " + domain + " " + e.getMessage());
+			LOG.error("Malformed domain " + domain + " " + e.getMessage());
 			return CrError.CR_MALFORM_URL;
 		}
 		

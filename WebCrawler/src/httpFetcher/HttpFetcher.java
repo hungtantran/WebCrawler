@@ -1,7 +1,12 @@
 package httpFetcher;
 
+import static common.ErrorCode.FAILED;
+import static common.ErrorCode.SUCCEEDED;
+
 import java.util.Random;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.HttpStatusException;
@@ -14,10 +19,9 @@ import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 
-import static common.LogManager.writeGenericLog;
-import static common.ErrorCode.*;
-
 public class HttpFetcher implements IHttpFetcher {
+	private static Logger LOG = LogManager.getLogger(HttpFetcher.class.getName());
+
 	private static final String[] userAgents = {
         "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6",
         "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
@@ -74,10 +78,10 @@ public class HttpFetcher implements IHttpFetcher {
 					.timeout(10000);
 				
 				Response response = connection.execute();
-				writeGenericLog("Download successfully link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
+				LOG.info("Download successfully link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
 				
 				long duration = Helper.getCurrentTimeInMillisec() - startTime;
-				writeGenericLog("duration here = " + duration + " start time = " + startTime + " current time = " + Helper.getCurrentTimeInMillisec());
+				LOG.info("Duration = " + duration + " start time = " + startTime + " current time = " + Helper.getCurrentTimeInMillisec());
 				inUrl.set_downloadDuration(duration);
 				inUrl.set_httpStatusCode(200);
 				
@@ -86,7 +90,7 @@ public class HttpFetcher implements IHttpFetcher {
 				Document doc = response.parse();
 				hr = downloadedWebPage.setDocument(doc);
 				if (FAILED(hr)) {
-					writeGenericLog("Failed to set document, hr = " + hr);
+					LOG.error("Failed to set document, hr = " + hr);
 					return hr;
 				}
 				
@@ -100,13 +104,13 @@ public class HttpFetcher implements IHttpFetcher {
 					if (e instanceof HttpStatusException) {
 						HttpStatusException statusException = (HttpStatusException) e;
 						inUrl.set_httpStatusCode(statusException.getStatusCode());
-						writeGenericLog("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex] + " with status code " + statusException.getStatusCode());
+						LOG.error("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex] + " with status code " + statusException.getStatusCode());
 					} else {
-						writeGenericLog("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
+						LOG.error("Fail to download link " + url + " after " + i + " retries with user agent " + HttpFetcher.userAgents[ranIndex]);
 						inUrl.set_httpStatusCode(-1);
 					}
 
-					writeGenericLog(e.getMessage());
+					LOG.error(e.getMessage());
 					throw e;
 				}
 			}

@@ -1,14 +1,16 @@
 package unittest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.Test;
-
-import static common.LogManager.writeGenericLog;
-import static org.junit.Assert.*;
 
 import common.ErrorCode.CrError;
 import common.URLObject;
@@ -18,13 +20,15 @@ import socket.TcpClient;
 import socket.TcpServer;
 
 public class Test_TcpClientAndServer {
+	private static Logger LOG = LogManager.getLogger(Test_TcpClientAndServer.class.getName());
+
 	private URLObject m_clientObject = null;
 	private URLObject m_serverObject = null;
 	
 	private class ClientTestProcess implements IProcessPacket {
 		@Override
 		public CrError process(byte[] packet, DataOutputStream m_out) throws IOException {
-			writeGenericLog("Client process packet");
+			LOG.info("Client process packet");
 
 			URLmessage urlMessage = URLmessage.parseFrom(packet);
 			m_clientObject = URLObject.convertFromProtobufMessage(urlMessage);
@@ -36,7 +40,7 @@ public class Test_TcpClientAndServer {
 	private class ServerTestProcess implements IProcessPacket {
 		@Override
 		public CrError process(byte[] packet, DataOutputStream m_out) throws IOException {
-			writeGenericLog("Server process packet");
+			LOG.info("Server process packet");
 
 			URLmessage urlMessage = URLmessage.parseFrom(packet);
 			m_serverObject = URLObject.convertFromProtobufMessage(urlMessage);

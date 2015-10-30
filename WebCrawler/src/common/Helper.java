@@ -15,10 +15,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static common.LogManager.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 // Helper is just a collection of utility function
 public class Helper {
+	private static Logger LOG = LogManager.getLogger(Helper.class.getName());
+	
 	private Helper() {
 		throw new AssertionError();
 	}
@@ -128,7 +131,7 @@ public class Helper {
 	public static void waitSec(long lowerBound, long upperBound) {
 		try {
 			long waitTime = lowerBound * 1000 + (long) (Math.random() * ((upperBound * 1000 - lowerBound * 1000) + 1));
-			writeGenericLog("Wait for " + waitTime + " millisec");
+			LOG.info("Wait for " + waitTime + " millisec");
 
 			Thread.currentThread();
 			Thread.sleep(waitTime);
@@ -140,7 +143,7 @@ public class Helper {
 	public static void waitMilliSec(long waitDuration, long waitDuration2) {
 		try {
 			long waitTime = waitDuration + (long) (Math.random() * ((waitDuration2 - waitDuration) + 1));
-			writeGenericLog("Wait for " + waitTime + " millisec");
+			LOG.info("Wait for " + waitTime + " millisec");
 
 			Thread.currentThread();
 			Thread.sleep(waitTime);

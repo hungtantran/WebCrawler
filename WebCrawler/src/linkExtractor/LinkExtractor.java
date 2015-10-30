@@ -1,11 +1,11 @@
 package linkExtractor;
 
-import static common.LogManager.writeGenericLog;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,6 +16,8 @@ import common.IWebPage;
 import common.URLObject;
 
 public class LinkExtractor implements ILinkExtractor {
+	private static Logger LOG = LogManager.getLogger(LinkExtractor.class.getName());
+
 	public LinkExtractor() {	
 	}
 	
@@ -91,7 +93,7 @@ public class LinkExtractor implements ILinkExtractor {
 		}
 		
 		builder.append(". Size: " + extractedUrls.size());
-		writeGenericLog(builder.toString());
+		LOG.info(builder.toString());
 		
 		return CrError.CR_OK;
 	}

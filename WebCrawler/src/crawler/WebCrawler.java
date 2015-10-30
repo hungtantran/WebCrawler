@@ -1,7 +1,6 @@
 package crawler;
 
 import static common.ErrorCode.FAILED;
-import static common.LogManager.writeGenericLog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +9,9 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import common.ErrorCode.CrError;
 import common.Globals;
@@ -37,6 +39,8 @@ import urlProcessor.IURLProcessor;
 import urlProcessor.URLProcessors;
 
 public class WebCrawler {
+	private static Logger LOG = LogManager.getLogger(WebCrawler.class.getName());
+
 	private IFrontier m_frontier = null;
 	private IHttpFetcher m_httpFetcher = null;
 	private ILinkExtractor m_linkExtractor = null;
@@ -60,7 +64,7 @@ public class WebCrawler {
 		@Override
 		public void run() {
 			threadId = Thread.currentThread().getId();
-			writeGenericLog("Start thread " + this.threadId);
+			LOG.info("Start thread " + this.threadId);
 			CrError hr = CrError.CR_OK;
 			
 			while (true)
@@ -71,9 +75,9 @@ public class WebCrawler {
 				if (FAILED(hr)) {
 					String outAbsoluteUrl = outUrl.getAbsoluteLink();
 					if (outAbsoluteUrl == null) {
-						writeGenericLog("Fail to get next page because hr = " + hr);
+						LOG.error("Fail to get next page because hr = " + hr);
 					} else {
-						writeGenericLog("Fail to crawl page " + outAbsoluteUrl + " because hr = " + hr);
+						LOG.error("Fail to crawl page " + outAbsoluteUrl + " because hr = " + hr);
 					}
 
 					m_frontier.releaseBackEndQueue(outUrl);
@@ -104,9 +108,9 @@ public class WebCrawler {
 				hr = m_httpFetcher.getWebPage(outUrl,  webPage);
 			} catch (Exception e) {
 				if (outUrl.getLink() != null) {
-					writeGenericLog("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
+					LOG.error("Fails to fetch webpage " + outUrl.getLink() + " : " + e.getMessage());
 				} else {
-					writeGenericLog("No outurl " + e.getMessage());
+					LOG.error("No outurl " + e.getMessage());
 				}
 			}
 
@@ -227,7 +231,7 @@ public class WebCrawler {
 		try {
 			m_exec.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 		} catch (InterruptedException e) {
-			writeGenericLog(e.getMessage());
+			LOG.error(e.getMessage());
 		}
 		
 		return CrError.CR_OK;

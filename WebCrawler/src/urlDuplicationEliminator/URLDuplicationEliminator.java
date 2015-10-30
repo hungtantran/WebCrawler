@@ -1,7 +1,5 @@
 package urlDuplicationEliminator;
 
-import static common.LogManager.writeGenericLog;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,13 +10,19 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.ErrorCode.CrError;
 import common.Globals;
 import common.Helper;
 import common.URLObject;
 import database.IDatabaseConnection;
+import unittest.Test_IURLDuplicationEliminator;
 
 public class URLDuplicationEliminator implements IURLDuplicationEliminator {
+	private static Logger LOG = LogManager.getLogger(URLDuplicationEliminator.class.getName());
+
 	private int[] m_bloomFilter;
 	private int m_bloomFilterByteSize;
 	private String m_bloomfilterFileName = null;
@@ -53,14 +57,14 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 					m_bloomFilter = (int[]) inputOStream.readObject();
 					
 					if (m_bloomFilter.length == numElems) {
-						writeGenericLog("Reuse existing bloomfilter");
+						LOG.info("Reuse existing bloomfilter");
 						createNewBloomfilter = false;
 					}
 					
 					inputOStream.close();
 				} catch (Exception e) {
 					e.printStackTrace();
-					writeGenericLog(e.getMessage());
+					LOG.error(e.getMessage());
 					System.exit(1);
 				}
 			}
@@ -68,7 +72,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 		
 		// Create new bloomfilter if needed
 		if (createNewBloomfilter) {
-			writeGenericLog("Create new bloomfilter");
+			LOG.info("Create new bloomfilter");
 			m_bloomFilter = new int[numElems];
 			for (int i = 0; i < numElems; ++i) {
 				m_bloomFilter[i] = 0;
@@ -132,15 +136,15 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 			synchronized(m_bloomFilter) {
 				try {
 					if (changeToBloomfilter && m_numWriteToBloomfilter >= Globals.MAXWRITETOBLOOMFILTERBEFOREFLUSHINGTODISK) {
-						writeGenericLog("Number of write to bloomfilter : " + m_numWriteToBloomfilter + ", flush to disk");
+						LOG.info("Number of write to bloomfilter : " + m_numWriteToBloomfilter + ", flush to disk");
 						
 						File bloomFilterFile = Helper.createFile(this.m_bloomfilterFileName);
 						if (bloomFilterFile != null) {
 							if (!bloomFilterFile.delete()) {
-								writeGenericLog("Can't delete bloomfilter file " + m_bloomfilterFileName);
+								LOG.error("Can't delete bloomfilter file " + m_bloomfilterFileName);
 								System.exit(1);
 							} else {
-								writeGenericLog("Delete old bloomfilter");
+								LOG.info("Delete old bloomfilter");
 							}
 						}
 						
@@ -150,13 +154,13 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 						outputOStream.flush(); 
 						outputOStream.close();
 						
-						writeGenericLog("Flush new bloomfilter file");
+						LOG.info("Flush new bloomfilter file");
 	
 						m_numWriteToBloomfilter = 0;					
 					}
 				} catch(Exception e) {
 					e.printStackTrace();
-					writeGenericLog(e.getMessage());
+					LOG.error(e.getMessage());
 					System.exit(1);
 				}
 			}

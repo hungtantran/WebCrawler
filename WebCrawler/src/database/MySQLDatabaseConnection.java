@@ -2,7 +2,6 @@ package database;
 
 import static common.ErrorCode.FAILED;
 import static common.ErrorCode.SUCCEEDED;
-import static common.LogManager.writeGenericLog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,13 +9,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import common.ErrorCode.CrError;
+import common.Helper;
 import common.IWebPage;
 import common.URLObject;
 
 public class MySQLDatabaseConnection implements IDatabaseConnection {
+	private static Logger LOG = LogManager.getLogger(MySQLDatabaseConnection.class.getName());
+
 	private LinkCrawledDAO m_linkCrawledDAO = null;
 	private LinkQueueDAO m_linkQueueDAO = null;
 	private DomainDAO m_domainDAO = null;
@@ -34,7 +38,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		
 		CrError hr = this.populateDomainMap();
 		if (FAILED(hr)) {
-			writeGenericLog("Fail to populate domain map, hr = " + hr);
+			LOG.error("Fail to populate domain map, hr = " + hr);
 		}
 	}
 	
@@ -62,7 +66,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 			try {
 				 linkQueues = this.m_linkQueueDAO.get(maxUrls);
 			} catch (SQLException e) {
-				writeGenericLog("Fail to pull from frontier database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
+				LOG.error("Fail to pull from frontier database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 				hr = CrError.CR_DATABASE_ERROR;
 			}
 		}
@@ -101,7 +105,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 					if (this.domainToDomainIdMap.containsKey(domainStr)) {
 						domainId = this.domainToDomainIdMap.get(domainStr);
 					} else {
-						writeGenericLog("Domain " + domainStr + " doesn't exists yet, create and insert a new one");
+						LOG.info("Domain " + domainStr + " doesn't exists yet, create and insert a new one");
 						Domain domain = new Domain();
 						domain.setDomain(domainStr);
 						domainId = this.m_domainDAO.create(domain);
@@ -112,7 +116,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				}
 				
 				if (domainId < 0) {
-					writeGenericLog("Can't find or generate domain id, " + domainStr + ", " + domainId);
+					LOG.error("Can't find or generate domain id, " + domainStr + ", " + domainId);
 				}
 				
 				// TODO check this persistent to see if the logic is sound
@@ -126,7 +130,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				}
 			}
 		} catch (SQLException e) {
-			writeGenericLog("Fail to push to frontier database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
+			LOG.error("Fail to push to frontier database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 			hr = CrError.CR_DATABASE_ERROR;
 		}
 		
@@ -167,7 +171,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 					if (this.domainToDomainIdMap.containsKey(domainStr)) {
 						domainId = this.domainToDomainIdMap.get(domainStr);
 					} else {
-						writeGenericLog("Domain " + domainStr + " doesn't exists yet, create and insert a new one");
+						LOG.info("Domain " + domainStr + " doesn't exists yet, create and insert a new one");
 						Domain domain = new Domain();
 						domain.setDomain(domainStr);
 						domainId = this.m_domainDAO.create(domain);
@@ -178,7 +182,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				}
 				
 				if (domainId < 0) {
-					writeGenericLog("Can't find or generate domain id, " + url.getDomain() + ", " + domainId);
+					LOG.error("Can't find or generate domain id, " + url.getDomain() + ", " + domainId);
 				}
 				
 				// TODO check this persistent to see if the logic is sound
@@ -192,7 +196,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				}
 			}
 		} catch (SQLException e) {
-			writeGenericLog("Fail to push to duplication database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
+			LOG.error("Fail to push to duplication database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 			hr = CrError.CR_DATABASE_ERROR;
 		}
 		
@@ -211,7 +215,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				return this.m_linkCrawledDAO.linkExists(linkCrawled);
 			}
 		} catch (SQLException e) {
-			writeGenericLog("Fail to check if url " + inUrl.getAbsoluteLink() + " is duplicated or not, "+ e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
+			LOG.error("Fail to check if url " + inUrl.getAbsoluteLink() + " is duplicated or not, "+ e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 		}
 		
 		return false;
@@ -230,7 +234,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 				this.m_rawHTMLDAO.create(rawHTML);
 			}
 		} catch (SQLException e) {
-			writeGenericLog("Fail to insert rawHTML "+ e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
+			LOG.error("Fail to insert rawHTML "+ e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 			hr = CrError.CR_DATABASE_ERROR;
 		}
 		
@@ -240,7 +244,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 	@Override
 	public CrError getExistingDomains(Set<String> domains) {
 		if (this.domainToDomainIdMap == null) {
-			writeGenericLog("No information of existing domains");
+			LOG.error("No information of existing domains");
 			return CrError.CR_UNEXPECTED;
 		}
 		

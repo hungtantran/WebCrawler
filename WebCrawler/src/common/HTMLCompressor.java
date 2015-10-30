@@ -1,8 +1,11 @@
 package common;
 
-import static common.LogManager.writeGenericLog;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class HTMLCompressor {
+	private static Logger LOG = LogManager.getLogger(HTMLCompressor.class.getName());
+
 	public HTMLCompressor() {
 	}
 	
@@ -54,12 +57,12 @@ public class HTMLCompressor {
 	
 	public static String compressHtmlContent(String htmlContent) {
 		if (htmlContent != null) {
-			writeGenericLog("Original length = "+htmlContent.length());
+			LOG.info("Original length = "+htmlContent.length());
 			htmlContent = HTMLCompressor.removeHtmlComment(htmlContent);
 			htmlContent = HTMLCompressor.trimLineWhiteSpace(htmlContent);
-			writeGenericLog("Compressed length = "+htmlContent.length());
+			LOG.info("Compressed length = "+htmlContent.length());
 		} else {
-			writeGenericLog("Error: attempted to compress null string");
+			LOG.error("Error: attempted to compress null string");
 		}
 		
 		return htmlContent;

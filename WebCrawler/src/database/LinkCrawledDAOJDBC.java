@@ -1,7 +1,5 @@
 package database;
 
-import static common.LogManager.writeGenericLog;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.Helper;
 
 public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
+	private static Logger LOG = LogManager.getLogger(LinkCrawledDAOJDBC.class.getName());
+
 	private final String SQL_SELECT_BY_DOMAINID = "SELECT * FROM link_crawled_table WHERE domain_table_id_1 = ?";
 	private final String SQL_INSERT = "INSERT INTO link_crawled_table (link, originalLink, priority, domain_table_id_1, download_duration, extracted_time, statusCode, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_UPDATE = "UPDATE link_crawled_table SET link = ?, priority = ? WHERE id = ?";
@@ -113,7 +116,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			return linksCrawled;
 		} catch (final SQLException e) {
-			writeGenericLog("Get link_crawled_table fails, " + e.getMessage());
+			LOG.error("Get link_crawled_table fails, " + e.getMessage());
 
 			return null;
 		} finally {
@@ -162,7 +165,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			return generatedKey;
 		} catch (final SQLException e) {
-			writeGenericLog("Insert into link_crawled_table fails, " + e.getMessage());
+			LOG.error("Insert into link_crawled_table fails, " + e.getMessage());
 
 			return -1;
 		} finally {
@@ -187,7 +190,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			return true;
 		} catch (final SQLException e) {
-			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
+			LOG.error("Update link_crawled_table fails, " + e.getMessage());
 
 			return false;
 		} finally {
@@ -222,7 +225,7 @@ public class LinkCrawledDAOJDBC implements LinkCrawledDAO {
 
 			return false;
 		} catch (final SQLException e) {
-			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
+			LOG.error("Update link_crawled_table fails, " + e.getMessage());
 
 			return false;
 		} finally {

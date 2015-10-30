@@ -1,18 +1,20 @@
 package urlFilter;
 
-import static common.LogManager.writeGenericLog;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import common.ErrorCode.CrError;
 import common.Globals;
-import database.IDatabaseConnection;
 import common.URLObject;
+import database.IDatabaseConnection;
+import unittest.Test_IURLDuplicationEliminator;
 
 public class DefaultURLFilterProvider implements IURLFilter, IURLFilterProvider {
+	private static Logger LOG = LogManager.getLogger(DefaultURLFilterProvider.class.getName());
+
 	private boolean m_filterNonExistingDomains = false;
 	private Set<String> m_existingDomains;
 	

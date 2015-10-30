@@ -1,11 +1,13 @@
 package unittest;
 
-import static common.LogManager.writeGenericLog;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import common.Globals;
@@ -15,6 +17,7 @@ import urlDuplicationEliminator.IURLDuplicationEliminator;
 import urlDuplicationEliminator.URLDuplicationEliminator;
 
 public class Test_IURLDuplicationEliminator {
+	private static Logger LOG = LogManager.getLogger(Test_IURLDuplicationEliminator.class.getName());
 
 	@Test
 	public void test() {

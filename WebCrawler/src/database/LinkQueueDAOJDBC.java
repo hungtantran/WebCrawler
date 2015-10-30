@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.Helper;
 
-import static common.LogManager.*;
-
 public class LinkQueueDAOJDBC implements LinkQueueDAO {
+	private static Logger LOG = LogManager.getLogger(LinkQueueDAOJDBC.class.getName());
+
 	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM link_queue_table ORDER BY priority ASC, relevance DESC LIMIT ?";
 	private final String SQL_DELETE_WITH_LIMIT = "DELETE FROM link_queue_table LIMIT ?";
 	private final String SQL_INSERT = "INSERT INTO link_queue_table (link, originalLink, domain_table_id_1, priority, persistent, extracted_time, relevance, distanceFromRelevantPage, freshness, time_crawled, date_crawled) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -103,7 +106,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_DELETE_WITH_LIMIT, false, maxUrls);
 			preparedStatement.executeUpdate();
 		} catch (final SQLException e) {
-			writeGenericLog("Remove from link_queue_table fails" + e.getMessage());
+			LOG.error("Remove from link_queue_table fails" + e.getMessage());
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}
@@ -136,7 +139,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			
 			return linksQueue;
 		} catch (final SQLException e) {
-			writeGenericLog("Get link_queue_table fails" + e.getMessage());
+			LOG.error("Get link_queue_table fails" + e.getMessage());
 
 			return null;
 		} finally {
@@ -181,7 +184,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 			return generatedKey;
 		} catch (final SQLException e) {
-			writeGenericLog("Update link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
+			LOG.error("Update link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
 			// TODO return the real update id
 			return -1;
 		} finally {
@@ -234,7 +237,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 			if (e.getErrorCode() == 1062) {
 				return this.update(linkQueue);
 			} else {
-				writeGenericLog("Insert into link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
+				LOG.error("Insert into link_queue_table fails, " + e.getMessage() + " with error code " + e.getErrorCode());
 			}
 
 			return -1;
@@ -270,7 +273,7 @@ public class LinkQueueDAOJDBC implements LinkQueueDAO {
 
 			return false;
 		} catch (final SQLException e) {
-			writeGenericLog("Update link_crawled_table fails, " + e.getMessage());
+			LOG.error("Update link_crawled_table fails, " + e.getMessage());
 
 			return false;
 		} finally {

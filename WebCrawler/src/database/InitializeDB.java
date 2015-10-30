@@ -1,15 +1,19 @@
 package database;
 
-import static common.LogManager.writeGenericLog;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.Globals;
+import common.Helper;
 
 public class InitializeDB {
+	private static Logger LOG = LogManager.getLogger(InitializeDB.class.getName());
+
 	private Connection con = null;
 	private String username = null;
 	private String password = null;
@@ -27,9 +31,9 @@ public class InitializeDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.con = DriverManager.getConnection("jdbc:mysql://" + this.server, this.username, this.password);
 		} catch (ClassNotFoundException e) {
-			writeGenericLog("Driver not found");
+			LOG.error("Driver not found");
 		} catch (SQLException e) {
-			writeGenericLog(e.getMessage());
+			LOG.error(e.getMessage());
 		}
 	}
 
@@ -52,7 +56,7 @@ public class InitializeDB {
 				+ "UNIQUE (id), "
 				+ "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
 		} catch (SQLException e) {
-			writeGenericLog("CREATE TABLE rawhtml_table fails, " + e.getMessage());
+			LOG.error("CREATE TABLE rawhtml_table fails, " + e.getMessage());
 		}
 	}
 	
@@ -68,7 +72,7 @@ public class InitializeDB {
 				+ "UNIQUE (id), "
 				+ "UNIQUE (domain))");
 		} catch (SQLException e) {
-			writeGenericLog("CREATE TABLE domain_table fails, " + e.getMessage());
+			LOG.error("CREATE TABLE domain_table fails, " + e.getMessage());
 		}
 	}
 
@@ -114,7 +118,7 @@ public class InitializeDB {
 				+ "UNIQUE (id), "
 				+ "FOREIGN KEY (domain_table_id_1) REFERENCES domain_table(id))");
 		} catch (SQLException e) {
-			writeGenericLog("CREATE TABLE link_queue_table or link_crawled_table fails, " + e.getMessage());
+			LOG.error("CREATE TABLE link_queue_table or link_crawled_table fails, " + e.getMessage());
 		}
 	}
 

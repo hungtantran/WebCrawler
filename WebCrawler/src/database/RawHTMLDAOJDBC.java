@@ -1,7 +1,5 @@
 package database;
 
-import static common.LogManager.writeGenericLog;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class RawHTMLDAOJDBC implements RawHTMLDAO {
+	private static Logger LOG = LogManager.getLogger(RawHTMLDAOJDBC.class.getName());
+
 	private final String SQL_SELECT_BY_ID = "SELECT * FROM rawhtml_table WHERE id = ?";
 	private final String SQL_SELECT_ALL = "SELECT * FROM rawhtml_table";
 	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM rawhtml_table LIMIT ?, ?";
@@ -56,7 +59,7 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 
 			return rawHTML;
 		} catch (final SQLException e) {
-			writeGenericLog("Get RawHTML fails, " + e.getMessage());
+			LOG.error("Get RawHTML fails, " + e.getMessage());
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}
@@ -83,7 +86,7 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 
 			return htmls;
 		} catch (final SQLException e) {
-			writeGenericLog("Get RawHTML fails, " + e.getMessage());
+			LOG.error("Get RawHTML fails, " + e.getMessage());
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}
@@ -116,7 +119,7 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 
 			return htmls;
 		} catch (final SQLException e) {
-			writeGenericLog("Get RawHTML fails, " + e.getMessage());
+			LOG.error("Get RawHTML fails, " + e.getMessage());
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
 		}
@@ -141,13 +144,13 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
 
-			writeGenericLog("INSERT INTO RawHTML " + rawHTML.getId() + ", Content Length = " + rawHTML.getHtml().length());
+			LOG.info("INSERT INTO RawHTML " + rawHTML.getId() + ", Content Length = " + rawHTML.getHtml().length());
 
 			preparedStatement.executeUpdate();
 
 			return rawHTML.getId();
 		} catch (final SQLException e) {
-			writeGenericLog("Insert into table RawHTML fails, " + e.getMessage());
+			LOG.error("Insert into table RawHTML fails, " + e.getMessage());
 			return -1;
 		} finally {
 			DAOUtil.close(connection, preparedStatement, resultSet);
@@ -167,13 +170,13 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 
 			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_UPDATE, false, values);
 
-			writeGenericLog("Update RawHTML (" + rawHTML.getId() + ", Content Length = " + rawHTML.getHtml().length());
+			LOG.info("Update RawHTML (" + rawHTML.getId() + ", Content Length = " + rawHTML.getHtml().length());
 
 			preparedStatement.executeUpdate();
 
 			return true;
 		} catch (final SQLException e) {
-			writeGenericLog("Update RawHTML fails, " + e.getMessage());
+			LOG.error("Update RawHTML fails, " + e.getMessage());
 
 			return false;
 		} finally {
