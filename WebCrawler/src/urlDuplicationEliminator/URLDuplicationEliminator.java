@@ -7,9 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -28,7 +30,8 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 	private String m_bloomfilterFileName = null;
 	private int m_numWriteToBloomfilter = 0;
 	
-	public URLDuplicationEliminator(String bloomFilterDirectory, String bloomFilterFileName, int bloomFilterSizeInMB, IDatabaseConnection databaseConnection) {		
+	public URLDuplicationEliminator(String bloomFilterDirectory, String bloomFilterFileName, int bloomFilterSizeInMB, IDatabaseConnection databaseConnection) {
+		LOG.setLevel(Level.ALL);
 		m_bloomFilterByteSize = bloomFilterSizeInMB * 1024 * 1024;
 		if (m_bloomFilterByteSize <= 0) {
 			m_bloomFilterByteSize = Integer.MAX_VALUE;
@@ -84,20 +87,19 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 	
 	@Override
 	public CrError eliminateDuplicatedURLs(URLObject originalUrl, ArrayList<URLObject> inoutUrls) {
-		Set<String> urls = new HashSet<String>();
+		Set<String> urls = new HashSet<>();
 		// Don't recursively include itself in the new to-be-crawl link set
 		urls.add(originalUrl.getAbsoluteLink());
 		
 		boolean changeToBloomfilter = false;
 
-		for (int i = 0; i < inoutUrls.size(); ++i) {
-			URLObject url = inoutUrls.get(i);
+		for (Iterator<URLObject> iterator = inoutUrls.iterator(); iterator.hasNext();) {
+			URLObject url = iterator.next();
 			String absoluteLink = url.getAbsoluteLink();
 
 			// Remove duplicated links in the list itself first
 			if (urls.contains(absoluteLink)) {
-				inoutUrls.remove(i);
-				--i;
+				iterator.remove();
 				continue;
 			} else {
 				urls.add(absoluteLink);
@@ -126,8 +128,7 @@ public class URLDuplicationEliminator implements IURLDuplicationEliminator {
 			
 			// If bloomfilter said it exists, check with the database itself
 			if (exists) {
-				inoutUrls.remove(i);
-				--i;
+				iterator.remove();
 			}
 		}
 		

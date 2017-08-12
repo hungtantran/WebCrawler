@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -27,6 +28,7 @@ import httpFetcher.HttpFetcher;
 import httpFetcher.IHttpFetcher;
 import linkExtractor.ILinkExtractor;
 import linkExtractor.LinkExtractor;
+import sun.rmi.runtime.Log;
 import urlDistributor.IURLDistributor;
 import urlDistributor.URLDistributor;
 import urlDuplicationEliminator.IURLDuplicationEliminator;
@@ -34,7 +36,7 @@ import urlDuplicationEliminator.URLDuplicationEliminator;
 import urlFilter.IURLFilter;
 import urlFilter.URLFilters;
 import urlPrioritizer.IURLPrioritizer;
-import urlPrioritizer.URLPrioritizer;
+import urlPrioritizer.URLPrioritizers;
 import urlProcessor.IURLProcessor;
 import urlProcessor.URLProcessors;
 
@@ -92,13 +94,13 @@ public class WebCrawler {
 				Helper.waitSec(5, 10);
 				return CrError.CR_OK;
 			}
-			
-			if (FAILED(hr))
+            if (FAILED(hr))
 			{
 				return hr;
 			}
-			
-			//
+            LOG.info("Start crawling link " + outUrl.getAbsoluteLink());
+
+            //
 			// Process url got from the frontier
 			//
 			
@@ -113,7 +115,6 @@ public class WebCrawler {
 					LOG.error("No outurl " + e.getMessage());
 				}
 			}
-
 			if (FAILED(hr))
 			{
 				return hr;
@@ -126,48 +127,48 @@ public class WebCrawler {
 			{
 				return hr;
 			}
-			
+
 			// Distribute links to appropriate distributor
 			hr = m_urlDistributor.distributeURLs(extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			
+
 			// Filter out unwanted url like url with parameter, malformed, etc...
 			hr = m_urlFilter.filterURLs(extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			
+
 			// Remove duplicated urls
 			hr = m_urlDuplicationEliminator.eliminateDuplicatedURLs(outUrl, extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			
+
 			// Prioritize urls
 			hr = m_urlPrioritizer.prioritizeUrl(outUrl, extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			
+
 			// Push prioritized urls back into the frontier
 			hr = m_frontier.pushUrls(outUrl, extractedUrls);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			
+
 			for (IURLProcessor processor : m_urlProcessors) {
 				processor.processURLs(extractedUrls);
 			}
 		
 			// Store the crawled url in the database
-			ArrayList<URLObject> outUrls = new ArrayList<URLObject>();
+			ArrayList<URLObject> outUrls = new ArrayList<>();
 			outUrls.add(outUrl);
 			hr = m_databaseConnection.pushURLDuplicationDatabase(outUrls);
 			if (FAILED(hr))
@@ -189,6 +190,7 @@ public class WebCrawler {
 	
 	public WebCrawler(String username, String password, String server, String database) throws ClassNotFoundException, SQLException
 	{
+		LOG.setLevel(Level.ALL);
 		m_databaseConnection = new MySQLDatabaseConnection(username, password, server, database);
 		m_frontier = new Frontier(Globals.NQUEUES, m_databaseConnection);
 		m_httpFetcher = new HttpFetcher();
@@ -212,9 +214,14 @@ public class WebCrawler {
 			m_urlFilter.setFileTypesToInclude(Globals.INLUCDEFILETYPES);
 		}
 
-		m_urlDuplicationEliminator = new URLDuplicationEliminator(Globals.DEFAULTBLOOMFILTERDIRECTORY, Globals.DEFAULTBLOOMFILTERFILENAME, Globals.NMEGABYTESFORBLOOMFILTER, m_databaseConnection);
-		m_urlPrioritizer = new URLPrioritizer(m_databaseConnection);
-		
+		m_urlDuplicationEliminator = new URLDuplicationEliminator(
+		        Globals.DEFAULTBLOOMFILTERDIRECTORY,
+                Globals.DEFAULTBLOOMFILTERFILENAME,
+                Globals.NMEGABYTESFORBLOOMFILTER,
+                m_databaseConnection);
+
+		m_urlPrioritizer =  URLPrioritizers.getURLPrioritizer(Globals.URLPRIORITIZER);
+
 		for (String urlProcessorStr : Globals.URLPROCESSORS) {
 			IURLProcessor processor = URLProcessors.getURLProcessor(urlProcessorStr);
 			m_urlProcessors.add(processor);

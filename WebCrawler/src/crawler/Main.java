@@ -7,16 +7,17 @@ import static common.ErrorCode.*;
 
 import java.sql.SQLException;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class Main {
-	private static Logger LOG = LogManager.getLogger(Main.class.getName()); 
+	private static Logger LOG = LogManager.getLogger(Main.class.getName());
 	
 	public static void main(String[] args) {
 		new Globals();
 
-		WebCrawler crawler;
+        WebCrawler crawler;
 		try {
 			crawler = new WebCrawler(Globals.username, Globals.password, Globals.server, Globals.database);
 

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -29,6 +30,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 	private Map<String, Integer> domainToDomainIdMap = null;
 	
 	public MySQLDatabaseConnection(String username, String password, String server, String database) throws SQLException, ClassNotFoundException {
+		LOG.setLevel(Level.ALL);
 		DAOFactory daoFactory = DAOFactory.getInstance(username, password, server + database);
 
 		this.m_linkCrawledDAO = new LinkCrawledDAOJDBC(daoFactory);
@@ -74,7 +76,6 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		if (SUCCEEDED(hr)) {
 			for (LinkQueue linkQueue : linkQueues) {
 				URLObject urlFrontier = new URLObject();
-
 				urlFrontier.setLink(linkQueue.getLink());
 				urlFrontier.set_originalLink(linkQueue.get_originalLink());
 				urlFrontier.setDomain(this.domainIdToDomainMap.get(linkQueue.getDomainTableId1()));
@@ -129,6 +130,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 					url.set_id(id);
 				}
 			}
+			LOG.info("Push " + inUrls.size() + " links back to frontier (link_queue)");
 		} catch (SQLException e) {
 			LOG.error("Fail to push to frontier database, " + e.getMessage() + ", " + e.getSQLState() + ", " + e.getErrorCode());
 			hr = CrError.CR_DATABASE_ERROR;

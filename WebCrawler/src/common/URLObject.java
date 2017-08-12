@@ -158,10 +158,10 @@ public class URLObject {
 				} else {
 					// TODO remove this superhack of adding surfix
 					String originalLink = this.m_originalLink.toString();
-					if (!originalLink.endsWith("/"))
+					/*if (!originalLink.endsWith("/"))
 					{
 						originalLink += "/";
-					}
+					}*/
 
 					absoluteURL = new URL(new URL(originalLink), this.m_link.toString());
 				}

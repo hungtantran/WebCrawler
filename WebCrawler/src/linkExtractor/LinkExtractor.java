@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -18,7 +19,8 @@ import common.URLObject;
 public class LinkExtractor implements ILinkExtractor {
 	private static Logger LOG = LogManager.getLogger(LinkExtractor.class.getName());
 
-	public LinkExtractor() {	
+	public LinkExtractor() {
+		LOG.setLevel(Level.ALL);
 	}
 	
 	private String sanitizeURL(String url) {
@@ -49,7 +51,7 @@ public class LinkExtractor implements ILinkExtractor {
 			return CrError.CR_INVALID_ARGS;
 		}
 
-		Set<String> extractedUrlsSet = new HashSet<String>();
+		Set<String> extractedUrlsSet = new HashSet<>();
 		
 		StringBuilder builder = new StringBuilder();
 		builder.append("Extract links: ");
