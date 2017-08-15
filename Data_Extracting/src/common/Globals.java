@@ -7,6 +7,10 @@ public class Globals {
     public static final String server = "localhost:3306/";
     public static final String database = "news";
 
+    // Number of threads
+    // public static final int NTHREADS = 1;
+    public static final int NTHREADS = 5;
+
     // Link types
     public static final String[] LINKTYPES = {
             "MAIN_PAGE",

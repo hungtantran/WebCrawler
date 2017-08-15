@@ -9,6 +9,8 @@ public interface RawHTMLDAO {
 	public List<RawHTML> get() throws SQLException;
 	
 	public List<RawHTML> get(int lowerBound, int maxNumResult) throws SQLException;
+
+	public List<RawHTML> getNonextractedTextRawHTML(int lowerBound, int maxNumResult) throws SQLException;
 	
 	public int create(RawHTML rawHTML) throws SQLException;
 	

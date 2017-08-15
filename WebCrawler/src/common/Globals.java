@@ -85,15 +85,16 @@ public class Globals {
             "http://www.facebook.com",
             "http://facebook.com",
             // Twitter
-            "https://twitter.com",
-            "http://twitter.com",
             "https://www.twitter.com",
+            "https://twitter.com",
             "http://www.twitter.com",
+            "http://twitter.com",
             // Google
             "https://www.google.com",
             "https://google.com",
             "http://www.google.com",
             "http://google.com",
+            "http://plus.google.com",
             // Bing
             "https://www.bing.com",
             "https://bing.com",
@@ -114,7 +115,18 @@ public class Globals {
             "http://bit.ly",
             // T.co
             "https://t.co",
-            "http://t.co"};
+            "http://t.co",
+            // Imgur
+            "http://imgur.com",
+            "http://help.imgur.com",
+            // Apple
+            "https://www.apple.com",
+            "https://apple.com",
+            "http://www.apple.com",
+            "http://apple.com",
+            // C:
+            "C:"
+            };
     public static Set<String> BLACKLISTDOMAINSET = new HashSet<String>();
 
     {

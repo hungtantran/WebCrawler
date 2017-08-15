@@ -16,6 +16,7 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 	private final String SQL_SELECT_BY_ID = "SELECT * FROM rawhtml_table WHERE id = ?";
 	private final String SQL_SELECT_ALL = "SELECT * FROM rawhtml_table";
 	private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM rawhtml_table LIMIT ?, ?";
+	private final String SQL_SELECT_NON_EXTRACTED_WITH_LIMIT = "SELECT * FROM rawhtml_table WHERE id NOT IN (SELECT id FROM extracted_text_table) LIMIT ?, ?";
 	private final String SQL_INSERT = "INSERT INTO rawhtml_table (id, html) values (?, ?)";
 	private final String SQL_UPDATE = "UPDATE rawhtml_table SET html = ? WHERE id = ?";
 
@@ -108,6 +109,35 @@ public class RawHTMLDAOJDBC implements RawHTMLDAO {
 			} else {
 				preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_ALL, false);
 			}
+
+			resultSet = preparedStatement.executeQuery();
+
+			final ArrayList<RawHTML> htmls = new ArrayList<RawHTML>();
+			while (resultSet.next()) {
+				final RawHTML rawHTML = this.constructRawHTMLObject(resultSet);
+				htmls.add(rawHTML);
+			}
+
+			return htmls;
+		} catch (final SQLException e) {
+			LOG.error("Get RawHTML fails, " + e.getMessage());
+		} finally {
+			DAOUtil.close(connection, preparedStatement, resultSet);
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<RawHTML> getNonextractedTextRawHTML(int lowerBound, int maxNumResult) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = this.daoFactory.getConnection();
+
+			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_NON_EXTRACTED_WITH_LIMIT, false, lowerBound, maxNumResult);
 
 			resultSet = preparedStatement.executeQuery();
 
