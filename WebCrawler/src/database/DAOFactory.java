@@ -66,6 +66,6 @@ class MySQLDAOFactory extends DAOFactory {
 
 	@Override
     public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:mysql://" + this.server, this.username, this.password);
+		return DriverManager.getConnection("jdbc:mysql://" + this.server + "?autoReconnect=true&useSSL=false", this.username, this.password);
 	}
 }

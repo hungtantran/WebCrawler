@@ -44,6 +44,7 @@ public class InitializeDB {
         this.createLinkTypeTable();
         this.createLinkCategoryTable();
         this.createExtractedTextTable();
+        this.createDictionaryTable();
     }
 
     // Populate tables with some seed data
@@ -116,11 +117,37 @@ public class InitializeDB {
                     + "UNIQUE (id), "
                     + "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
         } catch (SQLException e) {
-            LOG.error("CREATE TABLE domain_table fails, " + e.getMessage());
+            LOG.error("CREATE TABLE extracted_text_table fails, " + e.getMessage());
+        }
+
+        try {
+            Statement st = this.con.createStatement();
+            st.executeQuery("USE " + this.database);
+            st.executeUpdate("CREATE TABLE clean_extracted_text_table ("
+                    + "id int unsigned not null, "
+                    + "extracted_text mediumtext not null, "
+                    + "PRIMARY KEY(id), "
+                    + "UNIQUE (id), "
+                    + "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
+        } catch (SQLException e) {
+            LOG.error("CREATE TABLE clean_extracted_text_table fails, " + e.getMessage());
         }
     }
 
-
+    // Create extracted_text_table
+    private void createDictionaryTable() {
+        try {
+            Statement st = this.con.createStatement();
+            st.executeQuery("USE " + this.database);
+            st.executeUpdate("CREATE TABLE dictionary_table ("
+                    + "id int unsigned AUTO_INCREMENT not null, "
+                    + "extracted_text char(255) not null, "
+                    + "PRIMARY KEY(id), "
+                    + "UNIQUE (extracted_text))");
+        } catch (SQLException e) {
+            LOG.error("CREATE TABLE dictionary_table fails, " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         InitializeDB con = new InitializeDB(Globals.username, Globals.password, Globals.server, Globals.database);

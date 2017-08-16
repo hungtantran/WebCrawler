@@ -9,7 +9,6 @@ import database.RawHTML;
 import de.l3s.boilerpipe.document.TextDocument;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
 import de.l3s.boilerpipe.sax.BoilerpipeSAXInput;
-import frontier.IFrontier;
 import frontier.RawHTMLFrontier;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -28,7 +27,7 @@ public class TextExtractor {
     private static Logger LOG = LogManager.getLogger(TextExtractor.class.getName());
 
     private IDatabaseConnection m_databaseConnection = null;
-    private IFrontier m_frontier = null;
+    private RawHTMLFrontier m_frontier = null;
 
     private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
 

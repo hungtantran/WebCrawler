@@ -62,6 +62,6 @@ public class ExtractedText implements Serializable {
 	
 	// Custom methods
 	public boolean isValid() {
-		return this.id != null && this.extractedText != null;
+		return this.extractedText != null;
 	}
 }
