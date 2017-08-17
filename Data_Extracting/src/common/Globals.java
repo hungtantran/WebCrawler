@@ -16,7 +16,7 @@ public class Globals {
 
     // Number of threads
     // public static final int NTHREADS = 1;
-    public static final int NTHREADS = 5;
+    public static final int NTHREADS = 2;
 
     // public static final CharArraySet STOPWORDS = StandardAnalyzer.STOP_WORDS_SET;
     public static final CharArraySet STOPWORDS = new CharArraySet(new ArrayList<String>(Arrays.asList(
@@ -49,7 +49,7 @@ public class Globals {
             "unto", "up", "upon", "ups", "us", "use", "used", "useful", "usefully", "usefulness", "uses", "using", "usually", "v", "value", "various", "'ve", "very", "via", "viz", "vol", "vols", "vs", "w", "want",
             "wants", "was", "wasnt", "way", "we", "wed", "welcome", "we'll", "went", "were", "werent", "we've", "what", "whatever", "what'll", "whats", "when", "whence", "whenever", "where", "whereafter", "whereas",
             "whereby", "wherein", "wheres", "whereupon", "wherever", "whether", "which", "while", "whim", "whither", "who", "whod", "whoever", "whole", "who'll", "whom", "whomever", "whos", "whose", "why", "widely",
-            "willing", "wish", "with", "within", "without", "wont", "words", "world", "would", "wouldnt", "www", "x", "y", "yes", "yet", "you", "youd", "you'll", "your", "youre", "yours", "yourself", "yourselves",
+            "will", "willing", "wish", "with", "within", "without", "wont", "words", "world", "would", "wouldnt", "www", "x", "y", "yes", "yet", "you", "youd", "you'll", "your", "youre", "yours", "yourself", "yourselves",
             "you've", "z", "zero")), /*ignoreCase=*/true);
 
     // Link types

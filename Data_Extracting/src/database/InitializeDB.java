@@ -45,6 +45,7 @@ public class InitializeDB {
         this.createLinkCategoryTable();
         this.createExtractedTextTable();
         this.createDictionaryTable();
+        this.createParameterTable();
     }
 
     // Populate tables with some seed data
@@ -146,6 +147,22 @@ public class InitializeDB {
                     + "UNIQUE (extracted_text))");
         } catch (SQLException e) {
             LOG.error("CREATE TABLE dictionary_table fails, " + e.getMessage());
+        }
+    }
+
+    // Create parameters table
+    private void createParameterTable() {
+        try {
+            Statement st = this.con.createStatement();
+            st.executeQuery("USE " + this.database);
+            st.executeUpdate("CREATE TABLE naive_bayes_param ("
+                    + "word int unsigned not null, " // word is xi id (word i in dictionary)
+                    + "label int unsigned not null, " // label is y value (whether word i is associated with a label)
+                    + "count int unsigned not null, " // count of number of that particular xi and y values appear together
+                    + "UNIQUE (word, label), "
+                    + "FOREIGN KEY (word) REFERENCES dictionary_table(id))");
+        } catch (SQLException e) {
+            LOG.error("CREATE TABLE naive_bayes_param fails, " + e.getMessage());
         }
     }
 

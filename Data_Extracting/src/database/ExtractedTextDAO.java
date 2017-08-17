@@ -4,7 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ExtractedTextDAO {
+	List<ExtractedText> get() throws SQLException;
+
 	ExtractedText get(int id) throws SQLException;
+
+	List<ExtractedText> get(int lowerBound, int maxCount) throws SQLException;
 
 	int create(ExtractedText extractedText) throws SQLException;
 

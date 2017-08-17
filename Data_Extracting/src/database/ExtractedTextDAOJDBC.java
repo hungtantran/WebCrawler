@@ -13,8 +13,10 @@ import java.util.List;
 public class ExtractedTextDAOJDBC implements ExtractedTextDAO {
     private static Logger LOG = LogManager.getLogger(ExtractedTextDAOJDBC.class.getName());
 
+    private final String SQL_SELECT_ALL = "SELECT * FROM %s";
     private final String SQL_SELECT_BY_ID = "SELECT * FROM %s WHERE id = ?";
     private final String SQL_SELECT_NON_EXIST_ID_WITH_LIMIT = "SELECT * FROM %s WHERE id NOT IN (SELECT id FROM %s) LIMIT ?, ?";
+    private final String SQL_SELECT_WITH_LIMIT = "SELECT * FROM %s LIMIT ?, ?";
     private final String SQL_INSERT = "INSERT INTO %s (id, extracted_text) values (?, ?)";
     private final String SQL_INSERT_INCREMENT = "INSERT IGNORE INTO %s (extracted_text) values (?)";
     private final String SQL_UPDATE = "UPDATE %s SET extracted_text = ? WHERE id = ?";
@@ -35,6 +37,34 @@ public class ExtractedTextDAOJDBC implements ExtractedTextDAO {
     }
 
     @Override
+    public List<ExtractedText> get() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.daoFactory.getConnection();
+
+            preparedStatement = DAOUtil.prepareStatement(connection, String.format(this.SQL_SELECT_ALL, this.tableName), false);
+            resultSet = preparedStatement.executeQuery();
+
+            ArrayList<ExtractedText> extractedTexts = new ArrayList<ExtractedText>();
+            while (resultSet.next()) {
+                final ExtractedText extractedText = this.constructExtractedTextObject(resultSet);
+                extractedTexts.add(extractedText);
+            }
+
+            return extractedTexts;
+        } catch (final SQLException e) {
+            LOG.error("Get ExtractedText fails, " + e.getMessage());
+        } finally {
+            DAOUtil.close(connection, preparedStatement, resultSet);
+        }
+
+        return null;
+    }
+
+    @Override
     public ExtractedText get(int id) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -42,7 +72,10 @@ public class ExtractedTextDAOJDBC implements ExtractedTextDAO {
 
         try {
             connection = this.daoFactory.getConnection();
-            preparedStatement = DAOUtil.prepareStatement(connection, String.format(this.SQL_SELECT_BY_ID, this.tableName), false, id);
+
+            final Object[] values = {id};
+
+            preparedStatement = DAOUtil.prepareStatement(connection, String.format(this.SQL_SELECT_BY_ID, this.tableName), false, values);
             resultSet = preparedStatement.executeQuery();
 
             ExtractedText extractedText = null;
@@ -51,6 +84,36 @@ public class ExtractedTextDAOJDBC implements ExtractedTextDAO {
             }
 
             return extractedText;
+        } catch (final SQLException e) {
+            LOG.error("Get ExtractedText fails, " + e.getMessage());
+        } finally {
+            DAOUtil.close(connection, preparedStatement, resultSet);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ExtractedText> get(int lowerBound, int maxCount) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.daoFactory.getConnection();
+
+            final Object[] values = {lowerBound, maxCount};
+
+            preparedStatement = DAOUtil.prepareStatement(connection, String.format(this.SQL_SELECT_WITH_LIMIT, this.tableName), false, values);
+            resultSet = preparedStatement.executeQuery();
+
+            ArrayList<ExtractedText> extractedTexts = new ArrayList<ExtractedText>();
+            while (resultSet.next()) {
+                final ExtractedText extractedText = this.constructExtractedTextObject(resultSet);
+                extractedTexts.add(extractedText);
+            }
+
+            return extractedTexts;
         } catch (final SQLException e) {
             LOG.error("Get ExtractedText fails, " + e.getMessage());
         } finally {

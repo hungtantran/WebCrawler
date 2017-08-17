@@ -74,7 +74,9 @@ public class TextTokenizer {
                 while (stream.incrementToken()) {
                     final String word = stream.getAttribute(CharTermAttribute.class).toString();
                     result.add(word);
-                    m_databaseConnection.createDictionaryWord(word);
+                    if (word.matches("[a-z]+")) {
+                        m_databaseConnection.createDictionaryWord(word);
+                    }
                 }
                 LOG.info("Tokenize = " + result);
                 ExtractedText cleanText = new ExtractedText();

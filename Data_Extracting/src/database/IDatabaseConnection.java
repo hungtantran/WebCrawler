@@ -13,4 +13,10 @@ public interface IDatabaseConnection {
     int createExtractedText(ExtractedText extractedText) throws SQLException;
 
     int createCleanText(ExtractedText extractedText) throws SQLException;
+
+    int createNaiveBayesParam(NaiveBayesParam param) throws SQLException;
+
+    List<ExtractedText> getCleanExtractedText(int lowerBound, int maxNumResult) throws SQLException;
+
+    List<ExtractedText> getDictionaryWords() throws SQLException;
 }

@@ -18,7 +18,7 @@ public class Globals {
     public static final String username = "root";
     public static final String password = "";
     public static final String server = "localhost:3306/";
-    public static final String database = "news";
+    public static final String database = "news2";
 
     // Max distance from relevant page to be considered
     public static final int MAXDISTANCEFROMRELEVANTPAGE = 3;
@@ -60,22 +60,34 @@ public class Globals {
     }
 
     // Seed domains
-    public static final String[] SEEDDOMAINS = {
-            "https://spectator.org",
-            "http://nypost.com",
-            "http://www.washingtonexaminer.com",
-            "http://www.americanthinker.com",
-            "http://www.nationalreview.com",
-            "http://www.thegatewaypundit.com"};
+//    public static final String[] SEEDDOMAINS = {
+//            "https://spectator.org",
+//            "http://nypost.com",
+//            "http://www.washingtonexaminer.com",
+//            "http://www.americanthinker.com",
+//            "http://www.nationalreview.com",
+//            "http://www.thegatewaypundit.com"};
+        public static final String[] SEEDDOMAINS = {
+                "http://www.motherjones.com",
+                "http://www.slate.com",
+                "http://www.msnbc.com",
+                "http://www.salon.com",
+                "http://www.huffingtonpost.com"};
 
     // Seed links
-    public static final String[] SEEDLINKQUEUE = {
-            "https://spectator.org",
-            "http://nypost.com",
-            "http://www.washingtonexaminer.com",
-            "http://www.americanthinker.com",
-            "http://www.nationalreview.com",
-            "http://www.thegatewaypundit.com"};
+//    public static final String[] SEEDLINKQUEUE = {
+//            "https://spectator.org",
+//            "http://nypost.com",
+//            "http://www.washingtonexaminer.com",
+//            "http://www.americanthinker.com",
+//            "http://www.nationalreview.com",
+//            "http://www.thegatewaypundit.com"};
+      public static final String[] SEEDLINKQUEUE = {
+            "http://www.motherjones.com",
+            "http://www.slate.com",
+            "http://www.msnbc.com",
+            "http://www.salon.com",
+            "http://www.huffingtonpost.com"};
 
     // Blacklist domain
     public static final String[] BLACKLISTDOMAINS = {

@@ -17,6 +17,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 	private ExtractedTextDAO m_extractedTextDAO = null;
 	private ExtractedTextDAO m_cleanExtractedTextDAO = null;
 	private ExtractedTextDAO m_dictionaryDAO = null;
+	private NaiveBayesParamDAO m_naiveBayesParamDAO = null;
 	
 	public MySQLDatabaseConnection(String username, String password, String server, String database) throws SQLException, ClassNotFoundException {
 		LOG.setLevel(Level.ALL);
@@ -26,6 +27,7 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		this.m_extractedTextDAO = new ExtractedTextDAOJDBC(daoFactory, "extracted_text_table");
 		this.m_cleanExtractedTextDAO = new ExtractedTextDAOJDBC(daoFactory, "clean_extracted_text_table");
 		this.m_dictionaryDAO = new ExtractedTextDAOJDBC(daoFactory, "dictionary_table");
+		this.m_naiveBayesParamDAO = new NaiveBayesParamDAOJDBC(daoFactory);
 	}
 
 	public List<RawHTML> getNonExtractedTextRawHTML(int lowerBound, int maxNumResult) throws SQLException {
@@ -40,6 +42,10 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 		return this.m_cleanExtractedTextDAO.create(extractedText);
 	}
 
+	public int createNaiveBayesParam(NaiveBayesParam param) throws SQLException {
+		return this.m_naiveBayesParamDAO.create(param);
+	}
+
 	public int createDictionaryWord(String word) throws SQLException {
 		ExtractedText extractedText = new ExtractedText();
 		extractedText.setExtractedText(word);
@@ -48,5 +54,13 @@ public class MySQLDatabaseConnection implements IDatabaseConnection {
 
 	public List<ExtractedText> getNonCleanTextExtractedText(int lowerBound, int maxNumResult) throws SQLException {
 		return this.m_extractedTextDAO.getExtactedTextNotIdInTable(lowerBound, maxNumResult, "clean_extracted_text_table");
+	}
+
+	public List<ExtractedText> getCleanExtractedText(int lowerBound, int maxNumResult) throws SQLException {
+		return this.m_cleanExtractedTextDAO.get(lowerBound, maxNumResult);
+	}
+
+	public List<ExtractedText> getDictionaryWords() throws SQLException {
+		return this.m_dictionaryDAO.get();
 	}
 }
