@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InitializeDB {
-    private static Logger LOG = LogManager.getLogger(InitializeDB.class.getName());
+    private static Logger LOG = LogManager.getLogger(InitializeDB.class
+            .getName());
 
     private Connection con = null;
     private String username = null;
@@ -20,7 +21,8 @@ public class InitializeDB {
     private String database = null;
     private DAOFactory daoFactory = null;
 
-    public InitializeDB(String username, String password, String server, String database) {
+    public InitializeDB(String username, String password, String server,
+                        String database) {
         LOG.setLevel(Level.ALL);
         this.username = username;
         this.password = password;
@@ -30,8 +32,10 @@ public class InitializeDB {
         // Set up sql connection
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            this.con = DriverManager.getConnection("jdbc:mysql://" + this.server, this.username, this.password);
-            this.daoFactory = DAOFactory.getInstance(username, password, server + database);
+            this.con = DriverManager.getConnection("jdbc:mysql://" + this
+                    .server, this.username, this.password);
+            this.daoFactory = DAOFactory.getInstance(username, password,
+                    server + database);
         } catch (ClassNotFoundException e) {
             LOG.error("Driver not found");
         } catch (SQLException e) {
@@ -65,11 +69,13 @@ public class InitializeDB {
                         continue;
                     }
                 } catch (SQLException e) {
-                    LOG.error("INSERT INTO TABLE link_type_table fails, " + e.getMessage());
+                    LOG.error("INSERT INTO TABLE link_type_table fails, " + e
+                            .getMessage());
                 }
             }
         } catch (SQLException e) {
-            LOG.error("INSERT INTO TABLE link_type_table fails, " + e.getMessage());
+            LOG.error("INSERT INTO TABLE link_type_table fails, " + e
+                    .getMessage());
         }
     }
 
@@ -118,7 +124,8 @@ public class InitializeDB {
                     + "UNIQUE (id), "
                     + "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
         } catch (SQLException e) {
-            LOG.error("CREATE TABLE extracted_text_table fails, " + e.getMessage());
+            LOG.error("CREATE TABLE extracted_text_table fails, " + e
+                    .getMessage());
         }
 
         try {
@@ -131,7 +138,8 @@ public class InitializeDB {
                     + "UNIQUE (id), "
                     + "FOREIGN KEY (id) REFERENCES link_crawled_table(id))");
         } catch (SQLException e) {
-            LOG.error("CREATE TABLE clean_extracted_text_table fails, " + e.getMessage());
+            LOG.error("CREATE TABLE clean_extracted_text_table fails, " + e
+                    .getMessage());
         }
     }
 
@@ -156,18 +164,23 @@ public class InitializeDB {
             Statement st = this.con.createStatement();
             st.executeQuery("USE " + this.database);
             st.executeUpdate("CREATE TABLE naive_bayes_param ("
-                    + "word int unsigned not null, " // word is xi id (word i in dictionary)
-                    + "label int unsigned not null, " // label is y value (whether word i is associated with a label)
-                    + "count int unsigned not null, " // count of number of that particular xi and y values appear together
+                    + "word int unsigned not null, " // word is xi id (word i
+                    // in dictionary)
+                    + "label int unsigned not null, " // label is y value
+                    // (whether word i is associated with a label)
+                    + "count int unsigned not null, " // count of number of
+                    // that particular xi and y values appear together
                     + "UNIQUE (word, label), "
                     + "FOREIGN KEY (word) REFERENCES dictionary_table(id))");
         } catch (SQLException e) {
-            LOG.error("CREATE TABLE naive_bayes_param fails, " + e.getMessage());
+            LOG.error("CREATE TABLE naive_bayes_param fails, " + e.getMessage
+                    ());
         }
     }
 
     public static void main(String[] args) {
-        InitializeDB con = new InitializeDB(Globals.username, Globals.password, Globals.server, Globals.database);
+        InitializeDB con = new InitializeDB(Globals.username, Globals
+                .password, Globals.server, Globals.database);
         con.createDB();
         con.populateDB(Globals.LINKTYPES);
     }

@@ -24,12 +24,14 @@ import java.util.concurrent.TimeUnit;
 import static common.ErrorCode.FAILED;
 
 public class TextExtractor {
-    private static Logger LOG = LogManager.getLogger(TextExtractor.class.getName());
+    private static Logger LOG = LogManager.getLogger(TextExtractor.class
+            .getName());
 
     private IDatabaseConnection m_databaseConnection = null;
     private RawHTMLFrontier m_frontier = null;
 
-    private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
+    private static final ExecutorService m_exec = Executors
+            .newFixedThreadPool(Globals.NTHREADS);
 
     private class ExtractTask implements Runnable {
         private Long threadId;
@@ -60,23 +62,14 @@ public class TextExtractor {
                 return hr;
             }
 
-
-            LOG.info("Extract text for rawhtml with id " + rawHTML.getId() + " and content length = " + rawHTML.getHtml().length());
-            InputSource inputSource = new InputSource(new StringReader(rawHTML.getHtml()));
-
             try {
-                final BoilerpipeSAXInput in = new BoilerpipeSAXInput(inputSource);
-                final TextDocument doc = in.getTextDocument();
-                String bodyText = ArticleExtractor.INSTANCE.getText(doc);
-
-                ExtractedText extractedText = new ExtractedText();
-                extractedText.setId(rawHTML.getId());
-                extractedText.setExtractedText(bodyText);
-                LOG.info("Extract text for id " + extractedText.getId() + " get body length = " + bodyText.length());
+                ExtractedText extractedText = TextExtractor.extractedText
+                        (rawHTML.getHtml(), rawHTML.getId());
 
                 m_databaseConnection.createExtractedText(extractedText);
             } catch (Exception ex) {
-                LOG.error("Fail to extract article from html with exception " + ex);
+                LOG.error("Fail to extract article from html with exception "
+                        + ex);
                 return ErrorCode.CrError.CR_MALFORM_HTML;
             }
 
@@ -84,10 +77,31 @@ public class TextExtractor {
         }
     }
 
-    public TextExtractor(String username, String password, String server, String database) throws ClassNotFoundException, SQLException
-    {
+    public static ExtractedText extractedText(String html, int id) throws
+            Exception {
+        LOG.info("Extract text for rawhtml with id " + id + " and content " +
+                "length = " + html.length());
+        InputSource inputSource = new InputSource(new StringReader(html));
+
+        final BoilerpipeSAXInput in = new BoilerpipeSAXInput
+                (inputSource);
+        final TextDocument doc = in.getTextDocument();
+        String bodyText = ArticleExtractor.INSTANCE.getText(doc);
+
+        ExtractedText extractedText = new ExtractedText();
+        extractedText.setId(id);
+        extractedText.setExtractedText(bodyText);
+        LOG.info("Extract text for id " + extractedText.getId() + " get body " +
+                "length = " + bodyText.length());
+        return extractedText;
+    }
+
+    public TextExtractor(String username, String password, String server,
+                         String database) throws ClassNotFoundException,
+            SQLException {
         LOG.setLevel(Level.ALL);
-        m_databaseConnection = new MySQLDatabaseConnection(username, password, server, database);
+        m_databaseConnection = new MySQLDatabaseConnection(username,
+                password, server, database);
         m_frontier = new RawHTMLFrontier(m_databaseConnection);
     }
 
@@ -111,13 +125,13 @@ public class TextExtractor {
         new Globals();
 
         try {
-            TextExtractor extractor = new TextExtractor(Globals.username, Globals.password, Globals.server, Globals.database);
+            TextExtractor extractor = new TextExtractor(Globals.username,
+                    Globals.password, Globals.server, Globals.database);
 
             // Only return when error happens. Otherwise, while true loop
             ErrorCode.CrError hr = extractor.extractText();
 
-            if (FAILED(hr))
-            {
+            if (FAILED(hr)) {
                 LOG.error("Extract fails, hr = " + hr);
             }
         } catch (ClassNotFoundException e) {

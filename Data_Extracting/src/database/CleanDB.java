@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CleanDB {
-    private static Logger LOG = LogManager.getLogger(InitializeDB.class.getName());
+    private static Logger LOG = LogManager.getLogger(InitializeDB.class
+            .getName());
 
     private Connection con = null;
     private String username = null;
@@ -19,7 +20,8 @@ public class CleanDB {
     private String server = null;
     private String database = null;
 
-    public CleanDB(String username, String password, String server, String database) {
+    public CleanDB(String username, String password, String server, String
+            database) {
         LOG.setLevel(Level.ALL);
         this.username = username;
         this.password = password;
@@ -29,7 +31,8 @@ public class CleanDB {
         // Set up sql connection
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            this.con = DriverManager.getConnection("jdbc:mysql://" + this.server, this.username, this.password);
+            this.con = DriverManager.getConnection("jdbc:mysql://" + this
+                    .server, this.username, this.password);
         } catch (ClassNotFoundException e) {
             LOG.error("Driver not found");
         } catch (SQLException e) {
@@ -51,7 +54,8 @@ public class CleanDB {
             st.executeQuery("USE " + this.database);
             st.executeUpdate("DROP TABLE extracted_text_table");
         } catch (SQLException e) {
-            LOG.error("DROP TABLE extracted_text_table fails, " + e.getMessage());
+            LOG.error("DROP TABLE extracted_text_table fails, " + e
+                    .getMessage());
         }
     }
 
@@ -62,7 +66,8 @@ public class CleanDB {
             st.executeQuery("USE " + this.database);
             st.executeUpdate("DROP TABLE link_category_table");
         } catch (SQLException e) {
-            LOG.error("DROP TABLE link_category_table fails, " + e.getMessage());
+            LOG.error("DROP TABLE link_category_table fails, " + e.getMessage
+                    ());
         }
     }
 
@@ -78,7 +83,8 @@ public class CleanDB {
     }
 
     public static void main(String[] args) {
-        CleanDB con = new CleanDB(Globals.username, Globals.password, Globals.server, Globals.database);
+        CleanDB con = new CleanDB(Globals.username, Globals.password, Globals
+                .server, Globals.database);
         con.cleanDB();
     }
 }

@@ -11,92 +11,97 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DomainDAOJDBC implements DomainDAO {
-	private static Logger LOG = LogManager.getLogger(DomainDAOJDBC.class.getName());
+    private static Logger LOG = LogManager.getLogger(DomainDAOJDBC.class
+            .getName());
 
-	private final String SQL_SELECT = "SELECT * FROM domain_table";
-	private final String SQL_INSERT = "INSERT INTO domain_table (id, domain) values (?, ?)";
+    private final String SQL_SELECT = "SELECT * FROM domain_table";
+    private final String SQL_INSERT = "INSERT INTO domain_table (id, domain) " +
+			"values (?, ?)";
 
-	private DAOFactory m_daoFactory = null;
+    private DAOFactory m_daoFactory = null;
 
-	public DomainDAOJDBC(DAOFactory daoFactory) throws SQLException {
-		this.m_daoFactory = daoFactory;
-	}
+    public DomainDAOJDBC(DAOFactory daoFactory) throws SQLException {
+        this.m_daoFactory = daoFactory;
+    }
 
-	private Domain constructDomainObject(ResultSet resultSet) throws SQLException {
-		final Domain domain = new Domain();
+    private Domain constructDomainObject(ResultSet resultSet) throws
+			SQLException {
+        final Domain domain = new Domain();
 
-		domain.setId(resultSet.getInt("id"));
-		if (resultSet.wasNull()) {
-			domain.setId(null);
-		}
+        domain.setId(resultSet.getInt("id"));
+        if (resultSet.wasNull()) {
+            domain.setId(null);
+        }
 
-		domain.setDomain(resultSet.getString("domain"));
-		if (resultSet.wasNull()) {
-			domain.setDomain(null);
-		}
+        domain.setDomain(resultSet.getString("domain"));
+        if (resultSet.wasNull()) {
+            domain.setDomain(null);
+        }
 
-		return domain;
-	}
+        return domain;
+    }
 
-	@Override
-	public List<Domain> get() throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+    @Override
+    public List<Domain> get() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
-			connection = this.m_daoFactory.getConnection();
-			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT, false);
-			resultSet = preparedStatement.executeQuery();
+        try {
+            connection = this.m_daoFactory.getConnection();
+            preparedStatement = DAOUtil.prepareStatement(connection, this
+					.SQL_SELECT, false);
+            resultSet = preparedStatement.executeQuery();
 
-			final List<Domain> domains = new ArrayList<Domain>();
-			while (resultSet.next()) {
-				final Domain domain = this.constructDomainObject(resultSet);
-				domains.add(domain);
-			}
+            final List<Domain> domains = new ArrayList<Domain>();
+            while (resultSet.next()) {
+                final Domain domain = this.constructDomainObject(resultSet);
+                domains.add(domain);
+            }
 
-			return domains;
-		} catch (final SQLException e) {
-			LOG.error("Get domain_table fails, " + e.getMessage());
+            return domains;
+        } catch (final SQLException e) {
+            LOG.error("Get domain_table fails, " + e.getMessage());
 
-			throw e;
-		} finally {
-			DAOUtil.close(connection, preparedStatement, resultSet);
-		}
-	}
+            throw e;
+        } finally {
+            DAOUtil.close(connection, preparedStatement, resultSet);
+        }
+    }
 
-	@Override
-	public int create(Domain domain) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+    @Override
+    public int create(Domain domain) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
-			connection = this.m_daoFactory.getConnection();
+        try {
+            connection = this.m_daoFactory.getConnection();
 
-			final Object[] values = { domain.getId(), domain.getDomain() };
+            final Object[] values = {domain.getId(), domain.getDomain()};
 
-			preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
-			
-			LOG.info(preparedStatement.toString());
+            preparedStatement = DAOUtil.prepareStatement(connection, this
+					.SQL_INSERT, true, values);
 
-			preparedStatement.executeUpdate();
+            LOG.info(preparedStatement.toString());
 
-			// Get the generated key (id)
-			resultSet = preparedStatement.getGeneratedKeys();
-			int generatedKey = -1;
+            preparedStatement.executeUpdate();
 
-			if (resultSet.next()) {
-				generatedKey = resultSet.getInt(1);
-			}
+            // Get the generated key (id)
+            resultSet = preparedStatement.getGeneratedKeys();
+            int generatedKey = -1;
 
-			return generatedKey;
-		} catch (final SQLException e) {
-			LOG.error("Insert into domain_table fails, " + e.getMessage());
+            if (resultSet.next()) {
+                generatedKey = resultSet.getInt(1);
+            }
 
-			return -1;
-		} finally {
-			DAOUtil.close(connection, preparedStatement, resultSet);
-		}
-	}
+            return generatedKey;
+        } catch (final SQLException e) {
+            LOG.error("Insert into domain_table fails, " + e.getMessage());
+
+            return -1;
+        } finally {
+            DAOUtil.close(connection, preparedStatement, resultSet);
+        }
+    }
 }

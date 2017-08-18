@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NaiveBayesParamDAOJDBC implements NaiveBayesParamDAO {
-    private static Logger LOG = LogManager.getLogger(NaiveBayesParamDAOJDBC.class.getName());
+    private static Logger LOG = LogManager.getLogger(NaiveBayesParamDAOJDBC
+            .class.getName());
 
     private final String SQL_SELECT_ALL = "SELECT * FROM naive_bayes_param";
-    private final String SQL_INSERT = "INSERT INTO naive_bayes_param (word, label, count) values (?, ?, ?) ON DUPLICATE KEY UPDATE count = ?";
+    private final String SQL_SELECT_BY_LABEL = "SELECT * FROM " +
+            "naive_bayes_param WHERE label = ?";
+    private final String SQL_INSERT = "INSERT INTO naive_bayes_param (word, " +
+            "label, count) values (?, ?, ?) ON DUPLICATE KEY UPDATE count = ?";
 
     private final DAOFactory daoFactory;
 
@@ -22,7 +26,8 @@ public class NaiveBayesParamDAOJDBC implements NaiveBayesParamDAO {
         this.daoFactory = daoFactory;
     }
 
-    private NaiveBayesParam constructNaiveBayesParam(ResultSet resultSet) throws SQLException {
+    private NaiveBayesParam constructNaiveBayesParam(ResultSet resultSet)
+            throws SQLException {
         NaiveBayesParam param = new NaiveBayesParam();
         param.setWord(resultSet.getInt("word"));
         param.setLabel(resultSet.getInt("label"));
@@ -38,12 +43,44 @@ public class NaiveBayesParamDAOJDBC implements NaiveBayesParamDAO {
 
         try {
             connection = this.daoFactory.getConnection();
-            preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_SELECT_ALL, false);
+            preparedStatement = DAOUtil.prepareStatement(connection, this
+                    .SQL_SELECT_ALL, false);
             resultSet = preparedStatement.executeQuery();
 
             final ArrayList<NaiveBayesParam> params = new ArrayList<>();
             while (resultSet.next()) {
-                final NaiveBayesParam param = this.constructNaiveBayesParam(resultSet);
+                final NaiveBayesParam param = this.constructNaiveBayesParam
+                        (resultSet);
+                params.add(param);
+            }
+
+            return params;
+        } catch (final SQLException e) {
+            LOG.error("Get NaiveBayesParam fails, " + e.getMessage());
+        } finally {
+            DAOUtil.close(connection, preparedStatement, resultSet);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<NaiveBayesParam> get(int label) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.daoFactory.getConnection();
+            final Object[] values = {label};
+            preparedStatement = DAOUtil.prepareStatement(connection, this
+                    .SQL_SELECT_BY_LABEL, false, values);
+            resultSet = preparedStatement.executeQuery();
+
+            final ArrayList<NaiveBayesParam> params = new ArrayList<>();
+            while (resultSet.next()) {
+                final NaiveBayesParam param = this.constructNaiveBayesParam
+                        (resultSet);
                 params.add(param);
             }
 
@@ -66,9 +103,10 @@ public class NaiveBayesParamDAOJDBC implements NaiveBayesParamDAO {
         try {
             connection = this.daoFactory.getConnection();
 
-            final Object[] values = { param.getWord(), param.getLabel(), param.getCount(), param.getCount() };
-
-            preparedStatement = DAOUtil.prepareStatement(connection, this.SQL_INSERT, true, values);
+            final Object[] values = {param.getWord(), param.getLabel(), param
+                    .getCount(), param.getCount()};
+            preparedStatement = DAOUtil.prepareStatement(connection, this
+                    .SQL_INSERT, true, values);
 
             LOG.info(preparedStatement.toString());
 

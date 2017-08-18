@@ -14,6 +14,7 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,12 +26,14 @@ import java.util.concurrent.TimeUnit;
 import static common.ErrorCode.FAILED;
 
 public class TextTokenizer {
-    private static Logger LOG = LogManager.getLogger(TextTokenizer.class.getName());
+    private static Logger LOG = LogManager.getLogger(TextTokenizer.class
+            .getName());
 
     private IDatabaseConnection m_databaseConnection = null;
     private ExtractedTextFrontier m_frontier = null;
 
-    private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
+    private static final ExecutorService m_exec = Executors
+            .newFixedThreadPool(Globals.NTHREADS);
 
     private class TokenizerTask implements Runnable {
         private Long threadId;
@@ -49,7 +52,8 @@ public class TextTokenizer {
                 hr = tokenizeOneText();
 
                 if (FAILED(hr)) {
-                    LOG.error("Fail to get tokenize extracted text because hr = " + hr);
+                    LOG.error("Fail to get tokenize extracted text because hr" +
+                            " = " + hr);
                 }
                 count++;
                 LOG.info("Process count = " + count);
@@ -64,21 +68,16 @@ public class TextTokenizer {
                 return hr;
             }
 
-            LOG.info("Tokenize extracted text with id " + extractedText.getId() + " and content length = " + extractedText.getExtractedText().length());
-
             try {
-                Analyzer analyzer = new StandardAnalyzer(Globals.STOPWORDS);
-                TokenStream stream  = analyzer.tokenStream(null, new StringReader(extractedText.getExtractedText()));
-                stream.reset();
-                List<String> result = new ArrayList<>();
-                while (stream.incrementToken()) {
-                    final String word = stream.getAttribute(CharTermAttribute.class).toString();
-                    result.add(word);
+                List<String> result = TextTokenizer.tokenizeString
+                        (extractedText.getExtractedText(), extractedText
+                                .getId());
+
+                for (String word : result) {
                     if (word.matches("[a-z]+")) {
                         m_databaseConnection.createDictionaryWord(word);
                     }
                 }
-                LOG.info("Tokenize = " + result);
                 ExtractedText cleanText = new ExtractedText();
                 cleanText.setId(extractedText.getId());
                 cleanText.setExtractedText(String.join(",", result));
@@ -90,12 +89,33 @@ public class TextTokenizer {
 
             return hr;
         }
+
     }
 
-    public TextTokenizer(String username, String password, String server, String database) throws ClassNotFoundException, SQLException
-    {
+    public static List<String> tokenizeString(String text, int id) throws
+            IOException {
+        LOG.info("Tokenize extracted text with id " + id + " and content " +
+                "length = " + text.length());
+        Analyzer analyzer = new StandardAnalyzer(Globals.STOPWORDS);
+        TokenStream stream = analyzer.tokenStream(null, new
+                StringReader(text));
+        stream.reset();
+        List<String> result = new ArrayList<>();
+        while (stream.incrementToken()) {
+            final String word = stream.getAttribute(CharTermAttribute
+                    .class).toString();
+            result.add(word);
+        }
+        LOG.info("Tokenize = " + result);
+        return result;
+    }
+
+    public TextTokenizer(String username, String password, String server,
+                         String database) throws ClassNotFoundException,
+            SQLException {
         LOG.setLevel(Level.ALL);
-        m_databaseConnection = new MySQLDatabaseConnection(username, password, server, database);
+        m_databaseConnection = new MySQLDatabaseConnection(username,
+                password, server, database);
         m_frontier = new ExtractedTextFrontier(m_databaseConnection);
     }
 
@@ -119,13 +139,13 @@ public class TextTokenizer {
         new Globals();
 
         try {
-            TextTokenizer tokenizer = new TextTokenizer(Globals.username, Globals.password, Globals.server, Globals.database);
+            TextTokenizer tokenizer = new TextTokenizer(Globals.username,
+                    Globals.password, Globals.server, Globals.database);
 
             // Only return when error happens. Otherwise, while true loop
             ErrorCode.CrError hr = tokenizer.tokenizeText();
 
-            if (FAILED(hr))
-            {
+            if (FAILED(hr)) {
                 LOG.error("Extract fails, hr = " + hr);
             }
         } catch (ClassNotFoundException e) {

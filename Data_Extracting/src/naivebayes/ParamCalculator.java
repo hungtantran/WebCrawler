@@ -22,14 +22,16 @@ import java.util.concurrent.TimeUnit;
 import static common.ErrorCode.FAILED;
 
 public class ParamCalculator {
-    private static Logger LOG = LogManager.getLogger(ParamCalculator.class.getName());
+    private static Logger LOG = LogManager.getLogger(ParamCalculator.class
+            .getName());
 
     private IDatabaseConnection m_databaseConnection = null;
     private CleanExtractedTextFrontier m_frontier = null;
     private Map<Integer, Integer> m_params = null;
     private Map<String, ExtractedText> m_wordToDictionaryWord = null;
 
-    private static final ExecutorService m_exec = Executors.newFixedThreadPool(Globals.NTHREADS);
+    private static final ExecutorService m_exec = Executors
+            .newFixedThreadPool(Globals.NTHREADS);
 
     private class CalTask implements Runnable {
         private Long threadId;
@@ -48,7 +50,8 @@ public class ParamCalculator {
                 hr = calOneText();
 
                 if (FAILED(hr)) {
-                    LOG.error("Fail to calculate param for a text because hr = " + hr);
+                    LOG.error("Fail to calculate param for a text because hr " +
+                            "= " + hr);
                 }
                 count++;
                 LOG.info("Process count = " + count);
@@ -63,7 +66,9 @@ public class ParamCalculator {
                 return hr;
             }
 
-            LOG.info("Cal param extracted text with id " + extractedText.getId() + " and content length = " + extractedText.getExtractedText().length());
+            LOG.info("Cal param extracted text with id " + extractedText
+                    .getId() + " and content length = " + extractedText
+                    .getExtractedText().length());
 
             try {
                 String[] texts = extractedText.getExtractedText().split(",");
@@ -73,15 +78,13 @@ public class ParamCalculator {
                     if (m_wordToDictionaryWord.containsKey(text)) {
                         int wordId = m_wordToDictionaryWord.get(text).getId();
                         int freq = 1;
-                        if (params.containsKey(wordId)) {
-                            freq += params.get(wordId);
-                        }
                         params.put(wordId, freq);
                     }
                 }
                 // Merge the local param with the global param
                 synchronized (m_params) {
-                    for (Map.Entry<Integer, Integer> entry : params.entrySet()) {
+                    for (Map.Entry<Integer, Integer> entry : params.entrySet
+                            ()) {
                         int freq = entry.getValue();
                         if (m_params.containsKey(entry.getKey())) {
                             freq += m_params.get(entry.getKey());
@@ -105,11 +108,14 @@ public class ParamCalculator {
         }
     }
 
-    public ParamCalculator(String username, String password, String server, String database) throws ClassNotFoundException, SQLException
-    {
+    public ParamCalculator(String username, String password, String server,
+                           String database) throws ClassNotFoundException,
+            SQLException {
         LOG.setLevel(Level.ALL);
-        m_databaseConnection = new MySQLDatabaseConnection(username, password, server, database);
-        m_frontier = new CleanExtractedTextFrontier(m_databaseConnection, /*lowerBound=*/0, /*maxCount=*/2000);
+        m_databaseConnection = new MySQLDatabaseConnection(username,
+                password, server, database);
+        m_frontier = new CleanExtractedTextFrontier(m_databaseConnection,
+                /*lowerBound=*/0, /*maxCount=*/2000);
         m_params = new HashMap<>();
         m_wordToDictionaryWord = new HashMap<>();
     }
@@ -118,7 +124,8 @@ public class ParamCalculator {
         try {
             this.populateDictionaryWord();
         } catch (SQLException e) {
-            LOG.error("Fail to populate dictionary words because " + e.getMessage());
+            LOG.error("Fail to populate dictionary words because " + e
+                    .getMessage());
         }
 
         for (int i = 0; i < Globals.NTHREADS; ++i) {
@@ -143,7 +150,8 @@ public class ParamCalculator {
             try {
                 m_databaseConnection.createNaiveBayesParam(param);
             } catch (SQLException e) {
-                LOG.error("Fail to create param " + param.toString() + " because " + e.getMessage());
+                LOG.error("Fail to create param " + param.toString() + " " +
+                        "because " + e.getMessage());
             }
         }
 
@@ -154,13 +162,13 @@ public class ParamCalculator {
         new Globals();
 
         try {
-            ParamCalculator tokenizer = new ParamCalculator(Globals.username, Globals.password, Globals.server, Globals.database);
+            ParamCalculator tokenizer = new ParamCalculator(Globals.username,
+                    Globals.password, Globals.server, Globals.database);
 
             // Only return when error happens. Otherwise, while true loop
             ErrorCode.CrError hr = tokenizer.calParam();
 
-            if (FAILED(hr))
-            {
+            if (FAILED(hr)) {
                 LOG.error("Extract fails, hr = " + hr);
             }
         } catch (ClassNotFoundException e) {

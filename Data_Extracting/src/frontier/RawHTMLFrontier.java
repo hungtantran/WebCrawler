@@ -21,7 +21,9 @@ public class RawHTMLFrontier {
         synchronized (m_backEndQueues) {
             if (m_backEndQueues.isEmpty()) {
                 try {
-                    m_backEndQueues = m_databaseConnection.getNonExtractedTextRawHTML(0, Globals.NTHREADS * 10);
+                    m_backEndQueues = m_databaseConnection
+                            .getNonExtractedTextRawHTML(0, Globals.NTHREADS *
+                                    10);
                 } catch (SQLException ex) {
                     return ErrorCode.CrError.CR_DATABASE_ERROR;
                 }
